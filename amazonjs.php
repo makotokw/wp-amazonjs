@@ -620,7 +620,7 @@ EOF;
 			$error = '';
 			$errors = $response->get_error_messages();
 			if (is_array($errors)) {
-				$error = explode('<br/>', $errors);
+				$error = implode('<br/>', $errors);
 			}
 			$message = sprintf(__('Network Error: %s', $this->textdomain), $error);
 			return compact('success', 'message');
