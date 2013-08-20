@@ -1,0 +1,85 @@
+.amazonjs_item {
+  font-size: 14px;
+  margin: .5em 0 1em 0;
+  padding: 20px;
+  border: 1px solid #dddddd;
+  display: block;
+  background: white url(images/amazonjs.png) no-repeat right bottom;
+  color: #333333;
+}
+.amazonjs_item * {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.amazonjs_item .amazonjs_indicator {
+  display: block;
+  height: 60px;
+  background: transparent url(images/ajax-loader.gif) no-repeat center 5px;
+  margin: 0 auto;
+  text-align: center;
+  line-height: 100px;
+}
+.amazonjs_item .amazonjs_image {
+  display: block;
+  float: left;
+}
+.amazonjs_item .amazonjs_info {
+  display: block;
+  padding-left: 1em;
+}
+.amazonjs_item .amazonjs_info h4 {
+  margin: 0 0 5px;
+  font-size: 1.2em;
+  font-weight: bold;
+  clear: none;
+}
+.amazonjs_item .amazonjs_info ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.amazonjs_item .amazonjs_info ul li {
+  list-style: none;
+  line-height: 1.5em;
+  margin: 0;
+  padding: 0;
+}
+.amazonjs_item .amazonjs_info ul li b {
+  margin-right: .5em;
+  color: #555555;
+  font-weight: normal;
+}
+.amazonjs_item .amazonjs_info .amazonjs_price {
+  color: #990000;
+}
+.amazonjs_item .amazonjs_info .amazonjs_price span {
+  color: #666666;
+  margin-left: .5em;
+}
+.amazonjs_item .amazonjs_info .amazonjs_listprice {
+  text-decoration: line-through;
+}
+.amazonjs_item .amazonjs_review {
+  padding: 0;
+  font-size: .7em;
+  position: absolute;
+  right: 34px;
+  bottom: 4px;
+}
+#preview .amazonjs_item .amazonjs_review {
+  display: none;
+}
+.amazonjs_item .amazonjs_footer {
+  clear: both;
+}
+
+.amazonjs_book .amazonjs_info ul,
+.amazonjs_music .amazonjs_info ul {
+  margin-top: 0.5em;
+}
+
+.amazonjs_book .amazonjs_info ul li,
+.amazonjs_music .amazonjs_info ul li {
+  line-height: 1.6em;
+}

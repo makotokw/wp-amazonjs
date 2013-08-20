@@ -1,0 +1,135 @@
+@charset "utf-8";
+
+.amazonjs_search_form {
+  input[type="text"] {
+    margin: 5px 0;
+    padding: 5px;
+    width: 80%;
+  }
+}
+
+#search_results {
+  margin: 1em;
+  min-height: 200px;
+  .error {
+    overflow: auto;
+  }
+  .indicator {
+    display: block;
+    width: 300px;
+    height: 200px;
+    margin: 0 auto;
+    background: transparent url(images/ajax-loader.gif) no-repeat center;
+  }
+  .searchindex {
+    clear: both;
+  }
+  .searchpager {
+    border: 1px solid #ddd;
+    text-align: center;
+    padding: 2px;
+    margin: 2px;
+    .prev {
+      margin-right: 1em;
+    }
+    .next {
+      margin-left: 1em;
+    }
+  }
+  .amazonjs_searchitem {
+    display: block;
+    margin: 0;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+
+    .amazonjs_footer {
+      clear: both;
+    }
+  }
+  h4 {
+    display: inline;
+    font-size: 1em;
+    font-weight: normal;
+    margin: .5em;
+    a {
+      text-decoration: none;
+    }
+  }
+  img {
+    float: left;
+    border: 1px solid #DFDFDF;
+  }
+  .amazonjs_searchitem .select {
+    float: right !important;
+    margin-left: 1em;
+  }
+}
+
+//.amazon { display:inline-block; vertical-align :middle; width:140px; text-align:center; cursor: pointer; padding:.5em; }
+//.amazon img {
+//	border: 1px solid #DFDFDF; margin:1em auto 0;
+//	-moz-box-shadow: 1px 1px 2px #000;
+//	-webkit-box-shadow: 1px 1px 2px #000;
+//	box-shadow: 1px 1px 2px #000;
+//}
+//.amazon h2 { font-weight: normal; font-size:.8em; }
+//#search_results h2 {font-size:1.25em; font-weight:bold; margin:5px 0 10px 0; padding:0; border-bottom:1px solid;}
+//#search_results h2 a {text-decoration:none; border-bottom:none;}
+//#search_results .mode {margin: .5em; padding: .5em;}
+//#search_results .mode h3 {font-size: 1em; color:#333; margin: 0; padding: 0; border-bottom:1px #333 solid; text-transform:capitalize;}
+//#search_results .amazonjs_searchitem:after {content: "."; display: block; height: 0; clear: both; visibility: hidden;}
+//#search_results .buttons { position:absolute; bottom:4px; right:4px;  }
+
+#overlay {
+  position: absolute;
+  display: none;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  filter: alpha(opacity = 75);
+  /*IE*/
+  -moz-opacity: 0.75;
+  /*FF*/
+  opacity: 0.75;
+}
+
+#template_form {
+  position: absolute;
+  display: none;
+  border: 1px solid #888;
+  background-color: #fff;
+  left: 5px;
+  right: 5px;
+  padding: 10px;
+  h2 {
+    font-size: 1em;
+    margin: 2px 0;
+    padding: 0;
+  }
+  label, legend {
+    font-size: .9em;
+  }
+  label.disabled {
+    color: #999;
+  }
+}
+
+#select_template fieldset {
+  margin-left: 1em;
+  input {
+    margin-left: 1em;
+  }
+}
+
+#preview_code {
+  width: 100%;
+  height: 4em;
+  font-size: .9em;
+}
+
+#buttons {
+  margin: 0 auto;
+  text-align: center;
+}

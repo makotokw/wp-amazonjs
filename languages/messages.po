@@ -1,0 +1,475 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: amazonjs 1.0\n"
+"Report-Msgid-Bugs-To: makoto.kw@gmail.com\n"
+"POT-Creation-Date: 2013-08-10 15:46+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: Abstract.php:82 Abstract.php:92
+msgid "Settings"
+msgstr ""
+
+#: amazonjs-aws-params.php:18
+msgid "All"
+msgstr ""
+
+#: amazonjs-aws-params.php:30
+msgid "Apparel"
+msgstr ""
+
+#: amazonjs-aws-params.php:42
+msgid "Appliances"
+msgstr ""
+
+#: amazonjs-aws-params.php:54
+msgid "ArtsAndCrafts"
+msgstr ""
+
+#: amazonjs-aws-params.php:66
+msgid "Automotive"
+msgstr ""
+
+#: amazonjs-aws-params.php:78
+msgid "Baby"
+msgstr ""
+
+#: amazonjs-aws-params.php:90
+msgid "Beauty"
+msgstr ""
+
+#: amazonjs-aws-params.php:102
+msgid "Blended"
+msgstr ""
+
+#: amazonjs-aws-params.php:114
+msgid "Books"
+msgstr ""
+
+#: amazonjs-aws-params.php:126
+msgid "Classical"
+msgstr ""
+
+#: amazonjs-aws-params.php:138
+msgid "DigitalMusic"
+msgstr ""
+
+#: amazonjs-aws-params.php:150
+msgid "DVD"
+msgstr ""
+
+#: amazonjs-aws-params.php:162
+msgid "Electronics"
+msgstr ""
+
+#: amazonjs-aws-params.php:174
+msgid "ForeignBooks"
+msgstr ""
+
+#: amazonjs-aws-params.php:186
+msgid "Garden"
+msgstr ""
+
+#: amazonjs-aws-params.php:198
+msgid "GourmetFood"
+msgstr ""
+
+#: amazonjs-aws-params.php:210
+msgid "Grocery"
+msgstr ""
+
+#: amazonjs-aws-params.php:222
+msgid "HealthPersonalCare"
+msgstr ""
+
+#: amazonjs-aws-params.php:234
+msgid "Hobbies"
+msgstr ""
+
+#: amazonjs-aws-params.php:246
+msgid "Home"
+msgstr ""
+
+#: amazonjs-aws-params.php:258
+msgid "HomeGarden"
+msgstr ""
+
+#: amazonjs-aws-params.php:270
+msgid "HomeImprovement"
+msgstr ""
+
+#: amazonjs-aws-params.php:282
+msgid "Industrial"
+msgstr ""
+
+#: amazonjs-aws-params.php:294
+msgid "Jewelry"
+msgstr ""
+
+#: amazonjs-aws-params.php:306
+msgid "KindleStore"
+msgstr ""
+
+#: amazonjs-aws-params.php:318
+msgid "Kitchen"
+msgstr ""
+
+#: amazonjs-aws-params.php:330
+msgid "LawnAndGarden"
+msgstr ""
+
+#: amazonjs-aws-params.php:342
+msgid "Lighting"
+msgstr ""
+
+#: amazonjs-aws-params.php:354
+msgid "Magazines"
+msgstr ""
+
+#: amazonjs-aws-params.php:366
+msgid "Marketplace"
+msgstr ""
+
+#: amazonjs-aws-params.php:378
+msgid "Miscellaneous"
+msgstr ""
+
+#: amazonjs-aws-params.php:390
+msgid "MobileApps"
+msgstr ""
+
+#: amazonjs-aws-params.php:402
+msgid "MP3Downloads"
+msgstr ""
+
+#: amazonjs-aws-params.php:414
+msgid "Music"
+msgstr ""
+
+#: amazonjs-aws-params.php:426
+msgid "MusicalInstruments"
+msgstr ""
+
+#: amazonjs-aws-params.php:438
+msgid "MusicTracks"
+msgstr ""
+
+#: amazonjs-aws-params.php:450
+msgid "OfficeProducts"
+msgstr ""
+
+#: amazonjs-aws-params.php:462
+msgid "OutdoorLiving"
+msgstr ""
+
+#: amazonjs-aws-params.php:474
+msgid "Outlet"
+msgstr ""
+
+#: amazonjs-aws-params.php:486
+msgid "PCHardware"
+msgstr ""
+
+#: amazonjs-aws-params.php:498
+msgid "PetSupplies"
+msgstr ""
+
+#: amazonjs-aws-params.php:510
+msgid "Photo"
+msgstr ""
+
+#: amazonjs-aws-params.php:522
+msgid "Shoes"
+msgstr ""
+
+#: amazonjs-aws-params.php:534
+msgid "Software"
+msgstr ""
+
+#: amazonjs-aws-params.php:546
+msgid "SoftwareVideoGames"
+msgstr ""
+
+#: amazonjs-aws-params.php:558
+msgid "SportingGoods"
+msgstr ""
+
+#: amazonjs-aws-params.php:570
+msgid "Tools"
+msgstr ""
+
+#: amazonjs-aws-params.php:582
+msgid "Toys"
+msgstr ""
+
+#: amazonjs-aws-params.php:594
+msgid "UnboxVideo"
+msgstr ""
+
+#: amazonjs-aws-params.php:606
+msgid "VHS"
+msgstr ""
+
+#: amazonjs-aws-params.php:618
+msgid "Video"
+msgstr ""
+
+#: amazonjs-aws-params.php:630
+msgid "VideoGames"
+msgstr ""
+
+#: amazonjs-aws-params.php:642
+msgid "Watches"
+msgstr ""
+
+#: amazonjs-aws-params.php:654
+msgid "Wireless"
+msgstr ""
+
+#: amazonjs-aws-params.php:666
+msgid "WirelessAccessories"
+msgstr ""
+
+#: amazonjs.php:15
+msgid ""
+"Easy to use interface to add an amazon product to your post and display it "
+"by using jQuery template."
+msgstr ""
+
+#: amazonjs.php:56
+msgid "United States"
+msgstr ""
+
+#: amazonjs.php:63
+msgid "United Kingdom"
+msgstr ""
+
+#: amazonjs.php:70
+msgid "Deutschland"
+msgstr ""
+
+#: amazonjs.php:77
+msgid "France"
+msgstr ""
+
+#: amazonjs.php:84
+msgid "Japan"
+msgstr ""
+
+#: amazonjs.php:91
+msgid "Canada"
+msgstr ""
+
+#: amazonjs.php:98
+msgid "China"
+msgstr ""
+
+#: amazonjs.php:105
+msgid "Italia"
+msgstr ""
+
+#: amazonjs.php:112
+msgid "España"
+msgstr ""
+
+#: amazonjs.php:176 media-upload-type-amazonjs.php:93
+msgid "amazonjs-message.js"
+msgstr ""
+
+#: amazonjs.php:190
+msgid "Product Advertising API settings"
+msgstr ""
+
+#: amazonjs.php:193
+msgid "Amazon Associates settings"
+msgstr ""
+
+#: amazonjs.php:196
+msgid "Customize"
+msgstr ""
+
+#: amazonjs.php:203
+msgid "Access Key ID"
+msgstr ""
+
+#: amazonjs.php:209
+msgid "Secret Access Key"
+msgstr ""
+
+#: amazonjs.php:215
+msgid "Use Custom Css"
+msgstr ""
+
+#: amazonjs.php:221
+msgid "Use Custom Javascript"
+msgstr ""
+
+#: amazonjs.php:424
+msgid ""
+"This plugin uses the Amazon Product Advertising API in order to get product "
+"infomation. Thus, you must use your Access Key ID &amp; Secret Access Key."
+msgstr ""
+
+#: amazonjs.php:425
+msgid ""
+"You can sign up the Amazon Product Advertising API from <a href=\"https://"
+"affiliate-program.amazon.com/gp/advertising/api/detail/main.html\" target="
+"\"_blank\">here</a>. Please review the <a href=\"http://affiliate-program."
+"amazon.com/gp/advertising/api/detail/agreement.html\" target=\"_blank"
+"\">Product Advertising API License Agreement</a> for details."
+msgstr ""
+
+#: amazonjs.php:432
+msgid ""
+"Amazon has an affiliate program called Amazon Associates. To apply for the "
+"Associates Program, visit the <a href=\"https://affiliate-program.amazon.com/"
+"\" target=\"_blank\">Amazon Associates website</a> for details."
+msgstr ""
+
+#: amazonjs.php:433
+msgid ""
+"Associate Tag has been a <strong>required and verified</strong> input "
+"parameter in all requests to the Amazon Product Advertising API since "
+"11/1/2011."
+msgstr ""
+
+#: amazonjs.php:520
+msgid "Add Amazon Link"
+msgstr ""
+
+#: amazonjs.php:545
+msgid "Keyword Search"
+msgstr ""
+
+#: amazonjs.php:546
+msgid "Search by ASIN/URL"
+msgstr ""
+
+#: amazonjs.php:556
+#, php-format
+msgid ""
+"Error! \"simplexml_load_string\" function is not found. %s requires PHP 5 "
+"and SimpleXML extension."
+msgstr ""
+
+#: amazonjs.php:561 media-upload-type-amazonjs.php:30
+#, php-format
+msgid "Warning! Cache Directory \"%s\" is not writable"
+msgstr ""
+
+#: amazonjs.php:595
+msgid "Invalid Request Parameters"
+msgstr ""
+
+#: amazonjs.php:622
+#, php-format
+msgid "Network Error: %s"
+msgstr ""
+
+#: amazonjs.php:628
+#, php-format
+msgid "Empty Response from %s"
+msgstr ""
+
+#: amazonjs.php:685
+msgid "Cannot Parse Response from Amazon API"
+msgstr ""
+
+#: amazonjs.php:689
+msgid "Invalid Response"
+msgstr ""
+
+#: media-upload-type-amazonjs.php:25
+#, php-format
+msgid ""
+"The Access Key ID or Secret Access Key is empty. Please specify it in <a "
+"href=\"%s\" target=\"_blank\">settings</a>."
+msgstr ""
+
+#: media-upload-type-amazonjs.php:41
+msgid "Input Keyword"
+msgstr ""
+
+#: media-upload-type-amazonjs.php:46
+msgid "Input ASIN or URL"
+msgstr ""
+
+#: media-upload-type-amazonjs.php:48
+msgid "Search"
+msgstr ""
+
+#: media-upload-type-amazonjs.php:57
+msgid "Select template"
+msgstr ""
+
+#: media-upload-type-amazonjs.php:60
+msgid "Simple Html"
+msgstr ""
+
+#: media-upload-type-amazonjs.php:62
+msgid "Title"
+msgstr ""
+
+#: media-upload-type-amazonjs.php:64
+msgid "Small Image"
+msgstr ""
+
+#: media-upload-type-amazonjs.php:66
+msgid "Medium Image"
+msgstr ""
+
+#: media-upload-type-amazonjs.php:68
+msgid "Large Image"
+msgstr ""
+
+#: media-upload-type-amazonjs.php:71
+msgid "Dynamic Template"
+msgstr ""
+
+#: media-upload-type-amazonjs.php:73
+msgid "Default"
+msgstr ""
+
+#: media-upload-type-amazonjs.php:75
+msgid "Small"
+msgstr ""
+
+#: media-upload-type-amazonjs.php:78
+msgid "Preview"
+msgstr ""
+
+#: media-upload-type-amazonjs.php:82
+msgid "Cancel"
+msgstr ""
+
+#: media-upload-type-amazonjs.php:83
+msgid "Insert"
+msgstr ""
+
+#: media-upload-type-amazonjs.php:143
+msgid ""
+"<h3 class=\"searchindex\"><a href=\"#\" rel=\"${IndexName}\">${Label}</a> "
+"(${Results} hits)</h3>"
+msgstr ""
+
+#: media-upload-type-amazonjs.php:144
+msgid ""
+"<div class=\"searchpager\">{{if prev}}<button class=\"button prev\">Prev</"
+"button>{{/if}}${startIndex} - ${endIndex} / ${totalResults}{{if next}}"
+"<button class=\"button next\">Next</button>{{/if}}</div>"
+msgstr ""
+
+#: media-upload-type-amazonjs.php:160
+msgid "Select"
+msgstr ""

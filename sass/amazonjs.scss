@@ -1,0 +1,109 @@
+@import "compass/css3";
+
+$backgroundColor: white;
+$fontColor: #333;
+$borderColor: #ddd;
+$headerColor: #555;
+$priceColor: #900;
+$disableColor: #666;
+
+.amazonjs_item {
+  font-size: 14px;
+  margin: .5em 0 1em 0;
+  padding: 20px;
+  border: 1px solid $borderColor;
+  display: block;
+  background: $backgroundColor url(images/amazonjs.png) no-repeat right bottom;
+  color: $fontColor;
+
+  * {
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .amazonjs_indicator {
+    display: block;
+    height: 60px;
+    background: transparent url(images/ajax-loader.gif) no-repeat center 5px;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 100px;
+  }
+
+  .amazonjs_image {
+    display: block;
+    float: left;
+  }
+
+  .amazonjs_info {
+    display: block;
+    padding-left: 1em;
+
+    // title
+    h4 {
+      margin: 0 0 5px;
+      font-size: 1.2em;
+      font-weight: bold;
+      clear: none;
+    }
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      li {
+        list-style: none;
+        line-height: 1.5em;
+        margin: 0;
+        padding: 0;
+
+        // header
+        b {
+          margin-right: .5em;
+          color: $headerColor;
+          font-weight: normal;
+        }
+      }
+    }
+
+    .amazonjs_price {
+      color: $priceColor;
+      span {
+        color: $disableColor;
+        margin-left: .5em;
+      }
+    }
+
+    .amazonjs_listprice {
+      text-decoration: line-through;
+    }
+  }
+
+  .amazonjs_review {
+    padding: 0;
+    font-size: .7em;
+    position: absolute;
+    right: 34px;
+    bottom: 4px;
+
+    #preview & {
+      display: none;
+    }
+  }
+
+  .amazonjs_footer {
+    clear: both;
+  }
+}
+
+.amazonjs_book .amazonjs_info ul,
+.amazonjs_music .amazonjs_info ul {
+  margin-top: 0.5em;
+}
+
+.amazonjs_book .amazonjs_info ul li,
+.amazonjs_music .amazonjs_info ul li {
+  line-height: 1.6em;
+}
