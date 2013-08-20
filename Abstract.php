@@ -129,7 +129,7 @@ class Amazonjs_Wordpress_Plugin_Abstract
 	function validate_settings($settings) {
 		foreach ($this->setting_fileds as $key => $field) {
 			if ($field['type']=='checkbox') {
-				$settings[$key] = ($settings[$key] == 'on');
+				$settings[$key] = (@$settings[$key] == 'on');
 			}
 		}
 		return $settings;
@@ -184,12 +184,13 @@ class Amazonjs_Wordpress_Plugin_Abstract
 		$page = $this->slug;
 ?>
 <div class="wrap">
+<?php screen_icon(); ?>
 <h2><?php echo $this->title ?></h2>
 <?php $this->options_page_header();?>
 <form action="options.php" method="post">
 <?php settings_fields($this->option_name); ?>
 <?php do_settings_sections($page); ?>
-<input name="Submit" type="submit" value="<?php esc_attr_e('Save Changes'); ?>"/>
+<?php submit_button(); ?>
 </form>
 <?php $this->options_page_footer();?>
 </div>

@@ -152,7 +152,9 @@ class Amazonjs extends Amazonjs_Wordpress_Plugin_Abstract
 
 	function wp_print_styles()
 	{
-		wp_enqueue_style('thickbox');
+		if ($this->settings['displayCustomerReview']) {
+			wp_enqueue_style('thickbox');
+		}
 		wp_enqueue_style('amazonjs', $this->url . '/amazonjs.css', array(), self::VERSION);
 		if ($this->settings['customCss']) {
 			wp_enqueue_style('amazonjs-custom', get_stylesheet_directory_uri() . '/amazonjs.css');
@@ -168,10 +170,16 @@ class Amazonjs extends Amazonjs_Wordpress_Plugin_Abstract
 				wp_register_script('jquery', self::JQ_URI, array(), self::JQ_VERSION);
 			}
 			wp_register_script('jqeury-tmpl', self::JQ_TMPL_URI, array('jquery'), self::JQ_TMPL_VERSION, true);
+
+			$depends =  array('jqeury-tmpl');
+			if ($this->settings['displayCustomerReview']) {
+				$depends[] = 'thickbox';
+			}
+
 			if (WP_DEBUG) {
-				wp_enqueue_script('amazonjs', $this->url . '/amazonjs.js', array('jqeury-tmpl', 'thickbox'), self::VERSION, true);
+				wp_enqueue_script('amazonjs', $this->url . '/amazonjs.js', $depends, self::VERSION, true);
 			} else {
-				wp_enqueue_script('amazonjs', $this->url . '/amazonjs.min.js', array('jqeury-tmpl', 'thickbox'), self::VERSION, true);
+				wp_enqueue_script('amazonjs', $this->url . '/amazonjs.min.js', $depends, self::VERSION, true);
 			}
 			if ('amazonjs-message.js' != ($message_url = __('amazonjs-message.js', $this->textdomain))) {
 				wp_enqueue_script('amazonjs-message', $this->url . '/' . $message_url, array('amazonjs'), self::VERSION, true);
@@ -192,6 +200,9 @@ class Amazonjs extends Amazonjs_Wordpress_Plugin_Abstract
 			'associate' => array(
 				'label' => __('Amazon Associates settings', $this->textdomain),
 				'add' => 'add_associate_section'),
+			'appearance' => array(
+				'label' => __('Appearance', $this->textdomain),
+				'add' => 'add_appearance_section'),
 			'customize' => array(
 				'label' => __('Customize', $this->textdomain),
 				'add' => 'add_customize_section'),
@@ -210,6 +221,18 @@ class Amazonjs extends Amazonjs_Wordpress_Plugin_Abstract
 				'type' => 'text',
 				'size' => 60,
 				'section' => 'api',
+			),
+			'displayCustomerReview' => array(
+				'label' => __('Display customer review', $this->textdomain),
+				'type' => 'checkbox',
+				'section' => 'appearance',
+				'description' => __("AmazonJS will display customer review by using WordPress's Thickbox.", $this->textdomain)
+			),
+			'supportDisabledJavascript' => array(
+				'label' => __('Display official widget when disabled javascript in web browser', $this->textdomain),
+				'type' => 'checkbox',
+				'section' => 'appearance',
+				'description' => __('If set to true, AmazonJS will output html by document.write.', $this->textdomain),
 			),
 			'customCss' => array(
 				'label' => __('Use Custom Css', $this->textdomain),
@@ -301,16 +324,19 @@ EOF;
 		if (is_array($item) && array_key_exists('DetailPageURL', $item)) {
 			$url = $item['DetailPageURL'];
 		}
-		$link_html = $this->get_amazon_official_link($asin, $locale, true);
 		$indicator_html = <<<EOF
 <a href="{$url}" class="asin_{$asin}_{$locale}_${tmpl} amazonjs_item" rel="amazonjs"><span class="amazonjs_indicator">{$title}</span></a>
 EOF;
+
 		$indicator_html = trim($indicator_html);
+		if (!$this->settings['supportDisabledJavascript']) {
+			return $indicator_html;
+		}
 		$indicator_html = addslashes($indicator_html);
+		$link_html = $this->get_amazon_official_link($asin, $locale, true);
 		return <<<EOF
 <script type="text/javascript">document.write("{$indicator_html}")</script><noscript>{$link_html}</noscript>
 EOF;
-
 	}
 
 	function wp_print_footer_scripts()
@@ -333,10 +359,14 @@ EOF;
 	<script type="text/javascript">
 		(function ($) {
 			if (!$) return;
-			tb_pathToImage = "<?php echo $wpurl?>/wp-includes/js/thickbox/loadingAnimation.gif";
-			tb_closeImage = "<?php echo $wpurl?>/wp-includes/js/thickbox/tb-close.png";
+			var isCustomerReviewEnabled = <?php echo (($this->settings['displayCustomerReview']) ? 'true' : 'false') ?>;
+			if (isCustomerReviewEnabled) {
+				tb_pathToImage = "<?php echo $wpurl?>/wp-includes/js/thickbox/loadingAnimation.gif";
+				tb_closeImage = "<?php echo $wpurl?>/wp-includes/js/thickbox/tb-close.png";
+			}
 			$(document).ready(function () {
 				setTimeout(function () {
+					$.amazonjs.isCustomerReviewEnabled = isCustomerReviewEnabled;
 					$.amazonjs.template(<?php echo json_encode($region)?>);
 					$.amazonjs.render(<?php echo json_encode(array_values($items))?>);
 				}, 1000);
@@ -437,6 +467,10 @@ EOF;
 	<?php
 	}
 
+	function add_appearance_section()
+	{
+	}
+
 	function add_customize_section()
 	{
 	}
@@ -504,6 +538,16 @@ EOF;
 	function add_settings_field_customJs()
 	{
 		$this->add_settings_field('customJs', $this->setting_fileds['customJs']);
+	}
+
+	function add_settings_field_displayCustomerReview()
+	{
+		$this->add_settings_field('displayCustomerReview', $this->setting_fileds['displayCustomerReview']);
+	}
+
+	function add_settings_field_supportDisabledJavascript()
+	{
+		$this->add_settings_field('supportDisabledJavascript', $this->setting_fileds['supportDisabledJavascript']);
 	}
 
 	function admin_init()

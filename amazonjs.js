@@ -22,6 +22,7 @@
 	};
 	$.extend({
 		amazonjs:{
+			isCustomerReviewEnabled:false,
 			resource:resource,
 			resources:resources,
 			setLocale:function (locale) {
@@ -73,7 +74,10 @@
 					].join('');
 				var priceTemplate = '{{if ListPrice}}<div class="amazonjs_price" title="' + r.PriceUsage + '">' + priceContentTemplate + '</div>{{/if}}';
 				var priceLiTemplate = '{{if ListPrice}}<li class="amazonjs_price" title="' + r.PriceUsage + '">' + priceContentTemplate + '</li>{{/if}}';
-				var reviewLinkTemplate = '<a href="${IFrameReviewURL}&TB_iframe=true&height=500&width=600" title="' + r.CustomerReviewTitle + '" target="_blank" class="amazonjs_review">' + r.SeeCustomerReviews + '</a>';
+				var reviewLinkTemplate = '';
+				if (this.isCustomerReviewEnabled) {
+					reviewLinkTemplate = '<a href="${IFrameReviewURL}&TB_iframe=true&height=500&width=600" title="' + r.CustomerReviewTitle + '" target="_blank" class="amazonjs_review">' + r.SeeCustomerReviews + '</a>';
+				}
 
 				this.partial = {
 					smallImage:smallImageTemplate,
