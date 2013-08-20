@@ -46,7 +46,7 @@ In first, this plugin outputs <a/> tags from `amazonjs` short code in server sid
 
 = Link =
 
-* hash tag: #wp_amazonjs
+* Repository: https://github.com/makotokw/wp-amazonjs
 * Japanese article: http://blog.makotokw.com/portfolio/wordpress/amazonjs/
 
 == Installation ==
