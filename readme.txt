@@ -83,6 +83,12 @@ In first, this plugin outputs <a/> tags from `amazonjs` short code in server sid
 
 == Changelog ==
 
+= 0.4 ==
+
+* Added option to display customer review, default is off
+* Added option to display official widget when disabled javascript in web browser, default is off
+* Changed priority of wp_print_footer_scripts to execute before other plugin occured error
+
 = 0.3 =
 
 * Used MidiumImage in feed for the magazine view of feedly
