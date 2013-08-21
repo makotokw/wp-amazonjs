@@ -146,14 +146,16 @@ class Amazonjs extends Amazonjs_Wordpress_Plugin_Abstract
 		if (!is_admin()) {
 			add_action('wp_print_styles', array($this, 'wp_print_styles'));
 			add_action('wp_print_scripts', array($this, 'wp_print_scripts'));
-			add_action('wp_print_footer_scripts', array($this, 'wp_print_footer_scripts'), 10);
+			add_action('wp_print_footer_scripts', array($this, 'wp_print_footer_scripts'), 9);
 		}
 	}
 
 	function wp_print_styles()
 	{
-		if ($this->settings['displayCustomerReview']) {
-			wp_enqueue_style('thickbox');
+		if (!is_admin()) {
+			if ($this->settings['displayCustomerReview']) {
+				wp_enqueue_style('thickbox');
+			}
 		}
 		wp_enqueue_style('amazonjs', $this->url . '/amazonjs.css', array(), self::VERSION);
 		if ($this->settings['customCss']) {
@@ -175,7 +177,6 @@ class Amazonjs extends Amazonjs_Wordpress_Plugin_Abstract
 			if ($this->settings['displayCustomerReview']) {
 				$depends[] = 'thickbox';
 			}
-
 			if (WP_DEBUG) {
 				wp_enqueue_script('amazonjs', $this->url . '/amazonjs.js', $depends, self::VERSION, true);
 			} else {
@@ -201,7 +202,7 @@ class Amazonjs extends Amazonjs_Wordpress_Plugin_Abstract
 				'label' => __('Amazon Associates settings', $this->textdomain),
 				'add' => 'add_associate_section'),
 			'appearance' => array(
-				'label' => __('Appearance', $this->textdomain),
+				'label' => __('Appearance settings', $this->textdomain),
 				'add' => 'add_appearance_section'),
 			'customize' => array(
 				'label' => __('Customize', $this->textdomain),
