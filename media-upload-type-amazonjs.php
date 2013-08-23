@@ -14,8 +14,8 @@
 
 	amazonjs_aws_params($amazonjs);
 ?>
-<link rel="stylesheet" href="<?php echo $amazonjs->url?>/amazonjs.css" type="text/css" media="all"/>
-<link rel="stylesheet" href="<?php echo $amazonjs->url?>/media-upload-type-amazonjs.css" type="text/css" media="all"/>
+<link rel="stylesheet" href="<?php echo $amazonjs->url?>/css/amazonjs.min.css" type="text/css" media="all"/>
+<link rel="stylesheet" href="<?php echo $amazonjs->url?>/css/media-upload-type-amazonjs.css" type="text/css" media="all"/>
 <div id="media_amazon">
 <?php if (empty($accessKeyId) || empty($secretAccessKey)):?>
 <div class="updated error">
@@ -82,13 +82,9 @@
 </form>
 <script type="text/javascript" src="<?php echo Amazonjs::JQ_URI?>"></script>
 <script type="text/javascript" src="<?php echo Amazonjs::JQ_TMPL_URI?>"></script>
-<?php if (WP_DEBUG): ?>
-<script type="text/javascript" src="<?php echo $amazonjs->url?>/amazonjs.js"></script>
-<?php else: ?>
-<script type="text/javascript" src="<?php echo $amazonjs->url?>/amazonjs.min.js"></script>
-<?php endif ?>
+<script type="text/javascript" src="<?php echo $amazonjs->url?>/js/amazonjs.js"></script>
 <?php if ('amazonjs-message.js' != ($message_url = __('amazonjs-message.js',$textdomain))):?>
-<script type="text/javascript" src="<?php echo $amazonjs->url?>/<?php echo $message_url?>"></script>
+<script type="text/javascript" src="<?php echo $amazonjs->url?>/js/<?php echo $message_url?>"></script>
 <?php endif ?>
 <script type="text/javascript">
 <!--

@@ -62,7 +62,9 @@ In first, this plugin outputs <a/> tags from `amazonjs` short code in server sid
       /cache
         + /amazonjs <- writable
       /plugins/amazonjs
+        + /css/*
         + /images/*
+        + /js/*
         + /languages/*
         + /lib/*
         - *.*
@@ -86,6 +88,7 @@ In first, this plugin outputs <a/> tags from `amazonjs` short code in server sid
 = 0.4.1 =
 
 * Added amazonjs.js script only when needed
+* minify css and js
 
 = 0.4 =
 

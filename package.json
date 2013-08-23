@@ -1,0 +1,13 @@
+{
+  "name": "amazonjs",
+  "description": "AmazonJS (WordPress Plugin)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/makotokw/wp-amazonjs"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-uglify": "~0.2.2",
+    "grunt-contrib-cssmin": "~0.6.1"
+  }
+}

@@ -4,7 +4,7 @@
  Plugin URI: http://wordpress.org/extend/plugins/amazonjs/
  Description: Easy to use interface to add an amazon product to your post and display it by using jQuery template.
  Author: makoto_kw
- Version: 0.4
+ Version: 0.4.1
  Author URI: http://makotokw.com
  Requires at least: 2.8
  Tested up to: 3.6
@@ -26,7 +26,7 @@ require_once dirname(__FILE__) . '/lib/json.php';
 
 class Amazonjs extends Amazonjs_Wordpress_Plugin_Abstract
 {
-	const VERSION = '0.4';
+	const VERSION = '0.4.1';
 	const AWS_VERSION = '2011-08-01';
 	const CACHE_LIFETIME = 86400;
 	const JQ_URI = 'http://ajax.microsoft.com/ajax/jquery/jquery-1.4.2.min.js';
@@ -155,7 +155,11 @@ class Amazonjs extends Amazonjs_Wordpress_Plugin_Abstract
 		if ($this->settings['displayCustomerReview']) {
 			wp_enqueue_style('thickbox');
 		}
-		wp_enqueue_style('amazonjs', $this->url . '/amazonjs.css', array(), self::VERSION);
+		if (WP_DEBUG) {
+			wp_enqueue_style('amazonjs', $this->url . '/css/amazonjs.css', array(), self::VERSION);
+		} else {
+			wp_enqueue_style('amazonjs', $this->url . '/css/amazonjs.min.css', array(), self::VERSION);
+		}
 		if ($this->settings['customCss']) {
 			wp_enqueue_style('amazonjs-custom', get_stylesheet_directory_uri() . '/amazonjs.css');
 		}
@@ -175,12 +179,15 @@ class Amazonjs extends Amazonjs_Wordpress_Plugin_Abstract
 			$depends[] = 'thickbox';
 		}
 		if (WP_DEBUG) {
-			wp_enqueue_script('amazonjs', $this->url . '/amazonjs.js', $depends, self::VERSION, true);
+			wp_enqueue_script('amazonjs', $this->url . '/js/amazonjs.js', $depends, self::VERSION, true);
 		} else {
-			wp_enqueue_script('amazonjs', $this->url . '/amazonjs.min.js', $depends, self::VERSION, true);
+			wp_enqueue_script('amazonjs', $this->url . '/js/amazonjs.min.js', $depends, self::VERSION, true);
 		}
 		if ('amazonjs-message.js' != ($message_url = __('amazonjs-message.js', $this->textdomain))) {
-			wp_enqueue_script('amazonjs-message', $this->url . '/' . $message_url, array('amazonjs'), self::VERSION, true);
+			if (!WP_DEBUG) {
+				$message_url = str_replace('.js', '.min.js', $message_url);
+			}
+			wp_enqueue_script('amazonjs-message', $this->url . '/js/' . $message_url, array('amazonjs'), self::VERSION, true);
 		}
 		if ($this->settings['customJs']) {
 			wp_enqueue_script('amazonjs-custom', get_stylesheet_directory_uri() . '/amazonjs.js', array('amazonjs'), self::VERSION, true);

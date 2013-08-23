@@ -13,7 +13,7 @@ $disableColor: #666;
   padding: 20px;
   border: 1px solid $borderColor;
   display: block;
-  background: $backgroundColor url(images/amazonjs.png) no-repeat right bottom;
+  background: $backgroundColor url(../images/amazonjs.png) no-repeat right bottom;
   color: $fontColor;
 
   * {
@@ -25,7 +25,7 @@ $disableColor: #666;
   .amazonjs_indicator {
     display: block;
     height: 60px;
-    background: transparent url(images/ajax-loader.gif) no-repeat center 5px;
+    background: transparent url(../images/ajax-loader.gif) no-repeat center 5px;
     margin: 0 auto;
     text-align: center;
     line-height: 100px;
