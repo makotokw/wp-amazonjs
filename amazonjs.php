@@ -144,18 +144,16 @@ class Amazonjs extends Amazonjs_Wordpress_Plugin_Abstract
 		parent::init();
 		add_shortcode('amazonjs', array($this, 'shortcode'));
 		if (!is_admin()) {
-			add_action('wp_print_styles', array($this, 'wp_print_styles'));
-			add_action('wp_print_scripts', array($this, 'wp_print_scripts'));
+			add_action('wp_enqueue_scripts', array($this, 'wp_enqueue_styles'));
+			add_action('wp_enqueue_scripts', array($this, 'wp_enqueue_scripts'));
 			add_action('wp_print_footer_scripts', array($this, 'wp_print_footer_scripts'), 9);
 		}
 	}
 
-	function wp_print_styles()
+	function wp_enqueue_styles()
 	{
-		if (!is_admin()) {
-			if ($this->settings['displayCustomerReview']) {
-				wp_enqueue_style('thickbox');
-			}
+		if ($this->settings['displayCustomerReview']) {
+			wp_enqueue_style('thickbox');
 		}
 		wp_enqueue_style('amazonjs', $this->url . '/amazonjs.css', array(), self::VERSION);
 		if ($this->settings['customCss']) {
@@ -163,32 +161,74 @@ class Amazonjs extends Amazonjs_Wordpress_Plugin_Abstract
 		}
 	}
 
-	function wp_print_scripts()
+	function wp_enqueue_scripts()
 	{
-		if (!is_admin()) {
-			$v = get_bloginfo('version');
-			if (version_compare($v, '3.0', '<')) { // jQuery tmpl requires jQuery 1.4.2 or later
-				wp_deregister_script('jquery');
-				wp_register_script('jquery', self::JQ_URI, array(), self::JQ_VERSION);
-			}
-			wp_register_script('jqeury-tmpl', self::JQ_TMPL_URI, array('jquery'), self::JQ_TMPL_VERSION, true);
+		$v = get_bloginfo('version');
+		if (version_compare($v, '3.0', '<')) { // jQuery tmpl requires jQuery 1.4.2 or later
+			wp_deregister_script('jquery');
+			wp_register_script('jquery', self::JQ_URI, array(), self::JQ_VERSION);
+		}
+		wp_register_script('jqeury-tmpl', self::JQ_TMPL_URI, array('jquery'), self::JQ_TMPL_VERSION, true);
 
-			$depends =  array('jqeury-tmpl');
-			if ($this->settings['displayCustomerReview']) {
-				$depends[] = 'thickbox';
-			}
-			if (WP_DEBUG) {
-				wp_enqueue_script('amazonjs', $this->url . '/amazonjs.js', $depends, self::VERSION, true);
-			} else {
-				wp_enqueue_script('amazonjs', $this->url . '/amazonjs.min.js', $depends, self::VERSION, true);
-			}
-			if ('amazonjs-message.js' != ($message_url = __('amazonjs-message.js', $this->textdomain))) {
-				wp_enqueue_script('amazonjs-message', $this->url . '/' . $message_url, array('amazonjs'), self::VERSION, true);
-			}
-			if ($this->settings['customJs']) {
-				wp_enqueue_script('amazonjs-custom', get_stylesheet_directory_uri() . '/amazonjs.js', array('amazonjs'), self::VERSION, true);
+		$depends =  array('jqeury-tmpl');
+		if ($this->settings['displayCustomerReview']) {
+			$depends[] = 'thickbox';
+		}
+		if (WP_DEBUG) {
+			wp_enqueue_script('amazonjs', $this->url . '/amazonjs.js', $depends, self::VERSION, true);
+		} else {
+			wp_enqueue_script('amazonjs', $this->url . '/amazonjs.min.js', $depends, self::VERSION, true);
+		}
+		if ('amazonjs-message.js' != ($message_url = __('amazonjs-message.js', $this->textdomain))) {
+			wp_enqueue_script('amazonjs-message', $this->url . '/' . $message_url, array('amazonjs'), self::VERSION, true);
+		}
+		if ($this->settings['customJs']) {
+			wp_enqueue_script('amazonjs-custom', get_stylesheet_directory_uri() . '/amazonjs.js', array('amazonjs'), self::VERSION, true);
+		}
+	}
+
+	function wp_print_footer_scripts()
+	{
+		$items = array();
+		$wpurl = get_bloginfo('wpurl');
+		foreach ($this->display_items as $contry_code => $sub_items) {
+			$items = array_merge($items, $this->fetch_items($contry_code, $sub_items));
+		}
+		if (count($items) == 0) {
+			wp_dequeue_script('amazonjs');
+			wp_dequeue_script('amazonjs-message');
+			wp_dequeue_script('amazonjs-custom');
+			return;
+		}
+		$region = array();
+		foreach ($this->countries as $code => $value) {
+			foreach (array('linkTemplate') as $attr) {
+				$region['Link' . $code] = $this->tmpl($value[$attr], array('t' => $this->settings['associateTag' . $code]));
 			}
 		}
+		?>
+		<script type="text/javascript">
+			(function ($) {
+				if (!$) return;
+				$(document).ready(function () {
+					var isCustomerReviewEnabled = <?php echo (($this->settings['displayCustomerReview']) ? 'true' : 'false') ?>;
+					if (isCustomerReviewEnabled) {
+						if (typeof tb_pathToImage === 'undefined') {
+							tb_pathToImage = "<?php echo $wpurl ?>/wp-includes/js/thickbox/loadingAnimation.gif";
+						}
+						if (typeof tb_closeImage === 'undefined') {
+							tb_closeImage = "<?php echo $wpurl ?>/wp-includes/js/thickbox/tb-close.png";
+						}
+					}
+					setTimeout(function () {
+						$.amazonjs.isCustomerReviewEnabled = isCustomerReviewEnabled;
+						$.amazonjs.template(<?php echo json_encode($region)?>);
+						$.amazonjs.render(<?php echo json_encode(array_values($items))?>);
+					}, 1000);
+				});
+			})(jQuery);
+		</script>
+	<?php
 	}
 
 	function init_settings()
@@ -338,43 +378,6 @@ EOF;
 		return <<<EOF
 <script type="text/javascript">document.write("{$indicator_html}")</script><noscript>{$link_html}</noscript>
 EOF;
-	}
-
-	function wp_print_footer_scripts()
-	{
-		$items = array();
-		$wpurl = get_bloginfo('wpurl');
-		foreach ($this->display_items as $contry_code => $sub_items) {
-			$items = array_merge($items, $this->fetch_items($contry_code, $sub_items));
-		}
-		if (count($items) == 0) {
-			return;
-		}
-		$region = array();
-		foreach ($this->countries as $code => $value) {
-			foreach (array('linkTemplate') as $attr) {
-				$region['Link' . $code] = $this->tmpl($value[$attr], array('t' => $this->settings['associateTag' . $code]));
-			}
-		}
-		?>
-	<script type="text/javascript">
-		(function ($) {
-			if (!$) return;
-			var isCustomerReviewEnabled = <?php echo (($this->settings['displayCustomerReview']) ? 'true' : 'false') ?>;
-			if (isCustomerReviewEnabled) {
-				tb_pathToImage = "<?php echo $wpurl?>/wp-includes/js/thickbox/loadingAnimation.gif";
-				tb_closeImage = "<?php echo $wpurl?>/wp-includes/js/thickbox/tb-close.png";
-			}
-			$(document).ready(function () {
-				setTimeout(function () {
-					$.amazonjs.isCustomerReviewEnabled = isCustomerReviewEnabled;
-					$.amazonjs.template(<?php echo json_encode($region)?>);
-					$.amazonjs.render(<?php echo json_encode(array_values($items))?>);
-				}, 1000);
-			});
-		})(jQuery);
-	</script>
-	<?php
 	}
 
 	/**

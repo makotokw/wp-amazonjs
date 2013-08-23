@@ -23,8 +23,7 @@ class Amazonjs_Wordpress_Plugin_Abstract
 		$this->dir = dirname($path);
 		$this->slug = basename($this->dir);
 		$this->option_name = preg_replace('/[\-\.]/','_',$this->slug).'_settings';
-		$a = explode(DIRECTORY_SEPARATOR, $this->dir);
-		$this->url = WP_PLUGIN_URL.'/'.end($a);
+		$this->url = plugins_url('', $path);
 		$this->textdomain = str_replace('.php', '', $this->filename);
 		load_plugin_textdomain($this->textdomain, false, $this->slug.'/languages');
 	}

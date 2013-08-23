@@ -1,4 +1,4 @@
-jQuery(function($){
+(function ($) {
     $.amazonjs.resources['ja'] = {
         BookAuthor:'著者',
         BookPublicationDate: '出版日',
@@ -18,4 +18,4 @@ jQuery(function($){
         PriceUpdatedat:'(${UpdatedDate}時点)'
     };
     $.amazonjs.setLocale('ja');
-});
+})(jQuery);

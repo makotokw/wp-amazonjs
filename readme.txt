@@ -83,7 +83,11 @@ In first, this plugin outputs <a/> tags from `amazonjs` short code in server sid
 
 == Changelog ==
 
-= 0.4 ==
+= 0.4.1 =
+
+* Added amazonjs.js script only when needed
+
+= 0.4 =
 
 * Added option to display customer review, default is off
 * Added option to display official widget when disabled javascript in web browser, default is off
