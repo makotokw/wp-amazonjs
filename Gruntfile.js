@@ -10,8 +10,7 @@ module.exports = function(grunt) {
 		uglify: {
 			dist: {
 				files: {
-					'js/amazonjs.min.js': ['js/amazonjs.js'],
-					'js/amazonjs-ja.min.js': ['js/amazonjs-ja.js']
+					'js/amazonjs.min.js': ['js/amazonjs.js']
 				}
 			}
 		}

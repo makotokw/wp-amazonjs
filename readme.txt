@@ -86,6 +86,10 @@ In first, AmazonJS converts <a/> tag from `amazonjs` short code in server side. 
 
 == Changelog ==
 
+= 0.4.2 =
+
+* Fixed to work in footer with jQuery
+
 = 0.4.1 =
 
 * Added amazonjs.js script only when needed

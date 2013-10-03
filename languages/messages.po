@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: amazonjs 1.0\n"
 "Report-Msgid-Bugs-To: makoto.kw@gmail.com\n"
-"POT-Creation-Date: 2013-08-21 00:13+0900\n"
+"POT-Creation-Date: 2013-10-03 21:39+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: Abstract.php:82 Abstract.php:92
+#: Abstract.php:81 Abstract.php:91
 msgid "Settings"
 msgstr ""
 
@@ -283,65 +283,129 @@ msgstr ""
 msgid "España"
 msgstr ""
 
-#: amazonjs.php:184 media-upload-type-amazonjs.php:90
-msgid "amazonjs-message.js"
-msgstr ""
-
-#: amazonjs.php:198
-msgid "Product Advertising API settings"
-msgstr ""
-
-#: amazonjs.php:201
-msgid "Amazon Associates settings"
-msgstr ""
-
-#: amazonjs.php:204
-msgid "Appearance settings"
-msgstr ""
-
-#: amazonjs.php:207
-msgid "Customize"
-msgstr ""
-
 #: amazonjs.php:214
-msgid "Access Key ID"
+msgid "Author"
+msgstr ""
+
+#: amazonjs.php:215
+msgid "PublicationDate"
+msgstr ""
+
+#: amazonjs.php:216
+msgid "Publisher"
+msgstr ""
+
+#: amazonjs.php:217
+msgid "${NumberOfPages} pages"
+msgstr ""
+
+#: amazonjs.php:218
+msgid "List Price"
+msgstr ""
+
+#: amazonjs.php:219
+msgid "Price"
 msgstr ""
 
 #: amazonjs.php:220
-msgid "Secret Access Key"
+msgid ""
+"Product prices and availability are accurate as of the date/time indicated "
+"and are subject to change. Any price and availability information displayed "
+"on [amazon.com or endless.com, as applicable] at the time of purchase will "
+"apply to the purchase of this product."
+msgstr ""
+
+#: amazonjs.php:221
+msgid "Publication Date"
+msgstr ""
+
+#: amazonjs.php:222
+msgid "Release Date"
+msgstr ""
+
+#: amazonjs.php:223
+msgid "SalesRank"
+msgstr ""
+
+#: amazonjs.php:224
+msgid "#${SalesRank}"
+msgstr ""
+
+#: amazonjs.php:225
+msgid "Run Time"
 msgstr ""
 
 #: amazonjs.php:226
-msgid "Display customer review"
+msgid "${RunningTime} minutes"
+msgstr ""
+
+#: amazonjs.php:227
+msgid "${Title} Customer Review"
+msgstr ""
+
+#: amazonjs.php:228
+msgid "See Customer Reviews"
 msgstr ""
 
 #: amazonjs.php:229
+msgid "(at ${UpdatedDate})"
+msgstr ""
+
+#: amazonjs.php:248
+msgid "Product Advertising API settings"
+msgstr ""
+
+#: amazonjs.php:251
+msgid "Amazon Associates settings"
+msgstr ""
+
+#: amazonjs.php:254
+msgid "Appearance settings"
+msgstr ""
+
+#: amazonjs.php:257
+msgid "Customize"
+msgstr ""
+
+#: amazonjs.php:264
+msgid "Access Key ID"
+msgstr ""
+
+#: amazonjs.php:270
+msgid "Secret Access Key"
+msgstr ""
+
+#: amazonjs.php:276
+msgid "Display customer review"
+msgstr ""
+
+#: amazonjs.php:279
 msgid "AmazonJS will display customer review by using WordPress's Thickbox."
 msgstr ""
 
-#: amazonjs.php:232
+#: amazonjs.php:282
 msgid "Display official widget when disabled javascript in web browser"
 msgstr ""
 
-#: amazonjs.php:235
+#: amazonjs.php:285
 msgid "If set to true, AmazonJS will output html by document.write."
 msgstr ""
 
-#: amazonjs.php:238
+#: amazonjs.php:288
 msgid "Use Custom Css"
 msgstr ""
 
-#: amazonjs.php:244
+#: amazonjs.php:294
 msgid "Use Custom Javascript"
 msgstr ""
 
-#: amazonjs.php:457
+#: amazonjs.php:470
 msgid ""
 "This plugin uses the Amazon Product Advertising API in order to get product "
 "infomation. Thus, you must use your Access Key ID &amp; Secret Access Key."
 msgstr ""
 
-#: amazonjs.php:458
+#: amazonjs.php:471
 msgid ""
 "You can sign up the Amazon Product Advertising API from <a href=\"https://"
 "affiliate-program.amazon.com/gp/advertising/api/detail/main.html\" target="
@@ -350,63 +414,63 @@ msgid ""
 "\">Product Advertising API License Agreement</a> for details."
 msgstr ""
 
-#: amazonjs.php:465
+#: amazonjs.php:478
 msgid ""
 "Amazon has an affiliate program called Amazon Associates. To apply for the "
 "Associates Program, visit the <a href=\"https://affiliate-program.amazon.com/"
 "\" target=\"_blank\">Amazon Associates website</a> for details."
 msgstr ""
 
-#: amazonjs.php:466
+#: amazonjs.php:479
 msgid ""
 "Associate Tag has been a <strong>required and verified</strong> input "
 "parameter in all requests to the Amazon Product Advertising API since "
 "11/1/2011."
 msgstr ""
 
-#: amazonjs.php:567
+#: amazonjs.php:580
 msgid "Add Amazon Link"
 msgstr ""
 
-#: amazonjs.php:592
+#: amazonjs.php:605
 msgid "Keyword Search"
 msgstr ""
 
-#: amazonjs.php:593
+#: amazonjs.php:606
 msgid "Search by ASIN/URL"
 msgstr ""
 
-#: amazonjs.php:603
+#: amazonjs.php:616
 #, php-format
 msgid ""
 "Error! \"simplexml_load_string\" function is not found. %s requires PHP 5 "
 "and SimpleXML extension."
 msgstr ""
 
-#: amazonjs.php:608 media-upload-type-amazonjs.php:27
+#: amazonjs.php:621 media-upload-type-amazonjs.php:27
 #, php-format
 msgid "Warning! Cache Directory \"%s\" is not writable"
 msgstr ""
 
-#: amazonjs.php:642
+#: amazonjs.php:655
 msgid "Invalid Request Parameters"
 msgstr ""
 
-#: amazonjs.php:669
+#: amazonjs.php:682
 #, php-format
 msgid "Network Error: %s"
 msgstr ""
 
-#: amazonjs.php:675
+#: amazonjs.php:688
 #, php-format
 msgid "Empty Response from %s"
 msgstr ""
 
-#: amazonjs.php:732
+#: amazonjs.php:745
 msgid "Cannot Parse Response from Amazon API"
 msgstr ""
 
-#: amazonjs.php:736
+#: amazonjs.php:749
 msgid "Invalid Response"
 msgstr ""
 
@@ -477,19 +541,23 @@ msgstr ""
 msgid "Insert"
 msgstr ""
 
-#: media-upload-type-amazonjs.php:140
+#: media-upload-type-amazonjs.php:86
+msgid "amazonjs-message.js"
+msgstr ""
+
+#: media-upload-type-amazonjs.php:136
 msgid ""
 "<h3 class=\"searchindex\"><a href=\"#\" rel=\"${IndexName}\">${Label}</a> "
 "(${Results} hits)</h3>"
 msgstr ""
 
-#: media-upload-type-amazonjs.php:141
+#: media-upload-type-amazonjs.php:137
 msgid ""
 "<div class=\"searchpager\">{{if prev}}<button class=\"button prev\">Prev</"
 "button>{{/if}}${startIndex} - ${endIndex} / ${totalResults}{{if next}}"
 "<button class=\"button next\">Next</button>{{/if}}</div>"
 msgstr ""
 
-#: media-upload-type-amazonjs.php:157
+#: media-upload-type-amazonjs.php:153
 msgid "Select"
 msgstr ""

@@ -4,7 +4,7 @@
  Plugin URI: http://wordpress.org/extend/plugins/amazonjs/
  Description: Easy to use interface to add an amazon product to your post and display it by using jQuery template.
  Author: makoto_kw
- Version: 0.4.1
+ Version: 0.4.2
  Author URI: http://makotokw.com
  Requires at least: 2.8
  Tested up to: 3.6.1
@@ -26,13 +26,13 @@ require_once dirname(__FILE__) . '/lib/json.php';
 
 class Amazonjs extends Amazonjs_Wordpress_Plugin_Abstract
 {
-	const VERSION = '0.4.1';
+	const VERSION = '0.4.2';
 	const AWS_VERSION = '2011-08-01';
 	const CACHE_LIFETIME = 86400;
+
+	// jQuery tmpl requires jQuery 1.4.2 or later
 	const JQ_URI = 'http://ajax.microsoft.com/ajax/jquery/jquery-1.4.2.min.js';
 	const JQ_VERSION = '1.4.2';
-	const JQ_UI_URI = 'http://ajax.microsoft.com/ajax/jquery.ui/1.8.5/jquery-ui.min.js';
-	const JQ_UI_VERSION = '1.8.5';
 	const JQ_TMPL_URI = 'http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js';
 	const JQ_TMPL_VERSION = 'beta1';
 
@@ -146,7 +146,7 @@ class Amazonjs extends Amazonjs_Wordpress_Plugin_Abstract
 		if (!is_admin()) {
 			add_action('wp_enqueue_scripts', array($this, 'wp_enqueue_styles'));
 			add_action('wp_enqueue_scripts', array($this, 'wp_enqueue_scripts'));
-			add_action('wp_print_footer_scripts', array($this, 'wp_print_footer_scripts'), 9);
+			add_action('wp_footer', array($this, 'wp_enqueue_scripts_for_footer'), 1);
 		}
 	}
 
@@ -168,7 +168,7 @@ class Amazonjs extends Amazonjs_Wordpress_Plugin_Abstract
 	function wp_enqueue_scripts()
 	{
 		$v = get_bloginfo('version');
-		if (version_compare($v, '3.0', '<')) { // jQuery tmpl requires jQuery 1.4.2 or later
+		if (version_compare($v, '3.0', '<')) {
 			wp_deregister_script('jquery');
 			wp_register_script('jquery', self::JQ_URI, array(), self::JQ_VERSION);
 		}
@@ -179,63 +179,65 @@ class Amazonjs extends Amazonjs_Wordpress_Plugin_Abstract
 			$depends[] = 'thickbox';
 		}
 		if (WP_DEBUG) {
-			wp_enqueue_script('amazonjs', $this->url . '/js/amazonjs.js', $depends, self::VERSION, true);
+			wp_register_script('amazonjs', $this->url . '/js/amazonjs.js', $depends, self::VERSION, true);
 		} else {
-			wp_enqueue_script('amazonjs', $this->url . '/js/amazonjs.min.js', $depends, self::VERSION, true);
-		}
-		if ('amazonjs-message.js' != ($message_url = __('amazonjs-message.js', $this->textdomain))) {
-			if (!WP_DEBUG) {
-				$message_url = str_replace('.js', '.min.js', $message_url);
-			}
-			wp_enqueue_script('amazonjs-message', $this->url . '/js/' . $message_url, array('amazonjs'), self::VERSION, true);
+			wp_register_script('amazonjs', $this->url . '/js/amazonjs.min.js', $depends, self::VERSION, true);
 		}
 		if ($this->settings['customJs']) {
-			wp_enqueue_script('amazonjs-custom', get_stylesheet_directory_uri() . '/amazonjs.js', array('amazonjs'), self::VERSION, true);
+			wp_register_script('amazonjs-custom', get_stylesheet_directory_uri() . '/amazonjs.js', array('amazonjs'), self::VERSION, true);
 		}
 	}
 
-	function wp_print_footer_scripts()
+	function wp_enqueue_scripts_for_footer()
 	{
 		$items = array();
 		$wpurl = get_bloginfo('wpurl');
 		foreach ($this->display_items as $contry_code => $sub_items) {
 			$items = array_merge($items, $this->fetch_items($contry_code, $sub_items));
 		}
+
 		if (count($items) == 0) {
-			wp_dequeue_script('amazonjs');
-			wp_dequeue_script('amazonjs-message');
-			wp_dequeue_script('amazonjs-custom');
 			return;
 		}
+
 		$region = array();
 		foreach ($this->countries as $code => $value) {
 			foreach (array('linkTemplate') as $attr) {
 				$region['Link' . $code] = $this->tmpl($value[$attr], array('t' => $this->settings['associateTag' . $code]));
 			}
 		}
-		?>
-		<script type="text/javascript">
-			(function ($) {
-				if (!$) return;
-				$(document).ready(function () {
-					var isCustomerReviewEnabled = <?php echo (($this->settings['displayCustomerReview']) ? 'true' : 'false') ?>;
-					if (isCustomerReviewEnabled) {
-						if (typeof tb_pathToImage === 'undefined') {
-							tb_pathToImage = "<?php echo $wpurl ?>/wp-includes/js/thickbox/loadingAnimation.gif";
-						}
-						if (typeof tb_closeImage === 'undefined') {
-							tb_closeImage = "<?php echo $wpurl ?>/wp-includes/js/thickbox/tb-close.png";
-						}
-					}
-					setTimeout(function () {
-						$.amazonjs.isCustomerReviewEnabled = isCustomerReviewEnabled;
-						$.amazonjs.template(<?php echo json_encode($region)?>);
-						$.amazonjs.render(<?php echo json_encode(array_values($items))?>);
-					}, 1000);
-				});
-			})(jQuery);
-		</script>
-	<?php
+
+		$amazonVars = array(
+			'thickboxUrl' => $wpurl . '/wp-includes/js/thickbox/',
+			'regionTempalte' => $region,
+			'resource' => array(
+				'BookAuthor' => __('Author', $this->textdomain),
+				'BookPublicationDate' => __('PublicationDate', $this->textdomain),
+				'BookPublisher' => __('Publisher', $this->textdomain),
+				'NumberOfPagesValue' => __('${NumberOfPages} pages', $this->textdomain),
+				'ListPrice' => __('List Price', $this->textdomain),
+				'Price' => __('Price', $this->textdomain),
+				'PriceUsage' => __('Product prices and availability are accurate as of the date/time indicated and are subject to change. Any price and availability information displayed on [amazon.com or endless.com, as applicable] at the time of purchase will apply to the purchase of this product.', $this->textdomain),
+				'PublicationDate' => __('Publication Date', $this->textdomain),
+				'ReleaseDate' => __('Release Date', $this->textdomain),
+				'SalesRank' => __('SalesRank', $this->textdomain),
+				'SalesRankValue' => __('#${SalesRank}', $this->textdomain),
+				'RunningTime' => __('Run Time', $this->textdomain),
+				'RunningTimeValue' => __('${RunningTime} minutes', $this->textdomain),
+				'CustomerReviewTitle' => __('${Title} Customer Review', $this->textdomain),
+				'SeeCustomerReviews' => __('See Customer Reviews', $this->textdomain),
+				'PriceUpdatedat' => __('(at ${UpdatedDate})', $this->textdomain),
+			),
+			'isCustomerReviewEnabled' => ($this->settings['displayCustomerReview']) ? 'true' : 'false',
+			'items' => array_values($items),
+
+		);
+		wp_localize_script('amazonjs', 'amazonjsVars', $amazonVars);
+
+		wp_enqueue_script('amazonjs');
+		if ($this->settings['customJs']) {
+			wp_enqueue_script('amazonjs-custom');
+		}
 	}
 
 	function init_settings()

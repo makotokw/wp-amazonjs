@@ -1,34 +1,10 @@
 (function ($) {
 	if (!$) return;
 	var isIE6 = ($.browser.msie && $.browser.version == '6.0');
-	var resources = {};
-	var resource = resources['en'] = {
-		BookAuthor:'Author',
-		BookPublicationDate:'PublicationDate',
-		BookPublisher:'Publisher',
-		NumberOfPagesValue:'${NumberOfPages} pages',
-		ListPrice:'List Price',
-		Price:'Price',
-		PriceUsage:'Product prices and availability are accurate as of the date/time indicated and are subject to change. Any price and availability information displayed on [amazon.com or endless.com, as applicable] at the time of purchase will apply to the purchase of this product.',
-		PublicationDate:'Publication Date',
-		ReleaseDate:'Release Date',
-		SalesRank:'SalesRank',
-		SalesRankValue:'#${SalesRank}',
-		RunningTime:'Run Time',
-		RunningTimeValue:'${RunningTime} minutes',
-		CustomerReviewTitle:'${Title} Customer Review',
-		SeeCustomerReviews:'See Customer Reviews',
-		PriceUpdatedat:'(at ${UpdatedDate})'
-	};
 	$.extend({
 		amazonjs:{
 			isCustomerReviewEnabled:false,
-			resource:resource,
-			resources:resources,
-			setLocale:function (locale) {
-				var r = this.resources[locale];
-				if (r) this.resource = r;
-			},
+			resource: {},
 			initTemplate:function () {
 				var r = this.resource;
 				var smallImageTemplate =
@@ -315,4 +291,22 @@
 			}
 		}
 	});
+
+	if (amazonjsVars) {
+		setTimeout(function () {
+			if (amazonjsVars.isCustomerReviewEnabled) {
+				if (typeof tb_pathToImage === 'undefined') {
+					tb_pathToImage = amazonjsVars.thickboxUrl + '/loadingAnimation.gif';
+				}
+				if (typeof tb_closeImage === 'undefined') {
+					tb_closeImage = amazonjsVars.thickboxUrl + '/tb-close.png';
+				}
+			}
+			$.amazonjs.isCustomerReviewEnabled = amazonjsVars.isCustomerReviewEnabled;
+			$.amazonjs.resource = amazonjsVars.resource;
+			$.amazonjs.template(amazonjsVars.regionTempalte);
+			$.amazonjs.render(amazonjsVars.items);
+		}, 1000);
+	}
+
 })(jQuery);
