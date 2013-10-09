@@ -1,6 +1,8 @@
 (function ($) {
 	if (!$) return;
-	var isIE6 = ($.browser.msie && $.browser.version == '6.0');
+	var ua = navigator.userAgent,
+		isIE = ua.match(/msie/i),
+		isIE6 = isIE && ua.match(/msie 6\./i);
 	$.extend({
 		amazonjs:{
 			isCustomerReviewEnabled:false,

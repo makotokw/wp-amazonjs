@@ -191,14 +191,19 @@ class Amazonjs extends Amazonjs_Wordpress_Plugin_Abstract
 	function wp_enqueue_scripts_for_footer()
 	{
 		$items = array();
-		$wpurl = get_bloginfo('wpurl');
 		foreach ($this->display_items as $contry_code => $sub_items) {
 			$items = array_merge($items, $this->fetch_items($contry_code, $sub_items));
 		}
-
 		if (count($items) == 0) {
 			return;
 		}
+
+		$this->enqueue_amazonjs_scripts($items);
+	}
+
+	function enqueue_amazonjs_scripts($items = array())
+	{
+		$wpurl = get_bloginfo('wpurl');
 
 		$region = array();
 		foreach ($this->countries as $code => $value) {
@@ -356,7 +361,7 @@ class Amazonjs extends Amazonjs_Wordpress_Plugin_Abstract
 					$aimg = $ai['MediumImage'];
 				}
 				return <<<EOF
-<a href="{$$ai['DetailPageURL']}" title="{$ai['Title']}" target="_blank">
+<a href="{$ai['DetailPageURL']}" title="{$ai['Title']}" target="_blank">
 <img src="{$aimg['src']}" width="{$aimg['width']}" height="{$aimg['height']}" alt="{$ai['Title']}"/>
 {$ai['Title']}
 </a>
@@ -584,18 +589,29 @@ EOF;
 EOF;
 	}
 
+	function media_upload_init()
+	{
+		add_action('admin_print_styles', array($this, 'wp_enqueue_styles'));
+
+		$this->wp_enqueue_scripts();
+		$this->enqueue_amazonjs_scripts();
+	}
+
 	function media_upload_amazonjs()
 	{
+		$this->media_upload_init();
 		wp_iframe('media_upload_type_amazonjs');
 	}
 
 	function media_upload_amazonjs_keyword()
 	{
+		$this->media_upload_init();
 		wp_iframe('media_upload_type_amazonjs_keyword');
 	}
 
 	function media_upload_amazonjs_id()
 	{
+		$this->media_upload_init();
 		wp_iframe('media_upload_type_amazonjs_id');
 	}
 

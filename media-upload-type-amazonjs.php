@@ -14,7 +14,6 @@
 
 	amazonjs_aws_params($amazonjs);
 ?>
-<link rel="stylesheet" href="<?php echo $amazonjs->url?>/css/amazonjs.min.css" type="text/css" media="all"/>
 <link rel="stylesheet" href="<?php echo $amazonjs->url?>/css/media-upload-type-amazonjs.css" type="text/css" media="all"/>
 <div id="media_amazon">
 <?php if (empty($accessKeyId) || empty($secretAccessKey)):?>
@@ -80,12 +79,6 @@
 		<input id="insert" type="submit" value="<?php _e('Insert', $textdomain) ?>" class="button"/>
 	</div>
 </form>
-<script type="text/javascript" src="<?php echo Amazonjs::JQ_URI?>"></script>
-<script type="text/javascript" src="<?php echo Amazonjs::JQ_TMPL_URI?>"></script>
-<script type="text/javascript" src="<?php echo $amazonjs->url?>/js/amazonjs.js"></script>
-<?php if ('amazonjs-message.js' != ($message_url = __('amazonjs-message.js',$textdomain))):?>
-<script type="text/javascript" src="<?php echo $amazonjs->url?>/js/<?php echo $message_url?>"></script>
-<?php endif ?>
 <script type="text/javascript">
 <!--
 (function($){
