@@ -14,7 +14,6 @@
 
 	amazonjs_aws_params($amazonjs);
 ?>
-<link rel="stylesheet" href="<?php echo $amazonjs->url?>/css/media-upload-type-amazonjs.css" type="text/css" media="all"/>
 <div id="media_amazon">
 <?php if (empty($accessKeyId) || empty($secretAccessKey)):?>
 <div class="updated error">

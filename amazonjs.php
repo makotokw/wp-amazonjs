@@ -594,6 +594,8 @@ EOF;
 		add_action('admin_print_styles', array($this, 'wp_enqueue_styles'));
 
 		$this->wp_enqueue_scripts();
+		wp_enqueue_style('amazonjs-media-upload', $this->url . '/css/media-upload-type-amazonjs.css', array('amazonjs'), self::VERSION);
+
 		$this->enqueue_amazonjs_scripts();
 	}
 
