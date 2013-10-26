@@ -1,10 +1,45 @@
 <?php
-header('Cache-Control: no-cache, must-revalidate');
-header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-header('Content-Type: text/javascript; charset=UTF-8');
+
+function amazonjs_shutdown() {
+	if (defined('AMAZONJS_CALLED_JSON')) {
+		return;
+	}
+	$error = error_get_last();
+	if ($error['type'] === E_ERROR || $error['type'] ===  E_COMPILE_ERROR) {
+		echo $error['message'];
+	}
+}
+
+function json($result) {
+	$buffer = ob_get_contents();
+	ob_end_clean();
+	header('Cache-Control: no-cache, must-revalidate');
+	header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+	header('Content-Type: text/javascript; charset=UTF-8');
+	$jsonResponse = json_encode($result);
+	echo $jsonResponse;
+	define('AMAZONJS_CALLED_JSON', 1);
+	exit;
+}
+
+register_shutdown_function('amazonjs_shutdown');
 ob_start();
 
-require_once dirname(__FILE__) . '/../../../wp-config.php';
+$absPath = realpath(dirname(__FILE__) . '/../../../');
+if (substr($absPath, -1) != '/') {
+	$absPath .= '/';
+}
+
+define('ABSPATH', $absPath);
+
+if (file_exists(ABSPATH . 'wp-config.php')) {
+	require_once(ABSPATH . 'wp-config.php');
+} elseif (file_exists(dirname(ABSPATH) . '/wp-config.php') && !file_exists(dirname(ABSPATH) . '/wp-settings.php')) {
+	require_once(dirname(ABSPATH) . '/wp-config.php');
+} else {
+	json(array('message' => "Can't find wp-config.php"));
+}
+
 require_once dirname(__FILE__) . '/amazonjs.php';
 
 // from http get
@@ -36,15 +71,6 @@ if (isset($itemId)) {
 } else {
 	$result = $amazonjs->itemsearch($countryCode, $searchIndex, $keywords, $itemPage);
 }
-$buffer = ob_get_contents();
-ob_end_clean();
-if (!empty($buffer)) {
-	if (is_array($result)) {
-		$result['ob'] = $buffer;
-	}
-}
-ob_start();
-$jsonResponse = json_encode($result);
-ob_end_clean();
-echo $jsonResponse;
-?>
+json($result);
+
+

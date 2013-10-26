@@ -2,7 +2,7 @@
 Contributors: makoto_kw
 Tags: Amazon, books, post, media, affiliate, japanese
 Requires at least: 2.8
-Tested up to: 3.6.1
+Tested up to: 3.7
 Stable tag: trunk
 License: GPLv2 or later
 
@@ -89,6 +89,9 @@ In first, AmazonJS converts <a/> tag from `amazonjs` short code in server side. 
 = 0.4.2 =
 
 * Fixed to work in footer with jQuery
+* Fixed to enqueue jQuery in admin page
+* Fixed to find config file above ABSPATH
+* Fixed and improved to display error message
 
 = 0.4.1 =
 

@@ -192,16 +192,30 @@
 					$results.html('<span class="indicator"></span>');
 					$form.find('input,select,button').attr('disabled','disabled');
 				},
-				success: function(data, status, xhr) {
-					onLoaded(true, data, params);
+				success: function(data, textStatus, jqXHR) {
+					onLoaded(data, params);
 				},
-				error: function(xhr, status, e){
-					onLoaded(false);
+				error: function(jqXHR, textStatus, errorThrown) {
+					var responseText = (jqXHR && jqXHR.responseText) ? jqXHR.responseText : '';
+					var message = textStatus;
+					if (typeof(responseText) == 'string' && responseText.length > 0) {
+						message = responseText;
+					}
+					else if (typeof(errorThrown) == 'string') {
+						message = errorThrown;
+					}
+					else if (errorThrown && errorThrown.message) {
+						message = errorThrown.message
+					}
+					onLoaded({
+							success: false,
+							message: message
+					});
 				}
 			});
 		}
 		
-		function onLoaded(success, data, params) {
+		function onLoaded(data, params) {
 			loading = false;
 			$results.empty();
 			$form.find('input,select,button').attr('disabled',null);
@@ -210,8 +224,8 @@
  					$results.html('No Items');
 				} else {
 					var msg = (data) ? (data.message || 'Error') : 'Amazonjs Search Error';
-					var $e = $('<div/>').addClass('error').html(msg);
-					if (data.ob) {
+					var $e = $('<div/>').addClass('error').html('<p>' + msg  + '</p>');
+					if (data && data.ob) {
 						$e.append($('<div/>').html(data.ob));
 					}
 					$results.append($e);
