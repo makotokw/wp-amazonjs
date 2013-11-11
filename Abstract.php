@@ -170,7 +170,7 @@ class Amazonjs_Wordpress_Plugin_Abstract
 			}
 		}
 		if (@$field['description']) {
-			echo "<p>".$field['description']."</p>";
+			echo '<p class="description">' . $field['description'] . '</p>';
 		}
 	}
 	
