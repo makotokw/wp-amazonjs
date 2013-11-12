@@ -11,8 +11,9 @@ function amazonjs_shutdown() {
 }
 
 function json($result) {
-	$buffer = ob_get_contents();
-	ob_end_clean();
+	while (ob_get_level() > 0) {
+		ob_end_clean();
+	}
 	header('Cache-Control: no-cache, must-revalidate');
 	header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
 	header('Content-Type: text/javascript; charset=UTF-8');

@@ -26,7 +26,7 @@ require_once dirname(__FILE__) . '/lib/json.php';
 
 class Amazonjs extends Amazonjs_Wordpress_Plugin_Abstract
 {
-	const VERSION = '0.4.2';
+	const VERSION = '0.4.3-beta';
 	const AWS_VERSION = '2011-08-01';
 	const CACHE_LIFETIME = 86400;
 
