@@ -4,10 +4,10 @@
  Plugin URI: http://wordpress.org/extend/plugins/amazonjs/
  Description: Easy to use interface to add an amazon product to your post and display it by using jQuery template.
  Author: makoto_kw
- Version: 0.4.2
+ Version: 0.4.3-beta
  Author URI: http://makotokw.com
  Requires at least: 2.8
- Tested up to: 3.7
+ Tested up to: 3.8
  License: GPLv2
  Text Domain: amazonjs
  Domain Path: /languages/
@@ -150,16 +150,22 @@ class Amazonjs extends Amazonjs_Wordpress_Plugin_Abstract
 		}
 	}
 
+	function admin_init()
+	{
+		add_action('media_buttons', array($this, 'media_buttons'), 20);
+		add_action('media_upload_amazonjs', array($this, 'media_upload_amazonjs'));
+		add_action('media_upload_amazonjs_keyword', array($this, 'media_upload_amazonjs_keyword'));
+		add_action('media_upload_amazonjs_id', array($this, 'media_upload_amazonjs_id'));
+		add_action('wp_ajax_amazonjs_search', array($this, 'ajax_amazonjs_search'));
+		parent::admin_init();
+	}
+
 	function wp_enqueue_styles()
 	{
 		if ($this->settings['displayCustomerReview']) {
 			wp_enqueue_style('thickbox');
 		}
-		if (WP_DEBUG) {
-			wp_enqueue_style('amazonjs', $this->url . '/css/amazonjs.css', array(), self::VERSION);
-		} else {
-			wp_enqueue_style('amazonjs', $this->url . '/css/amazonjs.min.css', array(), self::VERSION);
-		}
+		wp_enqueue_style('amazonjs', $this->url . '/css/amazonjs.css', array(), self::VERSION);
 		if ($this->settings['customCss']) {
 			wp_enqueue_style('amazonjs-custom', get_stylesheet_directory_uri() . '/amazonjs.css');
 		}
@@ -178,11 +184,7 @@ class Amazonjs extends Amazonjs_Wordpress_Plugin_Abstract
 		if ($this->settings['displayCustomerReview']) {
 			$depends[] = 'thickbox';
 		}
-		if (WP_DEBUG) {
-			wp_register_script('amazonjs', $this->url . '/js/amazonjs.js', $depends, self::VERSION, true);
-		} else {
-			wp_register_script('amazonjs', $this->url . '/js/amazonjs.min.js', $depends, self::VERSION, true);
-		}
+		wp_register_script('amazonjs', $this->url . '/js/amazonjs.js', $depends, self::VERSION, true);
 		if ($this->settings['customJs']) {
 			wp_register_script('amazonjs-custom', get_stylesheet_directory_uri() . '/amazonjs.js', array('amazonjs'), self::VERSION, true);
 		}
@@ -568,15 +570,6 @@ EOF;
 		$this->add_settings_field('supportDisabledJavascript', $this->setting_fileds['supportDisabledJavascript']);
 	}
 
-	function admin_init()
-	{
-		add_action('media_buttons', array($this, 'media_buttons'), 20);
-		add_action('media_upload_amazonjs', array($this, 'media_upload_amazonjs'));
-		add_action('media_upload_amazonjs_keyword', array($this, 'media_upload_amazonjs_keyword'));
-		add_action('media_upload_amazonjs_id', array($this, 'media_upload_amazonjs_id'));
-		parent::admin_init();
-	}
-
 	function media_buttons()
 	{
 		global $post_ID, $temp_ID;
@@ -585,7 +578,7 @@ EOF;
 		$label = __('Add Amazon Link', $this->textdomain);
 
 		echo <<<EOF
-<a href="{$iframe_src}&amp;TB_iframe=true" id="add_amazon" class="thickbox" title="{$label}"><img src="{$this->url}/images/amazon-icon.png" alt="{$label}"/></a>
+<a href="{$iframe_src}&amp;TB_iframe=true" id="add_amazon" class="button thickbox" title="{$label}"><img src="{$this->url}/images/amazon-icon.png" alt="{$label}"/></a>
 EOF;
 	}
 
@@ -659,6 +652,40 @@ EOF;
 		$options['Operation'] = 'ItemSearch';
 		if ($searchIndex) $options['SearchIndex'] = $searchIndex;
 		return $this->amazon_get($countryCode, $options);
+	}
+
+	function ajax_amazonjs_search()
+	{
+		// from http get
+		$itemPage = @$_GET['ItemPage'];
+		$id = @$_GET['ID'];
+		$keywords = @$_GET['Keywords'];
+		$searchIndex = @$_GET['SearchIndex'];
+		$countryCode = @$_GET['CountryCode'];
+
+		if (!empty($id)) {
+			if (preg_match('/^http?:\/\//', $id)) {
+				// parse ItemId from URL
+				if (preg_match('/^http?:\/\/.+\.amazon\.([^\/]+).+(\/dp\/|\/gp\/product\/)([^\/]+)/', $id, $matches)) {
+					$domain = $matches[1];
+					$itemId = $matches[3];
+				}
+				if (!isset($itemId)) {
+					$keywords = $id;
+				}
+			} else {
+				$itemId = $id;
+			}
+		}
+		$amazonjs = new Amazonjs();
+		$amazonjs->init();
+		if (isset($itemId)) {
+			$result = $amazonjs->itemlookup($countryCode, $itemId);
+			die(json_encode($result));
+		} else {
+			$result = $amazonjs->itemsearch($countryCode, $searchIndex, $keywords, $itemPage);
+			die(json_encode($result));
+		}
 	}
 
 	function amazon_get($countryCode, $options)

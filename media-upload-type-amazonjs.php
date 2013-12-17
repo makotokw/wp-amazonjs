@@ -25,7 +25,7 @@
 	<p><?php echo sprintf(__('Warning! Cache Directory "%s" is not writable', $textdomain), $amazonjs->cache_dir)?></p>
 </div>
 <?php endif ?>
-<form id="search_form" class="amazonjs_search_form" method="get" action="<?php echo $amazonjs->url?>/amazonjs-search.php">
+<form id="search_form" class="amazonjs_search_form" method="get" action="<?php bloginfo( 'wpurl' ); ?>/wp-admin/admin-ajax.php">
 	<input type="hidden" nama="tab" value="<?php echo $tab?>"/>
 	<input type="hidden" id="search_page" name="ItemPage" value="1"/>
 <?php if ($tab=='amazonjs_keyword'):?>
@@ -178,10 +178,10 @@
 		
 		function request(params) {
 			params = params || {};
+			params['action'] = 'amazonjs_search';
 			$.each([$searchLocale,$searchIndex,$searchPage,$searchQuery],function(i,$field){
 				params[$field.attr('name')] = $field.val();
 			});
-
 			$.ajax({
 				url: $form.attr('action'),
 				dataType: 'json',
@@ -220,7 +220,8 @@
 			$form.find('input,select,button').attr('disabled',null);
 			if (!data || !data.items || data.items.length == 0) {
 				if (data && data.success) {
- 					$results.html('No Items');
+					var $u = $('<div/>').addClass('error').html('<p>No Items</p>');
+					$results.append($u);
 				} else {
 					var msg = (data) ? (data.message || 'Error') : 'Amazonjs Search Error';
 					var $e = $('<div/>').addClass('error').html('<p>' + msg  + '</p>');
