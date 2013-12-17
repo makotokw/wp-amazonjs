@@ -101,6 +101,25 @@
 						'<div class="amazonjs_footer"></div>',
 						'</div>'
 					],
+					DVD:[
+						'<div class="amazonjs_item amazonjs_dvd">',
+						mediumImageTemplate,
+						'<div class="amazonjs_info" style="{{if MediumImage}}margin-left:${MediumImage.width}px;{{/if}}">',
+						'<h4><a href="${DetailPageURL}" title="${Title}" target="_blank">${Title}</a></h4>',
+						'<ul>',
+						'{{if Director}}<li>${Director}</li>{{/if}}',
+						'{{if Actor}}<li>${Actor}</li>{{/if}}',
+						'{{if Label}}<li>${Label}</li>{{/if}}',
+						priceLiTemplate,
+						'{{if ReleaseDate}}<li><b>' + r.ReleaseDate + '</b>${ReleaseDate}</li>{{/if}}',
+						'{{if SalesRank}}<li><b>' + r.SalesRank + '</b>' + r.SalesRankValue + '</li>{{/if}}',
+						'{{if RunningTime}}<li><b>' + r.RunningTime + '</b>' + r.RunningTimeValue + '</li>{{/if}}',
+						'</ul>',
+						'</div>',
+						reviewLinkTemplate,
+						'<div class="amazonjs_footer"></div>',
+						'</div>'
+					],
 					Book:[
 						'<div class="amazonjs_item amazonjs_book">',
 						mediumImageTemplate,
