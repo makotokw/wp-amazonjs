@@ -2,7 +2,7 @@
 Contributors: makoto_kw
 Tags: Amazon, books, post, media, affiliate, japanese
 Requires at least: 2.8
-Tested up to: 3.7
+Tested up to: 3.8
 Stable tag: trunk
 License: GPLv2 or later
 
@@ -85,6 +85,13 @@ In first, AmazonJS converts <a/> tag from `amazonjs` short code in server side. 
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 0.5 =
+
+* Added DVD template
+* Optimized style for WordPress 3.8
+* Used wp-ajax to search product in admin page
+* Removed minify css and js to avoid to conflict W3 Total Cache
 
 = 0.4.2 =
 
