@@ -193,9 +193,13 @@ class Amazonjs extends Amazonjs_Wordpress_Plugin_Abstract
 	function wp_enqueue_scripts_for_footer()
 	{
 		$items = array();
-		foreach ($this->display_items as $contry_code => $sub_items) {
-			$items = array_merge($items, $this->fetch_items($contry_code, $sub_items));
+		foreach ($this->display_items as $country_code => $sub_items) {
+			$locale_items = $this->fetch_items($country_code, $sub_items);
+			foreach ($locale_items as $asin => $item) {
+				$items[$country_code . ':' . $asin] = $item;
+			}
 		}
+
 		if (count($items) == 0) {
 			return;
 		}
@@ -391,6 +395,7 @@ EOF;
 		}
 		$indicator_html = addslashes($indicator_html);
 		$link_html = $this->get_amazon_official_link($asin, $locale, true);
+
 		return <<<EOF
 <script type="text/javascript">document.write("{$indicator_html}")</script><noscript>{$link_html}</noscript>
 EOF;
