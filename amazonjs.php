@@ -696,8 +696,8 @@ EOF;
 	function amazon_get($countryCode, $options)
 	{
 		$baseUri = $this->countries[$countryCode]['baseUri'];
-		$accessKeyId = $this->settings['accessKeyId'];
-		$secretAccessKey = $this->settings['secretAccessKey'];
+		$accessKeyId = @trim($this->settings['accessKeyId']);
+		$secretAccessKey = @trim($this->settings['secretAccessKey']);
 		$associateTag = @$this->settings['associateTag' . $countryCode];
 
 		// validate request
@@ -707,7 +707,9 @@ EOF;
 		}
 
 		$options['AWSAccessKeyId'] = $accessKeyId;
-		if (!empty($associateTag)) $options['AssociateTag'] = $associateTag;
+		if (!empty($associateTag)) {
+			$options['AssociateTag'] = @trim($associateTag);
+		}
 		$options['ResponseGroup'] = 'ItemAttributes,Small,Images,OfferSummary,SalesRank,Reviews';
 		$options['Service'] = 'AWSECommerceService';
 		$options['Timestamp'] = gmdate('Y-m-d\TH:i:s\Z');
