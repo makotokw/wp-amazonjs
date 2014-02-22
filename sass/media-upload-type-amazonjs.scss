@@ -105,7 +105,7 @@
   padding: 10px;
   h2 {
     font-size: 1em;
-    margin: 2px 0;
+    margin: 5px 0;
     padding: 0;
   }
   label, legend {
@@ -113,6 +113,9 @@
   }
   label.disabled {
     color: #999;
+  }
+  .select_template {
+    margin-bottom: 10px;
   }
 }
 

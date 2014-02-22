@@ -1,20 +1,32 @@
 @import "compass/css3";
 
-$backgroundColor: white;
-$fontColor: #333;
-$borderColor: #ddd;
-$headerColor: #555;
-$priceColor: #900;
-$disableColor: #666;
+$background-color: white;
+$font-color: #333;
+$border-color: #ddd;
+$header-color: #555;
+$price-color: #900;
+$disable-color: #666;
+
+$amazon-orange: #e47911;
+$link-color: #004B91;
+$link-over-color: #996633;
 
 .amazonjs_item {
   font-size: 14px;
   margin: .5em 0 1em 0;
-  padding: 20px;
-  border: 1px solid $borderColor;
+  padding: 25px 10px 25px 10px;
+  border: 1px solid $border-color;
+  position: relative;;
   display: block;
-  background: $backgroundColor url(../images/amazonjs.png) no-repeat right bottom;
-  color: $fontColor;
+  background: $background-color url(../images/amazonjs.png) no-repeat right bottom;
+  color: $font-color;
+
+  a {
+    color: $amazon-orange;
+    &:hover {
+      color: $link-over-color;
+    }
+  }
 
   * {
     margin: 0;
@@ -34,11 +46,11 @@ $disableColor: #666;
   .amazonjs_image {
     display: block;
     float: left;
+    margin-right: 10px;
   }
 
   .amazonjs_info {
     display: block;
-    padding-left: 1em;
 
     // title
     h4 {
@@ -62,16 +74,16 @@ $disableColor: #666;
         // header
         b {
           margin-right: .5em;
-          color: $headerColor;
+          color: $header-color;
           font-weight: normal;
         }
       }
     }
 
     .amazonjs_price {
-      color: $priceColor;
+      color: $price-color;
       span {
-        color: $disableColor;
+        color: $disable-color;
         margin-left: .5em;
       }
     }
@@ -106,4 +118,24 @@ $disableColor: #666;
 .amazonjs_book .amazonjs_info ul li,
 .amazonjs_music .amazonjs_info ul li {
   line-height: 1.6em;
+}
+
+@media (max-width: 720px) {
+  .amazonjs_item {
+    .amazonjs_info {
+      margin-bottom: 10px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .amazonjs_item {
+    img {
+      width: 60px;
+      max-width: 60px;
+    }
+    .amazonjs_info {
+      margin-left: 70px;
+    }
+  }
 }
