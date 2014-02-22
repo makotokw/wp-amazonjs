@@ -192,29 +192,33 @@ class Amazonjs extends Amazonjs_Wordpress_Plugin_Abstract
 
 	function wp_enqueue_scripts_for_footer()
 	{
+		$country_codes = array();
 		$items = array();
 		foreach ($this->display_items as $country_code => $sub_items) {
 			$locale_items = $this->fetch_items($country_code, $sub_items);
 			foreach ($locale_items as $asin => $item) {
 				$items[$country_code . ':' . $asin] = $item;
 			}
+			$country_codes[] = $country_code;
 		}
 
 		if (count($items) == 0) {
 			return;
 		}
 
-		$this->enqueue_amazonjs_scripts($items);
+		$this->enqueue_amazonjs_scripts($items, $country_codes);
 	}
 
-	function enqueue_amazonjs_scripts($items = array())
+	function enqueue_amazonjs_scripts($items = array(), $country_codes = array())
 	{
 		$wpurl = get_bloginfo('wpurl');
 
 		$region = array();
 		foreach ($this->countries as $code => $value) {
-			foreach (array('linkTemplate') as $attr) {
-				$region['Link' . $code] = $this->tmpl($value[$attr], array('t' => $this->settings['associateTag' . $code]));
+			if (in_array($code, $country_codes)) {
+				foreach (array('linkTemplate') as $attr) {
+					$region['Link' . $code] = $this->tmpl($value[$attr], array('t' => $this->settings['associateTag' . $code]));
+				}
 			}
 		}
 
@@ -257,16 +261,16 @@ class Amazonjs extends Amazonjs_Wordpress_Plugin_Abstract
 		$this->setting_sections = array(
 			'api' => array(
 				'label' => __('Product Advertising API settings', $this->textdomain),
-				'add' => 'add_api_section'),
+				'add' => 'add_api_setting_section'),
 			'associate' => array(
 				'label' => __('Amazon Associates settings', $this->textdomain),
-				'add' => 'add_associate_section'),
+				'add' => 'add_associate_setting_section'),
 			'appearance' => array(
 				'label' => __('Appearance settings', $this->textdomain),
-				'add' => 'add_appearance_section'),
+				'add' => 'add_appearance_setting_section'),
 			'customize' => array(
 				'label' => __('Customize', $this->textdomain),
-				'add' => 'add_customize_section'),
+				'add' => 'add_customize_setting_section'),
 		);
 		// filed
 		$template_url = get_bloginfo('template_url');
@@ -476,7 +480,23 @@ EOF;
 		return $s;
 	}
 
-	function add_api_section()
+	function validate_settings($settings)
+	{
+		$settings = parent::validate_settings($settings);
+
+		foreach (array('accessKeyId', 'secretAccessKey') as $key) {
+			$settings[$key] = trim($settings[$key]);
+		}
+
+		foreach ($this->countries as $locale => $value) {
+			$key = 'associateTag' . $locale;
+			$settings[$key] = trim($settings[$key]);
+		}
+
+		return $settings;
+	}
+
+	function add_api_setting_section()
 	{
 		?>
 	<p><?php _e('This plugin uses the Amazon Product Advertising API in order to get product infomation. Thus, you must use your Access Key ID &amp; Secret Access Key.', $this->textdomain); ?></p>
@@ -484,7 +504,7 @@ EOF;
 	<?php
 	}
 
-	function add_associate_section()
+	function add_associate_setting_section()
 	{
 		?>
 	<p><?php _e('Amazon has an affiliate program called Amazon Associates. To apply for the Associates Program, visit the <a href="https://affiliate-program.amazon.com/" target="_blank">Amazon Associates website</a> for details.', $this->textdomain); ?></p>
@@ -492,11 +512,11 @@ EOF;
 	<?php
 	}
 
-	function add_appearance_section()
+	function add_appearance_setting_section()
 	{
 	}
 
-	function add_customize_section()
+	function add_customize_setting_section()
 	{
 	}
 
