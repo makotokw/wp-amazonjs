@@ -53,12 +53,12 @@
   clear: none;
 }
 .amazonjs_item .amazonjs_info ul {
-  list-style: none;
+  list-style: none !important;
   margin: 0;
   padding: 0;
 }
 .amazonjs_item .amazonjs_info ul li {
-  list-style: none;
+  list-style: none !important;
   line-height: 1.5em;
   font-size: 1em;
   margin: 0;

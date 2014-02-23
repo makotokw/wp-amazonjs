@@ -364,7 +364,6 @@
 			$.amazonjs.render(amazonjsVars.items);
 		}
 
-
 		$(document).ready(function(){
 			if (amazonjsVars.isFadeInEnabled) {
 				setTimeout(function () { render(); }, 1000);
