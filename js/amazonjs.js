@@ -252,14 +252,20 @@
 						}
 					}
 				}
-				function fadeIn() {
-					if ($items.length > 0) {
-						var $item = $items.shift();
-						$item.fadeIn();
-						setTimeout(fadeIn, 100);
+				if (amazonjsVars.isFadeInEnabled) {
+					function fadeIn() {
+						if ($items.length > 0) {
+							var $item = $items.shift();
+							$item.fadeIn();
+							setTimeout(fadeIn, 100);
+						}
 					}
+					fadeIn();
+				} else {
+					$.each($items, function() {
+						this.show();
+					});
 				}
-				fadeIn();
 			},
 
 			formatTmplName:function (key) {
@@ -357,7 +363,15 @@
 			$.amazonjs.template(amazonjsVars.regionTempalte);
 			$.amazonjs.render(amazonjsVars.items);
 		}
-		setTimeout(function () { render(); }, 1000);
+
+
+		$(document).ready(function(){
+			if (amazonjsVars.isFadeInEnabled) {
+				setTimeout(function () { render(); }, 1000);
+			} else {
+				render();
+			}
+		});
 	}
 
 })(jQuery);

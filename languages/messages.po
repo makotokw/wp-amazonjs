@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: amazonjs 1.0\n"
 "Report-Msgid-Bugs-To: makoto.kw@gmail.com\n"
-"POT-Creation-Date: 2013-10-03 21:39+0900\n"
+"POT-Creation-Date: 2014-02-23 05:58+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -283,31 +283,31 @@ msgstr ""
 msgid "España"
 msgstr ""
 
-#: amazonjs.php:214
+#: amazonjs.php:229
 msgid "Author"
 msgstr ""
 
-#: amazonjs.php:215
+#: amazonjs.php:230
 msgid "PublicationDate"
 msgstr ""
 
-#: amazonjs.php:216
+#: amazonjs.php:231
 msgid "Publisher"
 msgstr ""
 
-#: amazonjs.php:217
+#: amazonjs.php:232
 msgid "${NumberOfPages} pages"
 msgstr ""
 
-#: amazonjs.php:218
+#: amazonjs.php:233
 msgid "List Price"
 msgstr ""
 
-#: amazonjs.php:219
+#: amazonjs.php:234
 msgid "Price"
 msgstr ""
 
-#: amazonjs.php:220
+#: amazonjs.php:235
 msgid ""
 "Product prices and availability are accurate as of the date/time indicated "
 "and are subject to change. Any price and availability information displayed "
@@ -315,97 +315,101 @@ msgid ""
 "apply to the purchase of this product."
 msgstr ""
 
-#: amazonjs.php:221
+#: amazonjs.php:236
 msgid "Publication Date"
 msgstr ""
 
-#: amazonjs.php:222
+#: amazonjs.php:237
 msgid "Release Date"
 msgstr ""
 
-#: amazonjs.php:223
+#: amazonjs.php:238
 msgid "SalesRank"
 msgstr ""
 
-#: amazonjs.php:224
+#: amazonjs.php:239
 msgid "#${SalesRank}"
 msgstr ""
 
-#: amazonjs.php:225
+#: amazonjs.php:240
 msgid "Run Time"
 msgstr ""
 
-#: amazonjs.php:226
+#: amazonjs.php:241
 msgid "${RunningTime} minutes"
 msgstr ""
 
-#: amazonjs.php:227
+#: amazonjs.php:242
 msgid "${Title} Customer Review"
 msgstr ""
 
-#: amazonjs.php:228
+#: amazonjs.php:243
 msgid "See Customer Reviews"
 msgstr ""
 
-#: amazonjs.php:229
+#: amazonjs.php:244
 msgid "(at ${UpdatedDate})"
 msgstr ""
 
-#: amazonjs.php:248
+#: amazonjs.php:264
 msgid "Product Advertising API settings"
 msgstr ""
 
-#: amazonjs.php:251
+#: amazonjs.php:267
 msgid "Amazon Associates settings"
 msgstr ""
 
-#: amazonjs.php:254
+#: amazonjs.php:270
 msgid "Appearance settings"
 msgstr ""
 
-#: amazonjs.php:257
+#: amazonjs.php:273
 msgid "Customize"
 msgstr ""
 
-#: amazonjs.php:264
+#: amazonjs.php:280
 msgid "Access Key ID"
 msgstr ""
 
-#: amazonjs.php:270
+#: amazonjs.php:286
 msgid "Secret Access Key"
 msgstr ""
 
-#: amazonjs.php:276
+#: amazonjs.php:292
 msgid "Display customer review"
 msgstr ""
 
-#: amazonjs.php:279
+#: amazonjs.php:295
 msgid "AmazonJS will display customer review by using WordPress's Thickbox."
 msgstr ""
 
-#: amazonjs.php:282
+#: amazonjs.php:298
 msgid "Display official widget when disabled javascript in web browser"
 msgstr ""
 
-#: amazonjs.php:285
+#: amazonjs.php:301
 msgid "If set to true, AmazonJS will output html by document.write."
 msgstr ""
 
-#: amazonjs.php:288
+#: amazonjs.php:304
+msgid "Use fadeIn animation"
+msgstr ""
+
+#: amazonjs.php:309
 msgid "Use Custom Css"
 msgstr ""
 
-#: amazonjs.php:294
+#: amazonjs.php:315
 msgid "Use Custom Javascript"
 msgstr ""
 
-#: amazonjs.php:470
+#: amazonjs.php:510
 msgid ""
 "This plugin uses the Amazon Product Advertising API in order to get product "
 "infomation. Thus, you must use your Access Key ID &amp; Secret Access Key."
 msgstr ""
 
-#: amazonjs.php:471
+#: amazonjs.php:511
 msgid ""
 "You can sign up the Amazon Product Advertising API from <a href=\"https://"
 "affiliate-program.amazon.com/gp/advertising/api/detail/main.html\" target="
@@ -414,150 +418,146 @@ msgid ""
 "\">Product Advertising API License Agreement</a> for details."
 msgstr ""
 
-#: amazonjs.php:478
+#: amazonjs.php:518
 msgid ""
 "Amazon has an affiliate program called Amazon Associates. To apply for the "
 "Associates Program, visit the <a href=\"https://affiliate-program.amazon.com/"
 "\" target=\"_blank\">Amazon Associates website</a> for details."
 msgstr ""
 
-#: amazonjs.php:479
+#: amazonjs.php:519
 msgid ""
 "Associate Tag has been a <strong>required and verified</strong> input "
 "parameter in all requests to the Amazon Product Advertising API since "
 "11/1/2011."
 msgstr ""
 
-#: amazonjs.php:580
+#: amazonjs.php:616
 msgid "Add Amazon Link"
 msgstr ""
 
-#: amazonjs.php:605
+#: amazonjs.php:654
 msgid "Keyword Search"
 msgstr ""
 
-#: amazonjs.php:606
+#: amazonjs.php:655
 msgid "Search by ASIN/URL"
 msgstr ""
 
-#: amazonjs.php:616
+#: amazonjs.php:665
 #, php-format
 msgid ""
 "Error! \"simplexml_load_string\" function is not found. %s requires PHP 5 "
 "and SimpleXML extension."
 msgstr ""
 
-#: amazonjs.php:621 media-upload-type-amazonjs.php:27
+#: amazonjs.php:670 media-upload-type-amazonjs.php:25
 #, php-format
 msgid "Warning! Cache Directory \"%s\" is not writable"
 msgstr ""
 
-#: amazonjs.php:655
+#: amazonjs.php:738
 msgid "Invalid Request Parameters"
 msgstr ""
 
-#: amazonjs.php:682
+#: amazonjs.php:767
 #, php-format
 msgid "Network Error: %s"
 msgstr ""
 
-#: amazonjs.php:688
+#: amazonjs.php:773
 #, php-format
 msgid "Empty Response from %s"
 msgstr ""
 
-#: amazonjs.php:745
+#: amazonjs.php:830
 msgid "Cannot Parse Response from Amazon API"
 msgstr ""
 
-#: amazonjs.php:749
+#: amazonjs.php:834
 msgid "Invalid Response"
 msgstr ""
 
-#: media-upload-type-amazonjs.php:22
+#: media-upload-type-amazonjs.php:20
 #, php-format
 msgid ""
 "The Access Key ID or Secret Access Key is empty. Please specify it in <a "
 "href=\"%s\" target=\"_blank\">settings</a>."
 msgstr ""
 
-#: media-upload-type-amazonjs.php:38
+#: media-upload-type-amazonjs.php:36
 msgid "Input Keyword"
 msgstr ""
 
-#: media-upload-type-amazonjs.php:43
+#: media-upload-type-amazonjs.php:41
 msgid "Input ASIN or URL"
 msgstr ""
 
-#: media-upload-type-amazonjs.php:45
+#: media-upload-type-amazonjs.php:43
 msgid "Search"
 msgstr ""
 
-#: media-upload-type-amazonjs.php:54
+#: media-upload-type-amazonjs.php:52
 msgid "Select template"
 msgstr ""
 
-#: media-upload-type-amazonjs.php:57
+#: media-upload-type-amazonjs.php:55
 msgid "Simple Html"
 msgstr ""
 
-#: media-upload-type-amazonjs.php:59
+#: media-upload-type-amazonjs.php:57
 msgid "Title"
 msgstr ""
 
-#: media-upload-type-amazonjs.php:61
+#: media-upload-type-amazonjs.php:59
 msgid "Small Image"
 msgstr ""
 
-#: media-upload-type-amazonjs.php:63
+#: media-upload-type-amazonjs.php:61
 msgid "Medium Image"
 msgstr ""
 
-#: media-upload-type-amazonjs.php:65
+#: media-upload-type-amazonjs.php:63
 msgid "Large Image"
 msgstr ""
 
-#: media-upload-type-amazonjs.php:68
+#: media-upload-type-amazonjs.php:66
 msgid "Dynamic Template"
 msgstr ""
 
-#: media-upload-type-amazonjs.php:70
+#: media-upload-type-amazonjs.php:68
 msgid "Default"
 msgstr ""
 
-#: media-upload-type-amazonjs.php:72
+#: media-upload-type-amazonjs.php:70
 msgid "Small"
 msgstr ""
 
-#: media-upload-type-amazonjs.php:75
+#: media-upload-type-amazonjs.php:73
 msgid "Preview"
 msgstr ""
 
-#: media-upload-type-amazonjs.php:79
+#: media-upload-type-amazonjs.php:77
 msgid "Cancel"
 msgstr ""
 
-#: media-upload-type-amazonjs.php:80
+#: media-upload-type-amazonjs.php:78
 msgid "Insert"
 msgstr ""
 
-#: media-upload-type-amazonjs.php:86
-msgid "amazonjs-message.js"
-msgstr ""
-
-#: media-upload-type-amazonjs.php:136
+#: media-upload-type-amazonjs.php:128
 msgid ""
 "<h3 class=\"searchindex\"><a href=\"#\" rel=\"${IndexName}\">${Label}</a> "
 "(${Results} hits)</h3>"
 msgstr ""
 
-#: media-upload-type-amazonjs.php:137
+#: media-upload-type-amazonjs.php:129
 msgid ""
 "<div class=\"searchpager\">{{if prev}}<button class=\"button prev\">Prev</"
 "button>{{/if}}${startIndex} - ${endIndex} / ${totalResults}{{if next}}"
 "<button class=\"button next\">Next</button>{{/if}}</div>"
 msgstr ""
 
-#: media-upload-type-amazonjs.php:153
+#: media-upload-type-amazonjs.php:145
 msgid "Select"
 msgstr ""
