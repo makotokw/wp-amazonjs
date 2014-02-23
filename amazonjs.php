@@ -357,12 +357,13 @@ class Amazonjs extends Amazonjs_Wordpress_Plugin_Abstract
 		 * @var string $locale
 		 * @var string $title
 		 */
-		$defaults = array('asin' => '', 'tmpl' => '', 'locale' => $this->default_country_code(), 'title' => '');
+		$defaults = array('asin' => '', 'tmpl' => '', 'locale' => $this->default_country_code(), 'title' => '', 'imgsize' => '');
 		extract(shortcode_atts($defaults, $atts));
 		if (empty($asin)) {
 			return '';
 		}
 		$locale = strtoupper($locale);
+		$imgsize = strtolower($imgsize);
 		if (is_feed()) {
 			// use static html for rss reader
 			if ($ai = $this->get_item($locale, $asin)) {
@@ -390,7 +391,7 @@ EOF;
 			$url = $item['DetailPageURL'];
 		}
 		$indicator_html = <<<EOF
-<a href="{$url}" class="asin_{$asin}_{$locale}_${tmpl} amazonjs_item" rel="amazonjs"><span class="amazonjs_indicator">{$title}</span></a>
+<div data-role="amazonjs" data-asin="{$asin}" data-locale="{$locale}" data-tmpl="${tmpl}" data-img-size="${imgsize}" class="asin_{$asin}_{$locale}_${tmpl} amazonjs_item"><div class="amazonjs_indicator"><span class="amazonjs_indicator_img"></span><a class="amazonjs_indicator_title" href="{$url}">{$title}</a><span class="amazonjs_indicator_footer"></span></div></div>
 EOF;
 
 		$indicator_html = trim($indicator_html);

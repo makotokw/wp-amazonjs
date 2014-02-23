@@ -12,6 +12,7 @@
 				var smallImageTemplate =
 					[
 						'{{if SmallImage}}',
+						'{{if $item.setInfoMargin(SmallImage.width+10)}}{{/if}}',
 						'<div class="amazonjs_image">',
 						'<a href="${DetailPageURL}" title="${Title}" target="_blank">',
 						'<img src="${SmallImage.src}" width="${SmallImage.width}" height="${SmallImage.height}" style="max-width:${SmallImage.width}px" alt="${Title}"/>',
@@ -22,6 +23,7 @@
 				var mediumImageTemplate =
 					[
 						'{{if MediumImage}}',
+						'{{if $item.setInfoMargin(MediumImage.width+10)}}{{/if}}',
 						'<div class="amazonjs_image">',
 						'<a href="${DetailPageURL}" title="${Title}" target="_blank">',
 						'<img src="${MediumImage.src}" width="${MediumImage.width}" height="${MediumImage.height}" style="max-width:${MediumImage.width}px" alt="${Title}"/>',
@@ -32,6 +34,7 @@
 				var largeImageTemplate =
 					[
 						'{{if LargeImage}}',
+						'{{if $item.setInfoMargin(LargeImage.width+10)}}{{/if}}',
 						'<div class="amazonjs_image">',
 						'<a href="${DetailPageURL}" title="${Title}" target="_blank">',
 						'<img src="${LargeImage.src}" width="${LargeImage.width}" height="${LargeImage.height}" style="max-width:${LargeImage.width}px" alt="${Title}"/>',
@@ -39,6 +42,13 @@
 						'</div>',
 						'{{/if}}'
 					].join('');
+				var imageTemplate =
+					[
+						'{{if _ShowSmallImage}}',smallImageTemplate,'{{/if}}',
+						'{{if _ShowMediumImage}}',mediumImageTemplate,'{{/if}}',
+						'{{if _ShowLargeImage}}',largeImageTemplate,'{{/if}}'
+					].join('');
+
 				var priceContentTemplate =
 					[
 						'{{if $item.isSale()}}',
@@ -67,8 +77,9 @@
 				var defaultTemplates = {
 					Small:[
 						'<div class="amazonjs_item">',
-						smallImageTemplate,
-						'<div class="amazonjs_info" style="{{if SmallImage}}margin-left:${SmallImage.width}px;{{/if}}">',
+						imageTemplate,
+						'{{if _ShowDefaultImage}}',smallImageTemplate,'{{/if}}',
+						'<div class="amazonjs_info" style="{{if _InfoMarginLeft}}margin-left:${_InfoMarginLeft}px;{{/if}}">',
 						'<h4><a href="${DetailPageURL}" title="${Title}" target="_blank">${Title}</a></h4>',
 						'<ul>',
 						'{{if Creator}}<li>${Creator}</li>{{/if}}',
@@ -84,8 +95,9 @@
 					],
 					Music:[
 						'<div class="amazonjs_item amazonjs_music">',
-						mediumImageTemplate,
-						'<div class="amazonjs_info" style="{{if MediumImage}}margin-left:${MediumImage.width}px;{{/if}}">',
+						imageTemplate,
+						'{{if _ShowDefaultImage}}',mediumImageTemplate,'{{/if}}',
+						'<div class="amazonjs_info" style="{{if _InfoMarginLeft}}margin-left:${_InfoMarginLeft}px;{{/if}}">',
 						'<h4><a href="${DetailPageURL}" title="${Title}" target="_blank">${Title}</a></h4>',
 						'<ul>',
 						'{{if Artist}}<li>${Artist}</li>{{/if}}',
@@ -103,8 +115,9 @@
 					],
 					DVD:[
 						'<div class="amazonjs_item amazonjs_dvd">',
-						mediumImageTemplate,
-						'<div class="amazonjs_info" style="{{if MediumImage}}margin-left:${MediumImage.width}px;{{/if}}">',
+						imageTemplate,
+						'{{if _ShowDefaultImage}}',mediumImageTemplate,'{{/if}}',
+						'<div class="amazonjs_info" style="{{if _InfoMarginLeft}}margin-left:${_InfoMarginLeft}px;{{/if}}">',
 						'<h4><a href="${DetailPageURL}" title="${Title}" target="_blank">${Title}</a></h4>',
 						'<ul>',
 						'{{if Director}}<li>${Director}</li>{{/if}}',
@@ -122,8 +135,9 @@
 					],
 					Book:[
 						'<div class="amazonjs_item amazonjs_book">',
-						mediumImageTemplate,
-						'<div class="amazonjs_info" style="{{if MediumImage}}margin-left:${MediumImage.width}px;{{/if}}">',
+						imageTemplate,
+						'{{if _ShowDefaultImage}}',mediumImageTemplate,'{{/if}}',
+						'<div class="amazonjs_info" style="{{if _InfoMarginLeft}}margin-left:${_InfoMarginLeft}px;{{/if}}">',
 						'<h4><a href="${DetailPageURL}" title="${Title}" target="_blank">${Title}</a></h4>',
 						'<ul>',
 						'<li><b>' + r.BookAuthor + '</b>${Author}</li>',
@@ -142,8 +156,9 @@
 					],
 					eBooks:[
 						'<div class="amazonjs_item amazonjs_book">',
-						mediumImageTemplate,
-						'<div class="amazonjs_info" style="{{if MediumImage}}margin-left:${MediumImage.width}px;{{/if}}">',
+						imageTemplate,
+						'{{if _ShowDefaultImage}}',mediumImageTemplate,'{{/if}}',
+						'<div class="amazonjs_info" style="{{if _InfoMarginLeft}}margin-left:${_InfoMarginLeft}px;{{/if}}">',
 						'<h4><a href="${DetailPageURL}" title="${Title}" target="_blank">${Title}</a></h4>',
 						'<ul>',
 						'<li><b>' + r.BookAuthor + '</b>${Author}</li>',
@@ -182,21 +197,23 @@
 			render:function (items) {
 				var $items = [];
 				this.initTemplate();
-				$("a[rel='amazonjs']").each(function () {
+				$(".amazonjs_item").each(function () {
 					var classNames = $(this).attr('class').split(' '),
 						c = classNames[0].split('_'),
 						asin = c[1],
 						countryCode = c[2],
 						tmpl = (c.length > 3) ? c[3] : null,
-						item = find(asin, countryCode);
+						item = find(asin, countryCode),
+						imgSize = $(this).attr('data-img-size')
+					;
 
 					if (item) {
+						item._ImageSize = imgSize || '';
 						var $item = $.amazonjs.tmpl(item, $.amazonjs.formatTmplName(tmpl));
 						$(this).replaceWith($item.hide());
 						var $review = $item.find('.amazonjs_review');
-						if (!isIE6) {
-							$item.css('position', 'relative');
-						} else {
+						if (isIE6) {
+							$item.css('position', 'static');
 							$review.css({
 								'float':'right',
 								'position':'static',
@@ -227,13 +244,14 @@
 						$(this).replaceWith($item);
 					}
 				});
-				fadeIn();
+
 				function find(asin, countryCode) {
 					for (var i = 0, length = items.length; i < length; i++) {
-						if (items[i].ASIN == asin && items[i].CountryCode == countryCode) return items[i];
+						if (items[i].ASIN == asin && items[i].CountryCode == countryCode) {
+							return items[i];
+						}
 					}
 				}
-
 				function fadeIn() {
 					if ($items.length > 0) {
 						var $item = $items.shift();
@@ -241,7 +259,9 @@
 						setTimeout(fadeIn, 100);
 					}
 				}
+				fadeIn();
 			},
+
 			formatTmplName:function (key) {
 				return (key) ? 'amazonjs' + key + 'Tpl' : null;
 			},
@@ -278,6 +298,10 @@
 				return defaultTmpl;
 			},
 			prepareData:function (item) {
+				if (item._ImageSize == 'small') item._ShowSmallImage = true;
+				else if (item._ImageSize == 'medium') item._ShowMediumImage = true;
+				else if (item._ImageSize == 'large') item._ShowLargeImage = true;
+				else item._ShowDefaultImage = true;
 				item.PublicationDate = item.PublicationDate || item.ReleaseDate;
 				item.Manufacturer = item.Manufacturer || item.Label;
 				if (item.SalesRank) item.SalesRank = this.formatNumber(item.SalesRank);
@@ -301,20 +325,25 @@
 				if (!item.ListPrice && item.OfferSummary) {
 					item.ListPrice = item.OfferSummary.LowestNewPrice;
 				}
-				return $.tmpl($.template[tmpl] || this.getTemplate(item), item, {isSale:function () {
-					if (this.data) {
-						var lp = this.data.ListPrice, la = Number(lp.Amount),
-							os = this.data.OfferSummary || {}, sp = os.LowestNewPrice || {}, sa = Number(sp.Amount);
-						return (!isNaN(sa) && sa < la);
+				return $.tmpl($.template[tmpl] || this.getTemplate(item), item, {
+					isSale:function () {
+						if (this.data) {
+							var lp = this.data.ListPrice, la = Number(lp.Amount),
+								os = this.data.OfferSummary || {}, sp = os.LowestNewPrice || {}, sa = Number(sp.Amount);
+							return (!isNaN(sa) && sa < la);
+						}
+						return false;
+					},
+					setInfoMargin: function(margin) {
+						return this.data._InfoMarginLeft = margin;
 					}
-					return false;
-				}});
+				});
 			}
 		}
 	});
 
 	if (amazonjsVars) {
-		setTimeout(function () {
+		function render() {
 			if (amazonjsVars.isCustomerReviewEnabled) {
 				if (typeof tb_pathToImage === 'undefined') {
 					tb_pathToImage = amazonjsVars.thickboxUrl + '/loadingAnimation.gif';
@@ -327,7 +356,8 @@
 			$.amazonjs.resource = amazonjsVars.resource;
 			$.amazonjs.template(amazonjsVars.regionTempalte);
 			$.amazonjs.render(amazonjsVars.items);
-		}, 1000);
+		}
+		setTimeout(function () { render(); }, 1000);
 	}
 
 })(jQuery);
