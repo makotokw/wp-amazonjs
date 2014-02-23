@@ -1,11 +1,18 @@
 .amazonjs_item {
   font-size: 14px;
   margin: .5em 0 1em 0;
-  padding: 20px;
+  padding: 25px 10px 25px 10px;
   border: 1px solid #dddddd;
+  position: relative;
   display: block;
   background: white url(../images/amazonjs.png) no-repeat right bottom;
   color: #333333;
+}
+.amazonjs_item a {
+  color: #e47911;
+}
+.amazonjs_item a:hover {
+  color: #996633;
 }
 .amazonjs_item * {
   margin: 0;
@@ -13,20 +20,31 @@
   border: 0;
 }
 .amazonjs_item .amazonjs_indicator {
+  margin: 0 10px;
+  clear: both;
+}
+.amazonjs_item .amazonjs_indicator .amazonjs_indicator_img {
+  float: left;
   display: block;
-  height: 60px;
-  background: transparent url(../images/ajax-loader.gif) no-repeat center 5px;
-  margin: 0 auto;
-  text-align: center;
-  line-height: 100px;
+  width: 32px;
+  height: 32px;
+  background: transparent url(../images/ajax-loader.gif) no-repeat center;
+}
+.amazonjs_item .amazonjs_indicator .amazonjs_indicator_title {
+  display: block;
+  line-height: 32px;
+  margin-left: 42px;
+}
+.amazonjs_item .amazonjs_indicator .amazonjs_indicator_footer {
+  clear: both;
 }
 .amazonjs_item .amazonjs_image {
   display: block;
   float: left;
+  margin-right: 10px;
 }
 .amazonjs_item .amazonjs_info {
   display: block;
-  padding-left: 1em;
 }
 .amazonjs_item .amazonjs_info h4 {
   margin: 0 0 5px;
@@ -42,6 +60,7 @@
 .amazonjs_item .amazonjs_info ul li {
   list-style: none;
   line-height: 1.5em;
+  font-size: 1em;
   margin: 0;
   padding: 0;
 }
@@ -62,7 +81,7 @@
 }
 .amazonjs_item .amazonjs_review {
   padding: 0;
-  font-size: .7em;
+  font-size: 0.7em;
   position: absolute;
   right: 34px;
   bottom: 4px;
@@ -82,4 +101,25 @@
 .amazonjs_book .amazonjs_info ul li,
 .amazonjs_music .amazonjs_info ul li {
   line-height: 1.6em;
+}
+
+@media (max-width: 720px) {
+  .amazonjs_item .amazonjs_info {
+    margin-bottom: 10px;
+  }
+}
+@media (max-width: 480px) {
+  .amazonjs_item img {
+    width: 60px;
+    max-width: 60px;
+  }
+  .amazonjs_item .amazonjs_info {
+    margin-left: 70px !important;
+  }
+  .amazonjs_item .amazonjs_info h4 a {
+    font-size: 0.9em;
+  }
+  .amazonjs_item .amazonjs_info ul li {
+    font-size: 0.9em;
+  }
 }

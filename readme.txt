@@ -40,6 +40,7 @@ AmazonJS supports the `amazonjs' shortcode.
 * *locale*: (required) `US`, `UK`, `DE`, `FR`, `JP`, `CA`, `CN`, `IT` or `ES`
 * *tmpl*: (optional) `Small`. if tmpl is empty, apply a template via Product Group of Amazon Product Advertising API.
 * *title*: (optional) It will be used for loading message.
+* *imgsize*: (optional) Thumbnail imge size. `small`, `medium` or `large`.
 
 = Display by javascript =
 
@@ -85,6 +86,12 @@ In first, AmazonJS converts <a/> tag from `amazonjs` short code in server side. 
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 0.6 =
+
+* Fixed to display same ASIN for some countries
+* Supported `imgsize` attr of shotcode,
+* Fixed style for smartphone and dark theme
 
 = 0.5 =
 
