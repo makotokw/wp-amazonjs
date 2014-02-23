@@ -40,7 +40,7 @@
 	</fieldset>
 	<input type="text" id="search_query" name="ID" placeholder="<?php _e('Input ASIN or URL', $textdomain) ?>"/>
 <?php endif ?>
-	<input type="submit" value="<?php _e('Search', $textdomain) ?>" class="button"/>
+	<input type="submit" value="<?php _e('Search', $textdomain) ?>" class="button button-large"/>
 </form>
 <div id="search_results">
 	<div id="pager"></div>
@@ -50,7 +50,7 @@
 <div id="overlay"></div>
 <form id="template_form" onsubmit="return false" style="display: none;">
 	<h2><?php _e('Select template', $textdomain) ?></h2>
-	<div id="select_template">
+	<div id="select_template" class="select_template">
 		<fieldset>
 			<legend><?php _e('Simple Html', $textdomain) ?></legend>
 			<input type="radio" id="template_link" name="template" value="link" class="html"/>
@@ -73,9 +73,9 @@
 	<h2><?php _e('Preview', $textdomain) ?></h2>
 	<div id="preview"></div>
 	<textarea id="preview_code"></textarea>
-	<div id="buttons">
+	<div id="buttons" class="buttons">
 		<input id="cancel" type="button" value="<?php _e('Cancel', $textdomain) ?>" class="button"/>
-		<input id="insert" type="submit" value="<?php _e('Insert', $textdomain) ?>" class="button"/>
+		<input id="insert" type="submit" value="<?php _e('Insert', $textdomain) ?>" class="button button-primary"/>
 	</div>
 </form>
 <script type="text/javascript">
@@ -294,7 +294,7 @@
 			});
 		}
 
-		var $cotainer = $('#media_amazon'),
+		var $container = $('#media_amazon'),
 			$preview = $('#preview'),
 			$previewCode = $('#preview_code'),
 			$imageTemplateSelect = $('#select_template input.has_image'),
@@ -311,7 +311,7 @@
 					var val = $(this).val();
 					var tplName = 'shortCodeAmazonItem';
 					selectedItem.EscapeTitle = selectedItem.Title.replace(/\[|\]/g,'');
-					selectedItem.Tmpl = (val=='shortCode') ? null : val.replace('shortCode','');
+					selectedItem.Tmpl = (val == 'shortCode') ? null : val.replace('shortCode','');
 					var $shortCode = $.tmpl(tplName, selectedItem);
 					var $item = $.amazonjs.tmpl(selectedItem, $.amazonjs.formatTmplName(selectedItem.Tmpl));
 					$preview.empty().append($item);
@@ -365,7 +365,7 @@
 			} else {
 				$imageTemplateSelectLabel.addClass('disabled');
 			}
-			$overlay.height($cotainer.height()+40).show();
+			$overlay.height($container.height()+40).show();
 			$preview.empty();
 			$previewCode.val('');
 			$templateSelect.attr('checked',null);
