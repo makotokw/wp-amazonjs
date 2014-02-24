@@ -2,7 +2,7 @@
 Contributors: makoto_kw
 Tags: Amazon, books, post, media, affiliate, japanese
 Requires at least: 2.8
-Tested up to: 3.8
+Tested up to: 3.8.1
 Stable tag: trunk
 License: GPLv2 or later
 
@@ -89,8 +89,9 @@ In first, AmazonJS converts <a/> tag from `amazonjs` short code in server side. 
 
 = 0.6 =
 
-* Fixed to display same ASIN for some countries
+* Added option to allow animation
 * Supported `imgsize` attr of shotcode,
+* Fixed to display same ASIN for some countries
 * Fixed style for smartphone and dark theme
 
 = 0.5 =
