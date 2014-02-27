@@ -304,6 +304,7 @@
 				return defaultTmpl;
 			},
 			prepareData:function (item) {
+				item._ShowDefaultImage = _ShowSmallImage = item._ShowMediumImage = item._ShowLargeImage = false;
 				if (item._ImageSize == 'small') item._ShowSmallImage = true;
 				else if (item._ImageSize == 'medium') item._ShowMediumImage = true;
 				else if (item._ImageSize == 'large') item._ShowLargeImage = true;
