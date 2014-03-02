@@ -87,6 +87,11 @@ In first, AmazonJS converts <a/> tag from `amazonjs` short code in server side. 
 
 == Changelog ==
 
+= 0.6.1 =
+
+* Fixed to overwrite !important style of theme
+* Fixed `imgsize`
+
 = 0.6 =
 
 * Added option to allow animation
