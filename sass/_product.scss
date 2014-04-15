@@ -1,0 +1,157 @@
+.amazonjs_item {
+  font-size: 14px;
+  margin: .5em 0 1em 0;
+  padding: 25px 10px 25px 10px;
+  border: 1px solid $border-color;
+  position: relative;;
+  display: block;
+  background: $background-color url(../images/amazonjs.png) no-repeat right bottom;
+  color: $font-color;
+
+  a {
+    color: $amazon-orange;
+    text-decoration: none;
+    &:hover {
+      color: $link-over-color;
+    }
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .amazonjs_indicator {
+    margin: 0 10px;
+    clear: both;
+    .amazonjs_indicator_img {
+      float: left;
+      display: block;
+      width: 32px;
+      height: 32px;
+      background: transparent url(../images/ajax-loader.gif) no-repeat center;
+    }
+
+    .amazonjs_indicator_title {
+      display: block;
+      line-height: 32px;
+      margin-left: 42px;
+    }
+
+    .amazonjs_indicator_footer {
+      clear: both;
+    }
+  }
+
+  .amazonjs_image {
+    display: block;
+    float: left;
+    margin-right: 10px;
+  }
+
+  .amazonjs_info {
+    display: block;
+
+    // title
+    h4 {
+      margin: 0 0 5px#{$important};
+      padding: 0#{$important};
+      font-size: 1.2em#{$important};
+      font-weight: bold#{$important};
+      clear: none#{$important};
+      border: none#{$important};
+    }
+
+    ul {
+      list-style: none#{$important};
+      margin: 0#{$important};
+      padding: 0#{$important};
+
+      li {
+        list-style: none#{$important};
+        line-height: 1.5em#{$important};
+        font-size: 1em#{$important};
+        margin: 0#{$important};
+        padding: 0#{$important};
+
+        // header
+        b {
+          margin-right: .5em;
+          color: $header-color;
+          font-weight: normal;
+        }
+      }
+    }
+
+    .amazonjs_price {
+      color: $price-color;
+      span {
+        color: $disable-color;
+        margin-left: .5em;
+      }
+    }
+
+    .amazonjs_listprice {
+      text-decoration: line-through;
+    }
+  }
+
+  .amazonjs_review {
+    padding: 0;
+    font-size: 0.7em;
+    position: absolute;
+    right: 34px;
+    bottom: 4px;
+
+    #preview & {
+      display: none;
+    }
+  }
+
+  .amazonjs_footer {
+    clear: both;
+  }
+}
+
+.amazonjs_book .amazonjs_info ul,
+.amazonjs_music .amazonjs_info ul {
+  margin-top: 0.5em;
+}
+
+.amazonjs_book .amazonjs_info ul li,
+.amazonjs_music .amazonjs_info ul li {
+  line-height: 1.6em;
+}
+
+@media (max-width: 720px) {
+  .amazonjs_item {
+    .amazonjs_info {
+      margin-bottom: 10px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .amazonjs_item {
+    img {
+      width: 60px;
+      max-width: 60px;
+    }
+    .amazonjs_info {
+      margin-left: 70px !important;
+
+      h4 {
+        a {
+          font-size: 0.9em;
+        }
+      }
+
+      ul {
+        li {
+          font-size: 0.9em;
+        }
+      }
+    }
+  }
+}
