@@ -15,7 +15,7 @@ class Amazonjs_Wordpress_Plugin_Abstract
 	var $deafult_settings;
 	var $settings;
 	var $textdomain;
-	
+
 	function __construct($path) {
 		$this->basename = plugin_basename($path);
 		$filePaths = explode(DIRECTORY_SEPARATOR, $path);
@@ -27,7 +27,7 @@ class Amazonjs_Wordpress_Plugin_Abstract
 		$this->textdomain = str_replace('.php', '', $this->filename);
 		load_plugin_textdomain($this->textdomain, false, $this->slug.'/languages');
 	}
-	
+
 	function wp_url() {
 		return (function_exists('site_url')) ? site_url() : get_bloginfo('wpurl');
 	}
@@ -50,11 +50,11 @@ class Amazonjs_Wordpress_Plugin_Abstract
 			}
 		}
 	}
-	
+
 	function admin_menu() {
 		$this->add_options_page($this->title,$this->title);
 	}
-	
+
 	function admin_init() {
 		$page = $this->slug;
 		register_setting($this->option_name, $this->option_name, array($this,'validate_settings'));
@@ -62,11 +62,11 @@ class Amazonjs_Wordpress_Plugin_Abstract
 			foreach ($this->setting_sections as $key => $section) {
 				add_settings_section($page.'_'.$key, $section['label'], array($this, $section['add']), $page);
 			}
-		}		
+		}
 		foreach ($this->setting_fileds as $key => $field) {
 			$label = ($field['type']=='checkbox') ? '' : $field['label'];
 			add_settings_field(
-				$this->option_name.'_'.$key, 
+				$this->option_name.'_'.$key,
 				$label,
 				array($this,'add_settings_field_'.$key),
 				$page,
@@ -75,7 +75,7 @@ class Amazonjs_Wordpress_Plugin_Abstract
 				);
 		}
 	}
-	
+
 	function plugin_action_links($links, $file){
 		if ($file == $this->basename) {
 			$link = sprintf( '<a href="options-general.php?page=%s">%s</a>', $this->basename, __('Settings') );
@@ -83,7 +83,7 @@ class Amazonjs_Wordpress_Plugin_Abstract
 		}
 		return $links;
 	}
-	
+
 	function plugin_row_meta($links, $file) {
 		if ($file == $this->basename) {
 			array_unshift(
@@ -93,19 +93,19 @@ class Amazonjs_Wordpress_Plugin_Abstract
 		}
 		return $links;
 	}
-	
+
 	function add_options_page($page_title, $menu_title) {
 		if (function_exists('add_options_page')) {
 			add_options_page(
-				__($this->title,$this->textdomain), 
 				__($this->title,$this->textdomain),
-				'manage_options', 
-				$this->basename, 
+				__($this->title,$this->textdomain),
+				'manage_options',
+				$this->basename,
 				array($this,'options_page')
 			);
 		}
 	}
-	
+
 	function init_settings() {
 		$this->default_settings = array();
 		if (is_array($this->setting_fileds)) {
@@ -116,15 +116,15 @@ class Amazonjs_Wordpress_Plugin_Abstract
 		//delete_option($this->option_name);
 		$this->settings = wp_parse_args((array)get_option($this->option_name), $this->default_settings);
 	}
-	
+
 	function delete_settings() {
 		delete_option($this->option_name);
 	}
-	
+
 	function default_settings() {
-		
+
 	}
-	
+
 	function validate_settings($settings) {
 		foreach ($this->setting_fileds as $key => $field) {
 			if ($field['type']=='checkbox') {
@@ -133,9 +133,9 @@ class Amazonjs_Wordpress_Plugin_Abstract
 		}
 		return $settings;
 	}
-	
+
 	function add_no_section() {}
-	
+
 	function add_settings_field($key, $field) {
 		$id = $this->option_name.'_'.$key;
 		$name = $this->option_name."[{$key}]";
@@ -173,12 +173,12 @@ class Amazonjs_Wordpress_Plugin_Abstract
 			echo '<p class="description">' . $field['description'] . '</p>';
 		}
 	}
-	
+
 	static function placeholder($placeholder) {
 		if ($placeholder) return 'placeholder="'.$placeholder.'"';
 		return '';
 	}
-	
+
 	function options_page() {
 		$page = $this->slug;
 ?>
@@ -195,7 +195,7 @@ class Amazonjs_Wordpress_Plugin_Abstract
 </div>
 <?php
 	}
-	
+
 	function options_page_header() {
 	}
 	function options_page_footer() {

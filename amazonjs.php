@@ -4,7 +4,7 @@
  Plugin URI: http://wordpress.org/extend/plugins/amazonjs/
  Description: Easy to use interface to add an amazon product to your post and display it by using jQuery template.
  Author: makoto_kw
- Version: 0.6.1
+ Version: 0.7-beta
  Author URI: http://makotokw.com
  Requires at least: 2.8
  Tested up to: 3.8
@@ -26,7 +26,7 @@ require_once dirname(__FILE__) . '/lib/json.php';
 
 class Amazonjs extends Amazonjs_Wordpress_Plugin_Abstract
 {
-	const VERSION = '0.6.1';
+	const VERSION = '0.7-beta';
 	const AWS_VERSION = '2011-08-01';
 	const CACHE_LIFETIME = 86400;
 
@@ -244,6 +244,7 @@ class Amazonjs extends Amazonjs_Wordpress_Plugin_Abstract
 				'PriceUpdatedat' => __('(at ${UpdatedDate})', $this->textdomain),
 			),
 			'isCustomerReviewEnabled' => ($this->settings['displayCustomerReview']) ? true : false,
+			'isTrackEventEnabled' => ($this->settings['useTrackEvent']) ? true : false,
 			'isFadeInEnabled' => ($this->settings['useAnimation']) ? true : false,
 			'items' => array_values($items),
 
@@ -304,6 +305,12 @@ class Amazonjs extends Amazonjs_Wordpress_Plugin_Abstract
 				'label' => __('Use fadeIn animation', $this->textdomain),
 				'type' => 'checkbox',
 				'section' => 'appearance',
+			),
+			'useTrackEvent' => array(
+				'label' => __('Click Tracking by using Google Analytics', $this->textdomain),
+				'type' => 'checkbox',
+				'section' => 'appearance',
+				'description' => __('If set to true, AmazonJS calls <code>_gaq.push(["_trackEvent", "AmazonJS", "Click", "ASIN TITLE"])</code> or <code>ga("send", "event", "AmazonJS", "Click", "ASIN TITLE")</code>.', $this->textdomain),
 			),
 			'customCss' => array(
 				'label' => __('Use Custom Css', $this->textdomain),
@@ -605,6 +612,11 @@ EOF;
 	function add_settings_field_useAnimation()
 	{
 		$this->add_settings_field('useAnimation', $this->setting_fileds['useAnimation']);
+	}
+
+	function add_settings_field_useTrackEvent()
+	{
+		$this->add_settings_field('useTrackEvent', $this->setting_fileds['useTrackEvent']);
 	}
 
 	function media_buttons()

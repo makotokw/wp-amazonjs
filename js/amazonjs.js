@@ -5,16 +5,19 @@
 		isIE6 = isIE && ua.match(/msie 6\./i);
 	$.extend({
 		amazonjs:{
-			isCustomerReviewEnabled:false,
+			isCustomerReviewEnabled: false,
+			isTrackEventEnabled: false,
 			resource: {},
 			initTemplate:function () {
 				var r = this.resource;
+
+				var linkOpenTag = '<a href="${DetailPageURL}" class="amazonjs_link" data-role="amazonjs_product" data-asin="${ASIN}" title="${Title}" target="_blank">';
 				var smallImageTemplate =
 					[
 						'{{if SmallImage}}',
 						'{{if $item.setInfoMargin(SmallImage.width+10)}}{{/if}}',
 						'<div class="amazonjs_image">',
-						'<a href="${DetailPageURL}" title="${Title}" target="_blank">',
+						linkOpenTag,
 						'<img src="${SmallImage.src}" width="${SmallImage.width}" height="${SmallImage.height}" style="max-width:${SmallImage.width}px" alt="${Title}"/>',
 						'</a>',
 						'</div>',
@@ -25,7 +28,7 @@
 						'{{if MediumImage}}',
 						'{{if $item.setInfoMargin(MediumImage.width+10)}}{{/if}}',
 						'<div class="amazonjs_image">',
-						'<a href="${DetailPageURL}" title="${Title}" target="_blank">',
+						linkOpenTag,
 						'<img src="${MediumImage.src}" width="${MediumImage.width}" height="${MediumImage.height}" style="max-width:${MediumImage.width}px" alt="${Title}"/>',
 						'</a>',
 						'</div>',
@@ -36,7 +39,7 @@
 						'{{if LargeImage}}',
 						'{{if $item.setInfoMargin(LargeImage.width+10)}}{{/if}}',
 						'<div class="amazonjs_image">',
-						'<a href="${DetailPageURL}" title="${Title}" target="_blank">',
+						linkOpenTag,
 						'<img src="${LargeImage.src}" width="${LargeImage.width}" height="${LargeImage.height}" style="max-width:${LargeImage.width}px" alt="${Title}"/>',
 						'</a>',
 						'</div>',
@@ -48,6 +51,8 @@
 						'{{if _ShowMediumImage}}',mediumImageTemplate,'{{/if}}',
 						'{{if _ShowLargeImage}}',largeImageTemplate,'{{/if}}'
 					].join('');
+
+				var linkTemplate = linkOpenTag + '${Title}</a>';
 
 				var priceContentTemplate =
 					[
@@ -71,6 +76,7 @@
 					smallImage:smallImageTemplate,
 					mediumImage:mediumImageTemplate,
 					largeImage:largeImageTemplate,
+					link:linkTemplate,
 					price:priceTemplate
 				};
 
@@ -80,7 +86,7 @@
 						imageTemplate,
 						'{{if _ShowDefaultImage}}',smallImageTemplate,'{{/if}}',
 						'<div class="amazonjs_info" style="{{if _InfoMarginLeft}}margin-left:${_InfoMarginLeft}px;{{/if}}">',
-						'<h4><a href="${DetailPageURL}" title="${Title}" target="_blank">${Title}</a></h4>',
+						'<h4>',linkTemplate,'</h4>',
 						'<ul>',
 						'{{if Creator}}<li>${Creator}</li>{{/if}}',
 						'{{if Manufacturer}}<li>${Manufacturer}</li>{{/if}}',
@@ -98,7 +104,7 @@
 						imageTemplate,
 						'{{if _ShowDefaultImage}}',mediumImageTemplate,'{{/if}}',
 						'<div class="amazonjs_info" style="{{if _InfoMarginLeft}}margin-left:${_InfoMarginLeft}px;{{/if}}">',
-						'<h4><a href="${DetailPageURL}" title="${Title}" target="_blank">${Title}</a></h4>',
+						'<h4>',linkTemplate,'</h4>',
 						'<ul>',
 						'{{if Artist}}<li>${Artist}</li>{{/if}}',
 						'{{if Creator}}<li>${Creator}</li>{{/if}}',
@@ -118,7 +124,7 @@
 						imageTemplate,
 						'{{if _ShowDefaultImage}}',mediumImageTemplate,'{{/if}}',
 						'<div class="amazonjs_info" style="{{if _InfoMarginLeft}}margin-left:${_InfoMarginLeft}px;{{/if}}">',
-						'<h4><a href="${DetailPageURL}" title="${Title}" target="_blank">${Title}</a></h4>',
+						'<h4>',linkTemplate,'</h4>',
 						'<ul>',
 						'{{if Director}}<li>${Director}</li>{{/if}}',
 						'{{if Actor}}<li>${Actor}</li>{{/if}}',
@@ -138,7 +144,7 @@
 						imageTemplate,
 						'{{if _ShowDefaultImage}}',mediumImageTemplate,'{{/if}}',
 						'<div class="amazonjs_info" style="{{if _InfoMarginLeft}}margin-left:${_InfoMarginLeft}px;{{/if}}">',
-						'<h4><a href="${DetailPageURL}" title="${Title}" target="_blank">${Title}</a></h4>',
+						'<h4>',linkTemplate,'</h4>',
 						'<ul>',
 						'<li><b>' + r.BookAuthor + '</b>${Author}</li>',
 						priceLiTemplate,
@@ -159,7 +165,7 @@
 						imageTemplate,
 						'{{if _ShowDefaultImage}}',mediumImageTemplate,'{{/if}}',
 						'<div class="amazonjs_info" style="{{if _InfoMarginLeft}}margin-left:${_InfoMarginLeft}px;{{/if}}">',
-						'<h4><a href="${DetailPageURL}" title="${Title}" target="_blank">${Title}</a></h4>',
+						'<h4>',linkTemplate,'</h4>',
 						'<ul>',
 						'<li><b>' + r.BookAuthor + '</b>${Author}</li>',
 						priceLiTemplate,
@@ -225,6 +231,22 @@
 							this.blur();
 							return false;
 						});
+						if ($.amazonjs.isTrackEventEnabled) {
+							$item.find('.amazonjs_link').click(function() {
+								try {
+									var data = $(this).data();
+									var title = $(this).attr('title');
+									if (data.role == 'amazonjs_product') {
+										if ($.isFunction(ga)) {
+											ga('send', 'event', 'AmazonJS', 'Click', data.asin + ' ' + title);
+										} else if (_gaq) {
+											_gaq.push(['_trackEvent', 'AmazonJS', 'Click', data.asin + ' ' + title]);
+										}
+									}
+								} catch (e) {
+								}
+							});
+						}
 						$items.push($item);
 					} else {
 						// add official link when amazon product is not fetched by using AWS API
@@ -360,6 +382,7 @@
 				}
 			}
 			$.amazonjs.isCustomerReviewEnabled = amazonjsVars.isCustomerReviewEnabled;
+			$.amazonjs.isTrackEventEnabled = amazonjsVars.isTrackEventEnabled;
 			$.amazonjs.resource = amazonjsVars.resource;
 			$.amazonjs.template(amazonjsVars.regionTempalte);
 			$.amazonjs.render(amazonjsVars.items);
