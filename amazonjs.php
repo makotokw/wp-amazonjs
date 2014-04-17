@@ -6,8 +6,8 @@
  Author: makoto_kw
  Version: 0.7-beta
  Author URI: http://makotokw.com
- Requires at least: 2.8
- Tested up to: 3.8
+ Requires at least: 3.1.0
+ Tested up to: 3.9
  License: GPLv2
  Text Domain: amazonjs
  Domain Path: /languages/
@@ -24,7 +24,7 @@ require_once dirname(__FILE__) . '/Abstract.php';
 require_once dirname(__FILE__) . '/lib/Cache/Lite.php';
 require_once dirname(__FILE__) . '/lib/json.php';
 
-class Amazonjs extends Amazonjs_Wordpress_Plugin_Abstract
+class Amazonjs
 {
 	const VERSION = '0.7-beta';
 	const AWS_VERSION = '2011-08-01';
@@ -36,6 +36,17 @@ class Amazonjs extends Amazonjs_Wordpress_Plugin_Abstract
 	const JQ_TMPL_URI = 'http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js';
 	const JQ_TMPL_VERSION = 'beta1';
 
+	public $title;
+	public $url;
+	public $plugin_rel_file;
+	public $option_page_name;
+	public $option_name;
+	public $setting_sections;
+	public $setting_fields;
+	public $default_settings;
+	public $settings;
+	public $text_domain;
+
 	public $media_type = 'amazonjs';
 	public $countries;
 	public $search_indexes;
@@ -46,74 +57,80 @@ class Amazonjs extends Amazonjs_Wordpress_Plugin_Abstract
 
 	function __construct()
 	{
-		$file = __FILE__;
-		parent::__construct($file);
+		$path = __FILE__;
+		$dir = dirname($path);
+		$slug = basename($dir);
 		$this->title = 'AmazonJS';
-		$this->use_option_page = true;
+		$this->plugin_rel_file =  basename($dir) . DIRECTORY_SEPARATOR . basename($path);
+		$this->option_page_name = basename($dir);
+		$this->option_name = preg_replace('/[\-\.]/', '_', $this->option_page_name) . '_settings';
+		$this->url = plugins_url('', $path);
+		$this->text_domain = $slug;
+		load_plugin_textdomain($this->text_domain, false, dirname($this->plugin_rel_file) . '/languages');
 
 		$this->countries = array(
 			'US' => array(
-				'label' => __('United States', $this->textdomain),
+				'label' => __('United States', $this->text_domain),
 				'domain' => 'Amazon.com',
 				'baseUri' => 'http://webservices.amazon.com',
 				'linkTemplate' => '<iframe src="http://rcm.amazon.com/e/cm?t=${t}&o=1&p=8&l=as1&asins=${asins}&fc1=${fc1}&IS2=${IS2}&lt1=${lt1}&m=amazon&lc1=${lc1}&bc1=${bc1}&bg1=${bg1}&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
-				'associateTagSufix' => '-20'
+				'associateTagSuffix' => '-20'
 			),
 			'UK' => array(
-				'label' => __('United Kingdom', $this->textdomain),
+				'label' => __('United Kingdom', $this->text_domain),
 				'domain' => 'Amazon.co.uk',
 				'baseUri' => 'http://webservices.amazon.co.uk',
 				'linkTemplate' => '<iframe src="http://rcm-uk.amazon.co.uk/e/cm?t=${t}&o=2&p=8&l=as1&asins=${asins}&fc1=${fc1}&IS2=${IS2}&lt1=${lt1}&m=amazon&lc1=${lc1}&bc1=${bc1}&bg1=${bg1}&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
-				'associateTagSufix' => '-21'
+				'associateTagSuffix' => '-21'
 			),
 			'DE' => array(
-				'label' => __('Deutschland', $this->textdomain),
+				'label' => __('Deutschland', $this->text_domain),
 				'domain' => 'Amazon.de',
 				'baseUri' => 'http://webservices.amazon.de',
 				'linkTemplate' => '<iframe src="http://rcm-de.amazon.de/e/cm?t=${t}&o=3&p=8&l=as1&asins=${asins}&fc1=${fc1}&IS2=${IS2}&lt1=${lt1}&m=amazon&lc1=${lc1}&bc1=${bc1}&bg1=${bg1}&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
-				'associateTagSufix' => '04-21'
+				'associateTagSuffix' => '04-21'
 			),
 			'FR' => array(
-				'label' => __('France', $this->textdomain),
+				'label' => __('France', $this->text_domain),
 				'domain' => 'Amazon.fr',
 				'baseUri' => 'http://webservices.amazon.fr',
 				'linkTemplate' => '<iframe src="http://rcm-fr.amazon.fr/e/cm?t=${t}&o=8&p=8&l=as1&asins=${asins}&fc1=${fc1}&IS2=${IS2}&lt1=${lt1}&m=amazon&lc1=${lc1}&bc1=${bc1}&bg1=${bg1}&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
-				'associateTagSufix' => '09-21'
+				'associateTagSuffix' => '09-21'
 			),
 			'JP' => array(
-				'label' => __('Japan', $this->textdomain),
+				'label' => __('Japan', $this->text_domain),
 				'domain' => 'Amazon.co.jp',
 				'baseUri' => 'http://webservices.amazon.co.jp',
 				'linkTemplate' => '<iframe src="http://rcm-jp.amazon.co.jp/e/cm?t=${t}&o=9&p=8&l=as1&asins=${asins}&fc1=${fc1}&IS2=${IS2}&lt1=${lt1}&m=amazon&lc1=${lc1}&bc1=${bc1}&bg1=${bg1}&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
-				'associateTagSufix' => '-22'
+				'associateTagSuffix' => '-22'
 			),
 			'CA' => array(
-				'label' => __('Canada', $this->textdomain),
+				'label' => __('Canada', $this->text_domain),
 				'domain' => 'Amazon.ca',
 				'baseUri' => 'http://webservices.amazon.ca',
 				'linkTemplate' => '<iframe src="http://rcm-ca.amazon.ca/e/cm?t=${t}&o=15&p=8&l=as1&asins=${asins}&fc1=${fc1}&IS2=${IS2}&lt1=${lt1}&m=amazon&lc1=${lc1}&bc1=${bc1}&bg1=${bg1}&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
-				'associateTagSufix' => '0c-20'
+				'associateTagSuffix' => '0c-20'
 			),
 			'CN' => array(
-				'label' => __('China', $this->textdomain),
+				'label' => __('China', $this->text_domain),
 				'domain' => 'Amazon.cn',
 				'baseUri' => 'http://webservices.amazon.cn',
 				'linkTemplate' => '<iframe src="http://rcm-cn.amazon.cn/e/cm?t=${t}&o=28&p=8&l=as1&asins=${asins}&fc1=${fc1}&IS2=${IS2}&lt1=${lt1}&m=amazon&lc1=${lc1}&bc1=${bc1}&bg1=${bg1}&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
-				'associateTagSufix' => '-23'
+				'associateTagSuffix' => '-23'
 			),
 			'IT' => array(
-				'label' => __('Italia', $this->textdomain),
+				'label' => __('Italia', $this->text_domain),
 				'domain' => 'Amazon.it',
 				'baseUri' => 'http://webservices.amazon.it',
 				'linkTemplate' => '<iframe src="http://rcm-it.amazon.it/e/cm?t=${t}&o=29&p=8&l=as1&asins=${asins}&fc1=${fc1}&IS2=${IS2}&lt1=${lt1}&m=amazon&lc1=${lc1}&bc1=${bc1}&bg1=${bg1}&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
-				'associateTagSufix' => '-21'
+				'associateTagSuffix' => '-21'
 			),
 			'ES' => array(
-				'label' => __('España', $this->textdomain),
+				'label' => __('España', $this->text_domain),
 				'domain' => 'Amazon.es',
 				'baseUri' => 'http://webservices.amazon.es',
 				'linkTemplate' => '<iframe src="http://rcm-es.amazon.es/e/cm?t=${t}&o=30&p=8&l=as1&asins=${asins}&fc1=${fc1}&IS2=${IS2}&lt1=${lt1}&m=amazon&lc1=${lc1}&bc1=${bc1}&bg1=${bg1}&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
-				'associateTagSufix' => '-21'
+				'associateTagSuffix' => '-21'
 			),
 		);
 
@@ -141,7 +158,13 @@ class Amazonjs extends Amazonjs_Wordpress_Plugin_Abstract
 
 	function init()
 	{
-		parent::init();
+		$this->init_settings();
+
+		if (is_admin()) {
+			add_action('admin_menu', array($this, 'admin_menu'));
+			add_action('admin_init', array($this, 'admin_init'));
+			add_action('plugin_row_meta', array($this, 'plugin_row_meta'), 10, 2);
+		}
 		add_shortcode('amazonjs', array($this, 'shortcode'));
 		if (!is_admin()) {
 			add_action('wp_enqueue_scripts', array($this, 'wp_enqueue_styles'));
@@ -157,7 +180,25 @@ class Amazonjs extends Amazonjs_Wordpress_Plugin_Abstract
 		add_action('media_upload_amazonjs_keyword', array($this, 'media_upload_amazonjs_keyword'));
 		add_action('media_upload_amazonjs_id', array($this, 'media_upload_amazonjs_id'));
 		add_action('wp_ajax_amazonjs_search', array($this, 'ajax_amazonjs_search'));
-		parent::admin_init();
+
+		$page = $this->option_page_name;
+		register_setting($this->option_name, $this->option_name, array($this, 'validate_settings'));
+		if ($this->setting_sections) {
+			foreach ($this->setting_sections as $key => $section) {
+				add_settings_section($page . '_' . $key, $section['label'], array($this, $section['add']), $page);
+			}
+		}
+		foreach ($this->setting_fields as $key => $field) {
+			$label = ($field['type'] == 'checkbox') ? '' : $field['label'];
+			add_settings_field(
+				$this->option_name . '_' . $key,
+				$label,
+				array($this, 'add_settings_field'),
+				$page,
+				$page . '_' . $field['section'],
+			 	array($key, $field)
+			);
+		}
 	}
 
 	function wp_enqueue_styles()
@@ -165,7 +206,12 @@ class Amazonjs extends Amazonjs_Wordpress_Plugin_Abstract
 		if ($this->settings['displayCustomerReview']) {
 			wp_enqueue_style('thickbox');
 		}
-		wp_enqueue_style('amazonjs', $this->url . '/css/amazonjs.css', array(), self::VERSION);
+
+		if ($this->settings['overrideThemeCss']) {
+			wp_enqueue_style('amazonjs', $this->url . '/css/amazonjs-force.css', array(), self::VERSION);
+		} else {
+			wp_enqueue_style('amazonjs', $this->url . '/css/amazonjs.css', array(), self::VERSION);
+		}
 		if ($this->settings['customCss']) {
 			wp_enqueue_style('amazonjs-custom', get_stylesheet_directory_uri() . '/amazonjs.css');
 		}
@@ -226,22 +272,22 @@ class Amazonjs extends Amazonjs_Wordpress_Plugin_Abstract
 			'thickboxUrl' => $wpurl . '/wp-includes/js/thickbox/',
 			'regionTempalte' => $region,
 			'resource' => array(
-				'BookAuthor' => __('Author', $this->textdomain),
-				'BookPublicationDate' => __('PublicationDate', $this->textdomain),
-				'BookPublisher' => __('Publisher', $this->textdomain),
-				'NumberOfPagesValue' => __('${NumberOfPages} pages', $this->textdomain),
-				'ListPrice' => __('List Price', $this->textdomain),
-				'Price' => __('Price', $this->textdomain),
-				'PriceUsage' => __('Product prices and availability are accurate as of the date/time indicated and are subject to change. Any price and availability information displayed on [amazon.com or endless.com, as applicable] at the time of purchase will apply to the purchase of this product.', $this->textdomain),
-				'PublicationDate' => __('Publication Date', $this->textdomain),
-				'ReleaseDate' => __('Release Date', $this->textdomain),
-				'SalesRank' => __('SalesRank', $this->textdomain),
-				'SalesRankValue' => __('#${SalesRank}', $this->textdomain),
-				'RunningTime' => __('Run Time', $this->textdomain),
-				'RunningTimeValue' => __('${RunningTime} minutes', $this->textdomain),
-				'CustomerReviewTitle' => __('${Title} Customer Review', $this->textdomain),
-				'SeeCustomerReviews' => __('See Customer Reviews', $this->textdomain),
-				'PriceUpdatedat' => __('(at ${UpdatedDate})', $this->textdomain),
+				'BookAuthor' => __('Author', $this->text_domain),
+				'BookPublicationDate' => __('PublicationDate', $this->text_domain),
+				'BookPublisher' => __('Publisher', $this->text_domain),
+				'NumberOfPagesValue' => __('${NumberOfPages} pages', $this->text_domain),
+				'ListPrice' => __('List Price', $this->text_domain),
+				'Price' => __('Price', $this->text_domain),
+				'PriceUsage' => __('Product prices and availability are accurate as of the date/time indicated and are subject to change. Any price and availability information displayed on [amazon.com or endless.com, as applicable] at the time of purchase will apply to the purchase of this product.', $this->text_domain),
+				'PublicationDate' => __('Publication Date', $this->text_domain),
+				'ReleaseDate' => __('Release Date', $this->text_domain),
+				'SalesRank' => __('SalesRank', $this->text_domain),
+				'SalesRankValue' => __('#${SalesRank}', $this->text_domain),
+				'RunningTime' => __('Run Time', $this->text_domain),
+				'RunningTimeValue' => __('${RunningTime} minutes', $this->text_domain),
+				'CustomerReviewTitle' => __('${Title} Customer Review', $this->text_domain),
+				'SeeCustomerReviews' => __('See Customer Reviews', $this->text_domain),
+				'PriceUpdatedat' => __('(at ${UpdatedDate})', $this->text_domain),
 			),
 			'isCustomerReviewEnabled' => ($this->settings['displayCustomerReview']) ? true : false,
 			'isTrackEventEnabled' => ($this->settings['useTrackEvent']) ? true : false,
@@ -262,86 +308,134 @@ class Amazonjs extends Amazonjs_Wordpress_Plugin_Abstract
 		// section
 		$this->setting_sections = array(
 			'api' => array(
-				'label' => __('Product Advertising API settings', $this->textdomain),
+				'label' => __('Product Advertising API settings', $this->text_domain),
 				'add' => 'add_api_setting_section'),
 			'associate' => array(
-				'label' => __('Amazon Associates settings', $this->textdomain),
+				'label' => __('Amazon Associates settings', $this->text_domain),
 				'add' => 'add_associate_setting_section'),
 			'appearance' => array(
-				'label' => __('Appearance settings', $this->textdomain),
+				'label' => __('Appearance settings', $this->text_domain),
 				'add' => 'add_appearance_setting_section'),
+			'analytics' => array(
+				'label' => __('Analytics settings', $this->text_domain),
+				'add' => 'add_analytics_setting_section'),
 			'customize' => array(
-				'label' => __('Customize', $this->textdomain),
+				'label' => __('Customize', $this->text_domain),
 				'add' => 'add_customize_setting_section'),
 		);
 		// filed
 		$template_url = get_bloginfo('template_url');
-		$this->setting_fileds = array(
+		$this->setting_fields = array(
 			'accessKeyId' => array(
-				'label' => __('Access Key ID', $this->textdomain),
+				'label' => __('Access Key ID', $this->text_domain),
 				'type' => 'text',
 				'size' => 60,
 				'section' => 'api',
 			),
 			'secretAccessKey' => array(
-				'label' => __('Secret Access Key', $this->textdomain),
+				'label' => __('Secret Access Key', $this->text_domain),
 				'type' => 'text',
 				'size' => 60,
 				'section' => 'api',
 			),
 			'displayCustomerReview' => array(
-				'label' => __('Display customer review', $this->textdomain),
+				'label' => __('Display customer review', $this->text_domain),
 				'type' => 'checkbox',
 				'section' => 'appearance',
-				'description' => __("AmazonJS will display customer review by using WordPress's Thickbox.", $this->textdomain)
+				'description' => __("AmazonJS will display customer review by using WordPress's Thickbox.", $this->text_domain)
 			),
 			'supportDisabledJavascript' => array(
-				'label' => __('Display official widget when disabled javascript in web browser', $this->textdomain),
+				'label' => __('Display official widget when disabled javascript in web browser', $this->text_domain),
 				'type' => 'checkbox',
 				'section' => 'appearance',
-				'description' => __('If set to true, AmazonJS will output html by document.write.', $this->textdomain),
+				'description' => __('If set to true, AmazonJS will output html by using <code>document.write</code>.', $this->text_domain),
 			),
 			'useAnimation' => array(
-				'label' => __('Use fadeIn animation', $this->textdomain),
+				'label' => __('Use fadeIn animation', $this->text_domain),
 				'type' => 'checkbox',
 				'section' => 'appearance',
+			),
+			'overrideThemeCss' => array(
+				'label' => __('Override style of theme', $this->text_domain),
+				'type' => 'checkbox',
+				'section' => 'appearance',
+				'description' => __("If set to true, AmazonJS will override the style of the theme by using <code>!important</code> declaration.", $this->text_domain),
 			),
 			'useTrackEvent' => array(
-				'label' => __('Click Tracking by using Google Analytics', $this->textdomain),
+				'label' => __('Click Tracking by using Google Analytics', $this->text_domain),
 				'type' => 'checkbox',
-				'section' => 'appearance',
-				'description' => __('If set to true, AmazonJS calls <code>_gaq.push(["_trackEvent", "AmazonJS", "Click", "ASIN TITLE"])</code> or <code>ga("send", "event", "AmazonJS", "Click", "ASIN TITLE")</code>.', $this->textdomain),
+				'section' => 'analytics',
+				'description' => __('If set to true, AmazonJS will call <code>_gaq.push(["_trackEvent", "AmazonJS", "Click", "ASIN TITLE"])</code> or <code>ga("send", "event", "AmazonJS", "Click", "ASIN TITLE")</code>.', $this->text_domain),
 			),
 			'customCss' => array(
-				'label' => __('Use Custom Css', $this->textdomain),
+				'label' => __('Use Custom Css', $this->text_domain),
 				'type' => 'checkbox',
 				'section' => 'customize',
 				'description' => '(' . $template_url . '/amazonjs.css)'
 			),
 			'customJs' => array(
-				'label' => __('Use Custom Javascript', $this->textdomain),
+				'label' => __('Use Custom Javascript', $this->text_domain),
 				'type' => 'checkbox',
 				'section' => 'customize',
 				'description' => '(' . $template_url . '/amazonjs.js)'
 			),
 		);
 		foreach ($this->countries as $key => $value) {
-			$this->setting_fileds['associateTag' . $key] = array(
-				'label' => __($value['domain'], $this->textdomain),
+			$this->setting_fields['associateTag' . $key] = array(
+				'label' => __($value['domain'], $this->text_domain),
 				'type' => 'text',
 				'size' => 30,
-				'placeholder' => 'associatetag' . $value['associateTagSufix'],
+				'placeholder' => 'associatetag' . $value['associateTagSuffix'],
 				'section' => 'associate',
 			);
 		}
-		parent::init_settings();
+
+		$this->default_settings = array();
+		if (is_array($this->setting_fields)) {
+			foreach ($this->setting_fields as $key => $field) {
+				$this->default_settings[$key] = @$field['defaults'];
+			}
+		}
+		//delete_option($this->option_name);
+		$this->settings = wp_parse_args((array)get_option($this->option_name), $this->default_settings);
+	}
+
+	function delete_settings()
+	{
+		delete_option($this->option_name);
+	}
+
+	function validate_settings($settings)
+	{
+		foreach ($this->setting_fields as $key => $field) {
+			if ($field['type'] == 'checkbox') {
+				$settings[$key] = (@$settings[$key] == 'on');
+			}
+		}
+
+		foreach (array('accessKeyId', 'secretAccessKey') as $key) {
+			$settings[$key] = trim($settings[$key]);
+		}
+
+		foreach ($this->countries as $locale => $value) {
+			$key = 'associateTag' . $locale;
+			$settings[$key] = trim($settings[$key]);
+		}
+
+		return $settings;
 	}
 
 	function admin_menu()
 	{
-		$menu_title = '<img width="12" height="12" src="' . $this->url . '/images/amazon-icon.png" alt="' . $this->title . '"/>&nbsp;';
-		$menu_title .= $this->title;
-		$this->add_options_page($this->title, $menu_title);
+		if (function_exists('add_options_page')) {
+			add_options_page(
+				__($this->title, $this->text_domain),
+				__($this->title, $this->text_domain),
+				'manage_options',
+				$this->option_page_name,
+				array($this, 'options_page')
+			);
+		}
 	}
 
 	function get_amazon_official_link($asin, $locale)
@@ -362,13 +456,14 @@ class Amazonjs extends Amazonjs_Wordpress_Plugin_Abstract
 		return $this->tmpl($tmpl, $item);
 	}
 
-	function shortcode($atts, $content = null)
+	function shortcode($atts/*, $content*/)
 	{
 		/**
 		 * @var string $asin
 		 * @var string $tmpl
 		 * @var string $locale
 		 * @var string $title
+		 * @var string $imgsize
 		 */
 		$defaults = array('asin' => '', 'tmpl' => '', 'locale' => $this->default_country_code(), 'title' => '', 'imgsize' => '');
 		extract(shortcode_atts($defaults, $atts));
@@ -494,35 +589,30 @@ EOF;
 		return $s;
 	}
 
-	function validate_settings($settings)
+	function plugin_row_meta($links, $file)
 	{
-		$settings = parent::validate_settings($settings);
-
-		foreach (array('accessKeyId', 'secretAccessKey') as $key) {
-			$settings[$key] = trim($settings[$key]);
+		if ($file == $this->plugin_rel_file) {
+			array_unshift(
+				$links,
+				sprintf('<a href="options-general.php?page=%s">%s</a>', $this->option_page_name, __('Settings'))
+			);
 		}
-
-		foreach ($this->countries as $locale => $value) {
-			$key = 'associateTag' . $locale;
-			$settings[$key] = trim($settings[$key]);
-		}
-
-		return $settings;
+		return $links;
 	}
 
 	function add_api_setting_section()
 	{
 		?>
-	<p><?php _e('This plugin uses the Amazon Product Advertising API in order to get product infomation. Thus, you must use your Access Key ID &amp; Secret Access Key.', $this->textdomain); ?></p>
-	<p><?php _e('You can sign up the Amazon Product Advertising API from <a href="https://affiliate-program.amazon.com/gp/advertising/api/detail/main.html" target="_blank">here</a>. Please review the <a href="http://affiliate-program.amazon.com/gp/advertising/api/detail/agreement.html" target="_blank">Product Advertising API License Agreement</a> for details.', $this->textdomain)?></p>
+	<p><?php _e('This plugin uses the Amazon Product Advertising API in order to get product infomation. Thus, you must use your Access Key ID &amp; Secret Access Key.', $this->text_domain); ?></p>
+	<p><?php _e('You can sign up the Amazon Product Advertising API from <a href="https://affiliate-program.amazon.com/gp/advertising/api/detail/main.html" target="_blank">here</a>. Please review the <a href="http://affiliate-program.amazon.com/gp/advertising/api/detail/agreement.html" target="_blank">Product Advertising API License Agreement</a> for details.', $this->text_domain)?></p>
 	<?php
 	}
 
 	function add_associate_setting_section()
 	{
 		?>
-	<p><?php _e('Amazon has an affiliate program called Amazon Associates. To apply for the Associates Program, visit the <a href="https://affiliate-program.amazon.com/" target="_blank">Amazon Associates website</a> for details.', $this->textdomain); ?></p>
-	<p><?php _e('Associate Tag has been a <strong>required and verified</strong> input parameter in all requests to the Amazon Product Advertising API since 11/1/2011.', $this->textdomain)?></p>
+	<p><?php _e('Amazon has an affiliate program called Amazon Associates. To apply for the Associates Program, visit the <a href="https://affiliate-program.amazon.com/" target="_blank">Amazon Associates website</a> for details.', $this->text_domain); ?></p>
+	<p><?php _e('Associate Tag has been a <strong>required and verified</strong> input parameter in all requests to the Amazon Product Advertising API since 11/1/2011.', $this->text_domain)?></p>
 	<?php
 	}
 
@@ -530,93 +620,63 @@ EOF;
 	{
 	}
 
+	function add_analytics_setting_section()
+	{
+	}
+
 	function add_customize_setting_section()
 	{
 	}
 
-	function add_settings_field_accessKeyId()
+	function add_settings_field($args = array())
 	{
-		$this->add_settings_field('accessKeyId', $this->setting_fileds['accessKeyId']);
-	}
-
-	function add_settings_field_secretAccessKey()
-	{
-		$this->add_settings_field('secretAccessKey', $this->setting_fileds['secretAccessKey']);
-	}
-
-	function add_settings_field_associateTagUS()
-	{
-		$this->add_settings_field('associateTagUS', $this->setting_fileds['associateTagUS']);
-	}
-
-	function add_settings_field_associateTagUK()
-	{
-		$this->add_settings_field('associateTagUK', $this->setting_fileds['associateTagUK']);
-	}
-
-	function add_settings_field_associateTagDE()
-	{
-		$this->add_settings_field('associateTagDE', $this->setting_fileds['associateTagDE']);
-	}
-
-	function add_settings_field_associateTagJP()
-	{
-		$this->add_settings_field('associateTagJP', $this->setting_fileds['associateTagJP']);
-	}
-
-	function add_settings_field_associateTagCA()
-	{
-		$this->add_settings_field('associateTagCA', $this->setting_fileds['associateTagCA']);
-	}
-
-	function add_settings_field_associateTagFR()
-	{
-		$this->add_settings_field('associateTagFR', $this->setting_fileds['associateTagFR']);
-	}
-
-	function add_settings_field_associateTagCN()
-	{
-		$this->add_settings_field('associateTagCN', $this->setting_fileds['associateTagCN']);
-	}
-
-	function add_settings_field_associateTagES()
-	{
-		$this->add_settings_field('associateTagES', $this->setting_fileds['associateTagES']);
-	}
-
-	function add_settings_field_associateTagIT()
-	{
-		$this->add_settings_field('associateTagIT', $this->setting_fileds['associateTagIT']);
-	}
-
-	function add_settings_field_customCss()
-	{
-		$this->add_settings_field('customCss', $this->setting_fileds['customCss']);
-	}
-
-	function add_settings_field_customJs()
-	{
-		$this->add_settings_field('customJs', $this->setting_fileds['customJs']);
-	}
-
-	function add_settings_field_displayCustomerReview()
-	{
-		$this->add_settings_field('displayCustomerReview', $this->setting_fileds['displayCustomerReview']);
-	}
-
-	function add_settings_field_supportDisabledJavascript()
-	{
-		$this->add_settings_field('supportDisabledJavascript', $this->setting_fileds['supportDisabledJavascript']);
-	}
-
-	function add_settings_field_useAnimation()
-	{
-		$this->add_settings_field('useAnimation', $this->setting_fileds['useAnimation']);
-	}
-
-	function add_settings_field_useTrackEvent()
-	{
-		$this->add_settings_field('useTrackEvent', $this->setting_fileds['useTrackEvent']);
+		// not work wordpress 2.9.0 #11143
+		if (empty($args)) {
+			return;
+		}
+		list ($key, $field) = $args;
+		$id = $this->option_name . '_' . $key;
+		$name = $this->option_name . "[{$key}]";
+		$value = $this->settings[$key];
+		if (isset($field['html'])) {
+			echo $field['html'];
+		} else {
+			switch ($field['type']) {
+				case 'checkbox':
+					echo "<input id='{$id}' name='{$name}' type='checkbox' " . checked(true, $value, false) . "/>";
+					echo "<label for='{$id}'>" . $field['label'] . "</label>";
+					break;
+				case 'radio':
+					foreach ($field['options'] as $v => $content) {
+						echo "<input name='{$name}' type='radio' " . checked($v, $value, false) . " value='{$v}'>{$content}</input>";
+					}
+					break;
+				case 'select':
+					echo "<select id='{$id}' name='{$name}' value='{$value}'>";
+					foreach ($field['options'] as $option => $name) {
+						echo "<option value='{$option}' " . selected($option, $value, false) . ">{$name}</option>";
+					}
+					echo "</select>";
+					break;
+				case 'text':
+				default:
+					$size = @$field['size'];
+					$placeholder = @$field['placeholder'];
+					if ($size <= 0) {
+						$size = 40;
+					}
+					if (is_string($placeholder)) {
+						$placeholder = 'placeholder="' . $placeholder . '"';
+					} else {
+						$placeholder = '';
+					}
+					echo "<input id='{$id}' name='{$name}' size='{$size}' type='text' value='{$value}' " . $placeholder . "/>";
+					break;
+			}
+		}
+		if (@$field['description']) {
+			echo '<p class="description">' . $field['description'] . '</p>';
+		}
 	}
 
 	function media_buttons()
@@ -624,7 +684,7 @@ EOF;
 		global $post_ID, $temp_ID;
 		$iframe_ID = (int)(0 == $post_ID ? $temp_ID : $post_ID);
 		$iframe_src = 'media-upload.php?post_id=' . $iframe_ID . '&amp;type=' . $this->media_type . '&amp;tab=' . $this->media_type . '_keyword';
-		$label = __('Add Amazon Link', $this->textdomain);
+		$label = __('Add Amazon Link', $this->text_domain);
 
 		echo <<<EOF
 <a href="{$iframe_src}&amp;TB_iframe=true" id="add_amazon" class="button thickbox" title="{$label}"><img src="{$this->url}/images/amazon-icon.png" alt="{$label}"/></a>
@@ -659,12 +719,27 @@ EOF;
 		wp_iframe('media_upload_type_amazonjs_id');
 	}
 
-	function media_upload_tabs($tabs)
+	function media_upload_tabs(/*$tabs*/)
 	{
 		return array(
-			$this->media_type . '_keyword' => __('Keyword Search', $this->textdomain),
-			$this->media_type . '_id' => __('Search by ASIN/URL', $this->textdomain)
+			$this->media_type . '_keyword' => __('Keyword Search', $this->text_domain),
+			$this->media_type . '_id' => __('Search by ASIN/URL', $this->text_domain)
 		);
+	}
+
+	function options_page()
+	{
+		?>
+		<div class="wrap">
+			<h2><?php echo $this->title ?></h2>
+			<?php $this->options_page_header(); ?>
+			<form action="options.php" method="post">
+				<?php settings_fields($this->option_name); ?>
+				<?php do_settings_sections($this->option_page_name); ?>
+				<?php submit_button(); ?>
+			</form>
+		</div>
+	<?php
 	}
 
 	function options_page_header()
@@ -673,12 +748,16 @@ EOF;
 ?>
 	<?php if (!function_exists('simplexml_load_string')): ?>
 	<div class="error">
-		<p><?php echo sprintf(__('Error! "simplexml_load_string" function is not found. %s requires PHP 5 and SimpleXML extension.', $this->textdomain), $this->title)?></p>
+		<p><?php echo sprintf(__('Error! "simplexml_load_string" function is not found. %s requires PHP 5 and SimpleXML extension.', $this->text_domain), $this->title)?></p>
 	</div>
 	<?php endif ?>
-	<?php if (!$cache_dir_exists || !is_writable($this->cache_dir)): ?>
+	<?php if (!$cache_dir_exists): ?>
 	<div class="error">
-		<p><?php echo sprintf(__('Warning! Cache Directory "%s" is not writable', $this->textdomain), $this->cache_dir)?></p>
+		<p><?php echo sprintf(__('Warning! Cache directory is not exist. Please create writable directory: <br/><code>%s</code>', $this->text_domain), $this->cache_dir)?></p>
+	</div>
+	<?php elseif (!is_writable($this->cache_dir)): ?>
+	<div class="error">
+		<p><?php echo sprintf(__('Warning! Cache Directory "%s" is not writable, set permission as 0777.', $this->text_domain), $this->cache_dir)?></p>
 	</div>
 	<?php endif ?>
 	<?php
@@ -716,7 +795,7 @@ EOF;
 			if (preg_match('/^http?:\/\//', $id)) {
 				// parse ItemId from URL
 				if (preg_match('/^http?:\/\/.+\.amazon\.([^\/]+).+(\/dp\/|\/gp\/product\/)([^\/]+)/', $id, $matches)) {
-					$domain = $matches[1];
+					//$domain = $matches[1];
 					$itemId = $matches[3];
 				}
 				if (!isset($itemId)) {
@@ -746,7 +825,7 @@ EOF;
 
 		// validate request
 		if (empty($countryCode) || (empty($options['ItemId']) && empty($options['Keywords'])) || (empty($accessKeyId) || empty($secretAccessKey))) {
-			$message = __('Invalid Request Parameters', $this->textdomain);
+			$message = __('Invalid Request Parameters', $this->text_domain);
 			return compact('success', 'message');
 		}
 
@@ -775,17 +854,16 @@ EOF;
 			if (is_array($errors)) {
 				$error = implode('<br/>', $errors);
 			}
-			$message = sprintf(__('Network Error: %s', $this->textdomain), $error);
+			$message = sprintf(__('Network Error: %s', $this->text_domain), $error);
 			return compact('success', 'message');
 		}
 
 		$body = wp_remote_retrieve_body($response);
 		if (empty($body)) {
-			$message = sprintf(__('Empty Response from %s', $this->textdomain), $url);
+			$message = sprintf(__('Empty Response from %s', $this->text_domain), $url);
 			return compact('success', 'message');
 		}
 
-		//$string = file_get_contents($this->dir.DIRECTORY_SEPARATOR.'test'.DIRECTORY_SEPARATOR.'blend.xml');
 		$fetchedAt = time();
 
 		$success = false;
@@ -838,11 +916,11 @@ EOF;
 				if ($error = @$xml->Items->Request->Errors->Error) {
 					$message = sprintf('Amazon API Retuns Error: Code=%s, Message=%s', $error->Code, $error->Message);
 				} else {
-					$message = __('Cannot Parse Response from Amazon API', $this->textdomain);
+					$message = __('Cannot Parse Response from Amazon API', $this->text_domain);
 				}
 			}
 		} else {
-			$message = __('Invalid Response', $this->textdomain);
+			$message = __('Invalid Response', $this->text_domain);
 		}
 		return compact('success', 'operation', 'os', 'items', 'resultMap', 'message');
 	}
