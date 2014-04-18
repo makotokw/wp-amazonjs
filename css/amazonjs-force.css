@@ -48,24 +48,24 @@
   display: block;
 }
 .amazonjs_item .amazonjs_info h4 {
-  margin: 0 0 5px;
-  padding: 0;
-  font-size: 1.2em;
-  font-weight: bold;
-  clear: none;
-  border: none;
+  margin: 0 0 5px !important;
+  padding: 0 !important;
+  font-size: 1.2em !important;
+  font-weight: bold !important;
+  clear: none !important;
+  border: none !important;
 }
 .amazonjs_item .amazonjs_info ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 .amazonjs_item .amazonjs_info ul li {
-  list-style: none;
-  line-height: 1.5em;
-  font-size: 1em;
-  margin: 0;
-  padding: 0;
+  list-style: none !important;
+  line-height: 1.5em !important;
+  font-size: 1em !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 .amazonjs_item .amazonjs_info ul li b {
   margin-right: .5em;

@@ -201,6 +201,15 @@ class Amazonjs
 		}
 	}
 
+	function admin_print_styles()
+	{
+		global $wp_version;
+		// use dashicon
+		if (version_compare( $wp_version, '3.8', '>=' )) {
+			wp_enqueue_style('amazonjs-options', $this->url . '/css/amazonjs-options.css', array(), self::VERSION);
+		}
+	}
+
 	function wp_enqueue_styles()
 	{
 		if ($this->settings['displayCustomerReview']) {
@@ -348,7 +357,7 @@ class Amazonjs
 				'label' => __('Display official widget when disabled javascript in web browser', $this->text_domain),
 				'type' => 'checkbox',
 				'section' => 'appearance',
-				'description' => __('If set to true, AmazonJS will output html by using <code>document.write</code>.', $this->text_domain),
+				'description' => __('If set to true, AmazonJS will output html by using <code>&lt;script type=&quot;text/javascript&quot;&gt;document.write(&quot;{$indicator_html}&quot;)&lt;/script&gt;&lt;noscript&gt;{$link_html}&lt;/noscript&gt;</code>.', $this->text_domain),
 			),
 			'useAnimation' => array(
 				'label' => __('Use fadeIn animation', $this->text_domain),
@@ -428,13 +437,14 @@ class Amazonjs
 	function admin_menu()
 	{
 		if (function_exists('add_options_page')) {
-			add_options_page(
+			$page_hook_suffix = add_options_page(
 				__($this->title, $this->text_domain),
 				__($this->title, $this->text_domain),
 				'manage_options',
 				$this->option_page_name,
 				array($this, 'options_page')
 			);
+			add_action('admin_print_styles-'.$page_hook_suffix, array($this, 'admin_print_styles'));
 		}
 	}
 
@@ -730,7 +740,7 @@ EOF;
 	function options_page()
 	{
 		?>
-		<div class="wrap">
+		<div class="wrap wrap-amazonjs">
 			<h2><?php echo $this->title ?></h2>
 			<?php $this->options_page_header(); ?>
 			<form action="options.php" method="post">

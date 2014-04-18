@@ -1,0 +1,12 @@
+@import 'compass/css3';
+
+.wrap-amazonjs {
+  > h2 {
+    &:before {
+      font-family: "dashicons";
+      content: "\f108";
+      font-size: 1.2em;
+      vertical-align: -20%;
+    }
+  }
+}

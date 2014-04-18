@@ -20,7 +20,6 @@ module.exports = function(grunt) {
 		},
 		watch: {
 			sass_dev: {
-				// We watch and compile sass files as normal but don't live reload here
 				files: ['sass/*.scss'],
 				tasks: ['compass:dev']
 			}
@@ -32,6 +31,7 @@ module.exports = function(grunt) {
 	]);
 
 	grunt.registerTask('debug', [
+	       'compass:dev',
 		'watch:sass_dev'
 	]);
 

@@ -13,8 +13,14 @@ You can install stable version from: [WordPress.org](http://wordpress.org/plugin
 * Grunt
 * Compass
 
-### Command
+### Development
 
 ```
-grunt compass
+grunt debug
+```
+
+### Production
+
+```
+grunt
 ```
