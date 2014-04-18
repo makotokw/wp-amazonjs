@@ -1,8 +1,8 @@
 === Amazon JS ===
 Contributors: makoto_kw
 Tags: Amazon, books, post, media, affiliate, japanese
-Requires at least: 2.8
-Tested up to: 3.8.1
+Requires at least: 3.1
+Tested up to: 3.9
 Stable tag: trunk
 License: GPLv2 or later
 
@@ -14,7 +14,7 @@ AmazonJS displays Amazon products on your WordPress posts and pages. AmazonJS ad
 
 AmazonJS uses `amazonjs' shortcode and jQuery template to display Amazon products. View the work data at runtime, Javascript allows various representations. AmazonJS has some template to Amazon products for each Product Group, it can how to display the different Amazon products, such as books and music.
 
-* Requires WorPress 2.8 and PHP5
+* Requires WorPress 3.1 and PHP5
 * Requires your Amazon Product Advertising API
 * Plugin Uses file cache (Plugin does not touch database)
 * Customize template by using jQuery template
@@ -87,6 +87,11 @@ In first, AmazonJS converts <a/> tag from `amazonjs` short code in server side. 
 
 == Changelog ==
 
+= 0.7 =
+
+* Supported click tracking by Google Analytics
+* Added option to overwrite !important style of theme in v0.6.1
+
 = 0.6.1 =
 
 * Fixed to overwrite !important style of theme
@@ -97,7 +102,7 @@ In first, AmazonJS converts <a/> tag from `amazonjs` short code in server side. 
 * Added option to allow animation
 * Supported `imgsize` attr of shotcode,
 * Fixed to display same ASIN for some countries
-* Fixed style for smartphone and dark theme
+* Fixed style for smart phone and dark theme
 
 = 0.5 =
 
