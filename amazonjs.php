@@ -20,7 +20,6 @@ __('Easy to use interface to add an amazon product to your post and display it b
    PEAR Services_JSON: Michal Migurski <mike-json@teczno.com>
  */
 
-require_once dirname(__FILE__) . '/Abstract.php';
 require_once dirname(__FILE__) . '/lib/Cache/Lite.php';
 require_once dirname(__FILE__) . '/lib/json.php';
 
