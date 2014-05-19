@@ -1,6 +1,11 @@
 module.exports = function(grunt) {
 	require('load-grunt-tasks')(grunt);
 	grunt.initConfig({
+		exec: {
+			phpcs: {
+				cmd: 'vendor/bin/phpcs --standard=vendor/wordpress-coding-standards/WordPress *.php lib/*.php'
+			}
+		},
 		compass: {
 			prod: {
 				options: {

@@ -1,6 +1,9 @@
 ### Sass ###
 .sass-cache/
 
+### PHP ###
+/vendor/
+
 ### Node ###
 node_modules
 
