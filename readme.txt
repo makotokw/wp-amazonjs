@@ -2,7 +2,7 @@
 Contributors: makoto_kw
 Tags: Amazon, books, post, media, affiliate, japanese
 Requires at least: 3.1
-Tested up to: 3.9
+Tested up to: 3.9.1
 Stable tag: trunk
 License: GPLv2 or later
 
@@ -86,6 +86,12 @@ In first, AmazonJS converts <a/> tag from `amazonjs` short code in server side. 
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 0.7.1 =
+
+* Fixed Japanese translation of search form
+* Improved to display to display the error response of Product Advertising API
+* WordPress Cording Standard
 
 = 0.7 =
 
