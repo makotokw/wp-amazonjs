@@ -4,6 +4,15 @@ module.exports = function(grunt) {
 		exec: {
 			phpcs: {
 				cmd: 'vendor/bin/phpcs --standard=vendor/wordpress-coding-standards/WordPress *.php lib/*.php'
+			},
+			xgettext: {
+				cmd: 'xgettext --from-code=UTF-8 -k__ -k_e -L PHP -o ./languages/messages.po ./*.php --package-name=amazonjs --package-version=1.0 --msgid-bugs-address=makoto.kw@gmail.com'
+			},
+			msgmerge: {
+				cmd: 'msgmerge --update ./languages/amazonjs-ja.po ./languages/messages.po --backup=off'
+			},
+			msgfmt: {
+				cmd: 'msgfmt -o ./languages/amazonjs-ja.mo ./languages/amazonjs-ja.po'
 			}
 		},
 		compass: {
@@ -30,6 +39,18 @@ module.exports = function(grunt) {
 			}
 		}
 	});
+
+	grunt.registerTask('phpcs', [
+		'exec:phpcs'
+	]);
+
+	grunt.registerTask('update-po', [
+		'exec:xgettext',
+		'exec:msgmerge'
+	]);
+	grunt.registerTask('update-mo', [
+		'exec:msgfmt'
+	]);
 
 	grunt.registerTask('build', [
 		'compass:prod'
