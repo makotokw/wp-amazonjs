@@ -13,7 +13,7 @@
   margin: 1em;
   min-height: 200px;
 }
-#search_results .error {
+#search_results .error .error_body {
   overflow: auto;
 }
 #search_results .indicator {

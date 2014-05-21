@@ -902,15 +902,22 @@ EOF;
 				}
 			} else {
 				if ( $error = @$xml->Items->Request->Errors->Error ) {
-					$message = sprintf( 'Amazon API Retuns Error: Code=%s, Message=%s', $error->Code, $error->Message );
+					$message = __( 'Amazon Product Advertising API Error', $this->text_domain );
+					$error_code    = (string)@$error->Code;
+					$error_message = (string)@$error->Message;
+				} elseif ( $error = @$xml->Error ) {
+					$message = __( 'Amazon Product Advertising API Error', $this->text_domain );
+					$error_code    = (string)@$error->Code;
+					$error_message = (string)@$error->Message;
 				} else {
-					$message = __( 'Cannot Parse Response from Amazon API', $this->text_domain );
+					$message    = __( 'Cannot Parse Amazon Product Advertising API Response' );
+					$error_body = (string)$body;
 				}
 			}
 		} else {
 			$message = __( 'Invalid Response', $this->text_domain );
 		}
-		return compact( 'success', 'operation', 'os', 'items', 'resultMap', 'message' );
+		return compact( 'success', 'operation', 'os', 'items', 'resultMap', 'message', 'error_code' , 'error_message', 'error_body' );
 	}
 
 	static function to_array( $element ) {

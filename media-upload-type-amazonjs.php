@@ -243,6 +243,16 @@ amazonjs_aws_params( $amazonjs );
 				} else {
 					var msg = (data) ? (data.message || 'Error') : 'Amazonjs Search Error';
 					var $e = $('<div/>').addClass('error').html('<p>' + msg + '</p>');
+					if (data.error_code) {
+						var $errorCode = $('<strong/>').html(data.error_code);
+						$('<p/>').append($errorCode).appendTo($e);
+					}
+					if (data.error_message) {
+						$e.append($('<p/>').html(data.error_message));
+					}
+					if (data.error_body) {
+						$e.append($('<pre/>').addClass('error_body').text(data.error_body));
+					}
 					if (data && data.ob) {
 						$e.append($('<div/>').html(data.ob));
 					}
