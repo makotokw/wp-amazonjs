@@ -3,7 +3,8 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		exec: {
 			phpcs: {
-				cmd: 'vendor/bin/phpcs --standard=vendor/wordpress-coding-standards/WordPress *.php lib/*.php'
+				cmd: 'phpcs --standard=WordPress *.php lib/*.php',
+				exitCode: [0, 1]
 			},
 			xgettext: {
 				cmd: 'xgettext --from-code=UTF-8 -k__ -k_e -L PHP -o ./languages/messages.po ./*.php --package-name=amazonjs --package-version=1.0 --msgid-bugs-address=makoto.kw@gmail.com'
@@ -33,6 +34,10 @@ module.exports = function(grunt) {
 			}
 		},
 		watch: {
+			php: {
+				files: ['*.php', 'lib/*.php'],
+				tasks: ['exec:phpcs']
+			},
 			sass_dev: {
 				files: ['sass/*.scss'],
 				tasks: ['compass:dev']
@@ -57,8 +62,9 @@ module.exports = function(grunt) {
 	]);
 
 	grunt.registerTask('debug', [
-	       'compass:dev',
-		'watch:sass_dev'
+		'compass:dev',
+		'exec:phpcs',
+		'watch'
 	]);
 
 	grunt.registerTask('default', ['build']);
