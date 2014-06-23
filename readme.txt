@@ -89,8 +89,10 @@ In first, AmazonJS converts <a/> tag from `amazonjs` short code in server side. 
 
 = 0.7.1 =
 
+* Fixed to parse ItemID from https URL
 * Fixed Japanese translation of search form
 * Improved to display to display the error response of Product Advertising API
+* Bundle the jquery.tmpl
 * WordPress Cording Standard
 
 = 0.7 =

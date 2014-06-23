@@ -24,3 +24,7 @@ grunt debug
 ```
 grunt
 ```
+
+## Support
+
+http://wordpress.org/support/plugin/amazonjs
