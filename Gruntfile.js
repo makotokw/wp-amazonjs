@@ -33,6 +33,15 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+		bower: {
+			install: {
+				options: {
+					targetDir: './components',
+					cleanTargetDir: true,
+					layout: 'byType'
+				}
+			}
+		},
 		watch: {
 			php: {
 				files: ['*.php', 'lib/*.php'],
@@ -58,10 +67,12 @@ module.exports = function(grunt) {
 	]);
 
 	grunt.registerTask('build', [
+		'bower:install',
 		'compass:prod'
 	]);
 
 	grunt.registerTask('debug', [
+		'bower:install',
 		'compass:dev',
 		'exec:phpcs',
 		'watch'

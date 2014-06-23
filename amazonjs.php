@@ -30,10 +30,8 @@ class Amazonjs
 	const CACHE_LIFETIME = 86400;
 
 	// jQuery tmpl requires jQuery 1.4.2 or later
-	const JQ_URI          = 'http://ajax.microsoft.com/ajax/jquery/jquery-1.4.2.min.js';
-	const JQ_VERSION      = '1.4.2';
-	const JQ_TMPL_URI     = 'http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js';
-	const JQ_TMPL_VERSION = 'beta1';
+	const JQ_URI     = 'http://ajax.microsoft.com/ajax/jquery/jquery-1.4.2.min.js';
+	const JQ_VERSION = '1.4.2';
 
 	public $title;
 	public $url;
@@ -227,7 +225,7 @@ class Amazonjs
 			wp_deregister_script( 'jquery' );
 			wp_register_script( 'jquery', self::JQ_URI, array(), self::JQ_VERSION );
 		}
-		wp_register_script( 'jqeury-tmpl', self::JQ_TMPL_URI, array( 'jquery' ), self::JQ_TMPL_VERSION, true );
+		wp_register_script( 'jqeury-tmpl', $this->url . '/components/js/jquery-tmpl/jquery.tmpl.min.js', array( 'jquery' ), '1.0.0pre', true );
 
 		$depends = array( 'jqeury-tmpl' );
 		if ( $this->settings['displayCustomerReview'] ) {

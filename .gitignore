@@ -7,5 +7,8 @@
 ### Node ###
 node_modules
 
+### Bower ###
+bower_components
+
 ### OSX ###
 .DS_Store
