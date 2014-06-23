@@ -775,9 +775,9 @@ EOF;
 		$countryCode = @$_GET['CountryCode'];
 
 		if ( ! empty($id) ) {
-			if ( preg_match( '/^http?:\/\//', $id ) ) {
+			if ( preg_match( '/^https?:\/\//', $id ) ) {
 				// parse ItemId from URL
-				if ( preg_match( '/^http?:\/\/.+\.amazon\.([^\/]+).+(\/dp\/|\/gp\/product\/)([^\/]+)/', $id, $matches ) ) {
+				if ( preg_match( '/^https?:\/\/.+\.amazon\.([^\/]+).+(\/dp\/|\/gp\/product\/)([^\/]+)/', $id, $matches ) ) {
 					//$domain = $matches[1];
 					$itemId = $matches[3];
 				}
