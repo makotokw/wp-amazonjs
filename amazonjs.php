@@ -16,11 +16,9 @@ __( 'Easy to use interface to add an amazon product to your post and display it 
 /* 
  AmazonJS depends on
    jQuery tmpl
-   PEAR Cache_Lite: Fabien MARTY <fab@php.net>
    PEAR Services_JSON: Michal Migurski <mike-json@teczno.com>
  */
 
-require_once dirname( __FILE__ ) . '/lib/Cache/Lite.php';
 require_once dirname( __FILE__ ) . '/lib/json.php';
 
 class Amazonjs
@@ -48,8 +46,6 @@ class Amazonjs
 	public $media_type = 'amazonjs';
 	public $countries;
 	public $search_indexes;
-	public $cache;
-	public $cache_dir;
 	public $display_items = array();
 	public $simple_template;
 
@@ -131,26 +127,10 @@ class Amazonjs
 				'associateTagSuffix' => '-21',
 			),
 		);
-
-		//$this->cache_dir = dirname(__FILE__).DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR;
-		$wp_content_dir  = (defined( 'WP_CONTENT_DIR' ) && file_exists( WP_CONTENT_DIR )) ? WP_CONTENT_DIR : ABSPATH . 'wp-content';
-		$this->cache_dir = $wp_content_dir . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'amazonjs' . DIRECTORY_SEPARATOR;
-		if ( ! @is_dir( $this->cache_dir ) ) {
-			@mkdir( $this->cache_dir );
-		}
-		$this->cache = new Amazonjs_Cache_Lite(
-			array(
-				'cacheDir'               => $this->cache_dir,
-				'lifeTime'               => self::CACHE_LIFETIME,
-				'automaticSerialization' => true,
-			)
-		);
 	}
 
 	function clean() {
 		$this->delete_settings();
-		$this->cache->clean();
-		@rmdir( $this->cache_dir );
 	}
 
 	function init() {
@@ -487,7 +467,7 @@ EOF;
 		}
 		$item = (array_key_exists( $asin, $this->display_items[$locale] ))
 			? $this->display_items[$locale][$asin]
-			: $this->display_items[$locale][$asin] = $this->cache->get( $asin, $locale );
+			: $this->display_items[$locale][$asin] = get_site_transient("amazonjs_{$locale}_{$asin}");
 		$url  = '#';
 		if ( is_array( $item ) && array_key_exists( 'DetailPageURL', $item ) ) {
 			$url = $item['DetailPageURL'];
@@ -536,7 +516,7 @@ EOF;
 	}
 
 	function get_item( $country_code, $asin ) {
-		if ( $ai = $this->cache->get( $asin, $country_code ) ) {
+		if ( $ai = get_site_transient("amazonjs_{$country_code}_{$asin}") ) {
 			return $ai;
 		}
 		$items = $this->fetch_items( $country_code, array( $asin => false ) );
@@ -564,7 +544,7 @@ EOF;
 			if ( $results && $results['success'] ) {
 				foreach ( $results['items'] as $item ) {
 					$items[$item['ASIN']] = $item;
-					$this->cache->save( $item, $item['ASIN'], $country_code );
+					set_site_transient("amazonjs_{$country_code}_{$item['ASIN']}", $item, self::CACHE_LIFETIME);
 				}
 			}
 		}
@@ -728,20 +708,10 @@ EOF;
 	}
 
 	function options_page_header() {
-		$cache_dir_exists = @is_dir( $this->cache_dir );
 		?>
 		<?php if ( ! function_exists( 'simplexml_load_string' ) ): ?>
 			<div class="error">
 				<p><?= sprintf( __( 'Error! "simplexml_load_string" function is not found. %s requires PHP 5 and SimpleXML extension.', $this->text_domain ), $this->title ) ?></p>
-			</div>
-		<?php endif ?>
-		<?php if ( ! $cache_dir_exists ): ?>
-			<div class="error">
-				<p><?= sprintf( __( 'Warning! Cache directory is not exist. Please create writable directory: <br/><code>%s</code>', $this->text_domain ), $this->cache_dir ) ?></p>
-			</div>
-		<?php elseif ( ! is_writable( $this->cache_dir ) ): ?>
-			<div class="error">
-				<p><?= sprintf( __( 'Warning! Cache Directory "%s" is not writable, set permission as 0777.', $this->text_domain ), $this->cache_dir ) ?></p>
 			</div>
 		<?php endif ?>
 	<?php
