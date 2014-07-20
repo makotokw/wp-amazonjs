@@ -12,7 +12,6 @@
  Text Domain: amazonjs
  Domain Path: /languages/
  */
-__( 'Easy to use interface to add an amazon product to your post and display it by using jQuery template.' );
 /* 
  AmazonJS depends on
    jQuery tmpl
