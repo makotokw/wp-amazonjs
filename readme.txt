@@ -87,6 +87,11 @@ In first, AmazonJS converts <a/> tag from `amazonjs` short code in server side. 
 
 == Changelog ==
 
+= 0.7.2 =
+
+* Fixed PHP Short Open Tag in PHP5.3 or earlier by @shield-9
+* Fixed timeout to request Product Advertising API
+
 = 0.7.1 =
 
 * Fixed to parse ItemID from https URL

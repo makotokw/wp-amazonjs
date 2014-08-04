@@ -4,7 +4,7 @@
  Plugin URI: http://wordpress.org/extend/plugins/amazonjs/
  Description: Easy to use interface to add an amazon product to your post and display it by using jQuery template.
  Author: makoto_kw
- Version: 0.7.1
+ Version: 0.7.2-beta
  Author URI: http://makotokw.com
  Requires at least: 3.1.0
  Tested up to: 3.9
@@ -24,7 +24,7 @@ require_once dirname( __FILE__ ) . '/lib/json.php';
 
 class Amazonjs
 {
-	const VERSION        = '0.7.1';
+	const VERSION        = '0.7.2-beta';
 	const AWS_VERSION    = '2011-08-01';
 	const CACHE_LIFETIME = 86400;
 
@@ -824,7 +824,13 @@ EOF;
 
 		$url = sprintf( '%s/onca/xml?%s&Signature=%s', $baseUri, $query, self::urlencode_rfc3986( $signature ) );
 
-		$response = wp_remote_request( $url );
+		$response = wp_remote_request(
+			$url,
+			array(
+				'timeout' => 30
+			)
+		);
+
 		if ( is_wp_error( $response ) ) {
 			$error  = '';
 			$errors = $response->get_error_messages();
