@@ -20,17 +20,17 @@ amazonjs_aws_params( $amazonjs );
 <div id="media_amazon">
 	<?php if ( empty($access_key_id) || empty($secret_access_key) ): ?>
 		<div class="updated error">
-			<p><?= sprintf( __( 'The Access Key ID or Secret Access Key is empty. Please specify it in <a href="%s" target="_blank">settings</a>.', $text_domain ), $amazonjs->option_page_url ) ?></p>
+			<p><?php printf( __( 'The Access Key ID or Secret Access Key is empty. Please specify it in <a href="%s" target="_blank">settings</a>.', $text_domain ), $amazonjs->option_page_url ); ?></p>
 		</div>
 	<?php endif ?>
 	<?php if ( ! $cache_dir_writable ): ?>
 		<div class="updated error">
-			<p><?= sprintf( __( 'Warning! Cache Directory "%s" is not writable', $text_domain ), $amazonjs->cache_dir ) ?></p>
+			<p><?php printf( __( 'Warning! Cache Directory "%s" is not writable', $text_domain ), $amazonjs->cache_dir ); ?></p>
 		</div>
 	<?php endif ?>
 	<form id="search_form" class="amazonjs_search_form" method="get"
 		  action="<?php bloginfo( 'wpurl' ); ?>/wp-admin/admin-ajax.php">
-		<input type="hidden" nama="tab" value="<?= esc_attr( $tab ) ?>"/>
+		<input type="hidden" nama="tab" value="<?php echo esc_attr( $tab ); ?>"/>
 		<input type="hidden" id="search_page" name="ItemPage" value="1"/>
 		<?php if ( $tab == 'amazonjs_keyword' ): ?>
 			<fieldset>
@@ -103,9 +103,9 @@ amazonjs_aws_params( $amazonjs );
 			$overlay = $('#overlay'),
 			loading = false,
 			selectedItem,
-			defaultLocale = '<?= esc_js( $amazonjs->default_country_code() ) ?>',
-			countries = <?= json_encode( $amazonjs->countries );?>,
-			searchIndexes = <?= json_encode( $amazonjs->search_indexes );?>
+			defaultLocale = '<?php echo esc_js( $amazonjs->default_country_code() ); ?>',
+			countries = <?php echo json_encode( $amazonjs->countries );?>,
+			searchIndexes = <?php echo json_encode( $amazonjs->search_indexes );?>
 			;
 
 		$.each(countries, function (key, value) {
@@ -151,7 +151,7 @@ amazonjs_aws_params( $amazonjs );
 				'{{if SmallImage}}',
 				'<img src="${SmallImage.src}" width="${SmallImage.width}" height="${SmallImage.height}" alt="${Title}"/>',
 				'{{else}}',
-				'<img src="<?= $amazonjs->url?>/images/noimage-small.jpg" alt="${Title}"/>',
+				'<img src="<?php echo $amazonjs->url; ?>/images/noimage-small.jpg" alt="${Title}"/>',
 				'{{/if}}',
 				'</a>',
 				'<h4><a href="${DetailPageURL}" title="${Title}" target="_blank">${Title}</a></h4><br/>',
