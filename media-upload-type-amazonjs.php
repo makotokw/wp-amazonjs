@@ -151,7 +151,7 @@ amazonjs_aws_params( $amazonjs );
 				'{{if SmallImage}}',
 				'<img src="${SmallImage.src}" width="${SmallImage.width}" height="${SmallImage.height}" alt="${Title}"/>',
 				'{{else}}',
-				'<img src="<?php echo $amazonjs->url; ?>/images/noimage-small.jpg" alt="${Title}"/>',
+				'<img src="<?php echo esc_attr( $amazonjs->url ); ?>/images/noimage-small.jpg" alt="${Title}"/>',
 				'{{/if}}',
 				'</a>',
 				'<h4><a href="${DetailPageURL}" title="${Title}" target="_blank">${Title}</a></h4><br/>',

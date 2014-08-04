@@ -621,27 +621,27 @@ EOF;
 		$name  = $this->option_name . "[{$key}]";
 		$value = $this->settings[$key];
 		if ( isset($field['html']) ) {
-			echo $field['html'];
+			echo '' . $field['html'] . '';
 		} else {
 			switch ( $field['type'] ) {
 				case 'checkbox':
 					?>
-					<input id="<?php echo $id; ?>" name="<?php echo $name; ?>" type="checkbox" <?php checked( true, $value, false ); ?> />
-					<label for="<?php echo $id; ?>"><?php echo $field['label']; ?></label>
+					<input id="<?php echo esc_attr( $id ); ?>" name="<?php echo esc_attr( $name ); ?>" type="checkbox" <?php checked( true, $value, false ); ?> />
+					<label for="<?php echo esc_attr( $id ); ?>"><?php echo esc_html( $field['label'] ); ?></label>
 					<?php
 					break;
 				case 'radio':
 					foreach ( $field['options'] as $v => $content ) {
 						?>
-						<input name="<?php echo $name; ?>" type="radio" <?php checked( $v, $value, false ); ?> value="<?php echo $v; ?>"><?php echo $content; ?>
+						<input name="<?php echo esc_attr( $name ); ?>" type="radio" <?php checked( $v, $value, false ); ?> value="<?php echo esc_attr( $v ); ?>"><?php echo esc_html( $content ); ?>
 						<?php
 					}
 					break;
 				case 'select':
 					?>
-					<select id="<?php echo $id; ?>" name=<?php echo $name; ?>" value="<?php echo $value; ?>">
+					<select id="<?php echo esc_attr( $id ); ?>" name=<?php echo esc_attr( $name ); ?>" value="<?php echo esc_attr( $value ); ?>">
 					<?php foreach ( $field['options'] as $option => $name ): ?>
-						<option value="<?php echo $option; ?>" <?php selected( $option, $value, false ); ?>><?php echo $name; ?></option>
+						<option value="<?php echo esc_attr( $option ); ?>" <?php selected( $option, $value, false ); ?>><?php echo esc_html( $name ); ?></option>
 					<?php endforeach ?>
 					</select>
 					<?php
@@ -653,13 +653,11 @@ EOF;
 					if ( $size <= 0 ) {
 						$size = 40;
 					}
-					if ( is_string( $placeholder ) ) {
-						$placeholder = 'placeholder="' . $placeholder . '"';
-					} else {
+					if ( ! is_string( $placeholder ) ) {
 						$placeholder = '';
 					}
 					?>
-					<input id="<?php echo $id; ?>" name="<?php echo $name; ?>" type="text" size="<?php echo $size; ?>" value="<?php echo $value; ?>" <?php echo $placeholder; ?>/>
+					<input id="<?php echo esc_attr( $id ); ?>" name="<?php echo esc_attr( $name ); ?>" type="text" size="<?php echo esc_attr( $size ); ?>" value="<?php echo esc_attr( $value ); ?>" placeholder="<?php echo esc_attr( $placeholder ); ?>"/>
 					<?php
 					break;
 			}
@@ -675,7 +673,7 @@ EOF;
 		$iframe_src = 'media-upload.php?post_id=' . $iframe_ID . '&amp;type=' . $this->media_type . '&amp;tab=' . $this->media_type . '_keyword';
 		$label      = __( 'Add Amazon Link', $this->text_domain );
 		?>
-		<a href="<?php echo $iframe_src; ?>&amp;TB_iframe=true" id="add_amazon" class="button thickbox" title="<?php echo $label; ?>"><img src="<?php echo $this->url; ?>/images/amazon-icon.png" alt="<?php echo $label; ?>"/></a>
+		<a href="<?php echo esc_attr( $iframe_src . '&amp;TB_iframe=true' ); ?>" id="add_amazon" class="button thickbox" title="<?php echo esc_attr( $label ); ?>"><img src="<?php echo esc_attr( $this->url . '/images/amazon-icon.png' ); ?>" alt="<?php echo esc_attr( $label ); ?>"/></a>
 	<?php
 	}
 
@@ -713,7 +711,7 @@ EOF;
 	function options_page() {
 		?>
 		<div class="wrap wrap-amazonjs">
-			<h2><?php echo $this->title; ?></h2>
+			<h2><?php echo esc_html( $this->title ); ?></h2>
 			<?php $this->options_page_header(); ?>
 			<form action="options.php" method="post">
 				<?php settings_fields( $this->option_name ); ?>
