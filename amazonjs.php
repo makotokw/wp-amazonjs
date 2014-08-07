@@ -28,10 +28,6 @@ class Amazonjs
 	const AWS_VERSION    = '2011-08-01';
 	const CACHE_LIFETIME = 86400;
 
-	// jQuery tmpl requires jQuery 1.4.2 or later
-	const JQ_URI     = 'http://ajax.microsoft.com/ajax/jquery/jquery-1.4.2.min.js';
-	const JQ_VERSION = '1.4.2';
-
 	public $title;
 	public $url;
 	public $option_page_url;
@@ -220,9 +216,11 @@ class Amazonjs
 
 	function wp_enqueue_scripts() {
 		$v = get_bloginfo( 'version' );
+
+		// jQuery tmpl requires jQuery 1.4.2 or later
 		if ( version_compare( $v, '3.0', '<' ) ) {
 			wp_deregister_script( 'jquery' );
-			wp_register_script( 'jquery', self::JQ_URI, array(), self::JQ_VERSION );
+			wp_register_script( 'jquery', plugins_url( 'js/jquery-1.4.2.min.js' , __FILE__ ), array(), '1.4.2' );
 		}
 		wp_register_script( 'jqeury-tmpl', $this->url . '/components/js/jquery-tmpl/jquery.tmpl.min.js', array( 'jquery' ), '1.0.0pre', true );
 
