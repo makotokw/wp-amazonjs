@@ -827,7 +827,7 @@ EOF;
 		$response = wp_remote_request(
 			$url,
 			array(
-				'timeout' => 30
+				'timeout' => 30,
 			)
 		);
 
