@@ -113,7 +113,7 @@ In first, AmazonJS converts <a/> tag from `amazonjs` short code in server side. 
 = 0.6 =
 
 * Added option to allow animation
-* Supported `imgsize` attr of shotcode,
+* Supported `imgsize` attr of shortcode
 * Fixed to display same ASIN for some countries
 * Fixed style for smart phone and dark theme
 
@@ -140,7 +140,7 @@ In first, AmazonJS converts <a/> tag from `amazonjs` short code in server side. 
 
 * Added option to display customer review, default is off
 * Added option to display an Amazon official widget when disabled javascript in web browser, default is off
-* Changed priority of wp_print_footer_scripts to execute before other plugin occured error
+* Changed priority of wp_print_footer_scripts to execute before other plugin occurred error
 
 = 0.3 =
 
