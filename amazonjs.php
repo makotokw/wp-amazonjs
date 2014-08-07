@@ -4,10 +4,10 @@
  Plugin URI: http://wordpress.org/extend/plugins/amazonjs/
  Description: Easy to use interface to add an amazon product to your post and display it by using jQuery template.
  Author: makoto_kw
- Version: 0.7.2-beta
+ Version: 0.7.2
  Author URI: http://makotokw.com
- Requires at least: 3.1.0
- Tested up to: 3.9
+ Requires at least: 3.3
+ Tested up to: 3.9.2
  License: GPLv2
  Text Domain: amazonjs
  Domain Path: /languages/
@@ -24,13 +24,9 @@ require_once dirname( __FILE__ ) . '/lib/json.php';
 
 class Amazonjs
 {
-	const VERSION        = '0.7.2-beta';
+	const VERSION        = '0.7.2';
 	const AWS_VERSION    = '2011-08-01';
 	const CACHE_LIFETIME = 86400;
-
-	// jQuery tmpl requires jQuery 1.4.2 or later
-	const JQ_URI     = 'http://ajax.microsoft.com/ajax/jquery/jquery-1.4.2.min.js';
-	const JQ_VERSION = '1.4.2';
 
 	public $title;
 	public $url;
@@ -219,11 +215,6 @@ class Amazonjs
 	}
 
 	function wp_enqueue_scripts() {
-		$v = get_bloginfo( 'version' );
-		if ( version_compare( $v, '3.0', '<' ) ) {
-			wp_deregister_script( 'jquery' );
-			wp_register_script( 'jquery', self::JQ_URI, array(), self::JQ_VERSION );
-		}
 		wp_register_script( 'jqeury-tmpl', $this->url . '/components/js/jquery-tmpl/jquery.tmpl.min.js', array( 'jquery' ), '1.0.0pre', true );
 
 		$depends = array( 'jqeury-tmpl' );
