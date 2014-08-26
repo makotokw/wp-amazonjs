@@ -24,7 +24,7 @@ require_once dirname( __FILE__ ) . '/lib/json.php';
 
 class Amazonjs
 {
-	const VERSION        = '0.7.2';
+	const VERSION        = '0.7.3-beta';
 	const AWS_VERSION    = '2011-08-01';
 	const CACHE_LIFETIME = 86400;
 
@@ -395,7 +395,7 @@ class Amazonjs
 	function validate_settings( $settings ) {
 		foreach ( $this->setting_fields as $key => $field ) {
 			if ( $field['type'] == 'checkbox' ) {
-				$settings[$key] = (@$settings[$key] == 'on');
+				$settings[$key] = ( @$settings[$key] == 'on' || @$settings[$key] == '1' );
 			}
 		}
 
@@ -617,14 +617,14 @@ EOF;
 			switch ( $field['type'] ) {
 				case 'checkbox':
 					?>
-					<input id="<?php echo esc_attr( $id ); ?>" name="<?php echo esc_attr( $name ); ?>" type="checkbox" <?php checked( true, $value, false ); ?> />
+					<input id="<?php echo esc_attr( $id ); ?>" name="<?php echo esc_attr( $name ); ?>" type="checkbox" value="1" <?php checked( true, $value ); ?> />
 					<label for="<?php echo esc_attr( $id ); ?>"><?php echo esc_html( $field['label'] ); ?></label>
 					<?php
 					break;
 				case 'radio':
 					foreach ( $field['options'] as $v => $content ) {
 						?>
-						<input name="<?php echo esc_attr( $name ); ?>" type="radio" <?php checked( $v, $value, false ); ?> value="<?php echo esc_attr( $v ); ?>"><?php echo esc_html( $content ); ?>
+						<input name="<?php echo esc_attr( $name ); ?>" type="radio" <?php checked( $v, $value ); ?> value="<?php echo esc_attr( $v ); ?>"><?php echo esc_html( $content ); ?>
 						<?php
 					}
 					break;
@@ -632,7 +632,7 @@ EOF;
 					?>
 					<select id="<?php echo esc_attr( $id ); ?>" name=<?php echo esc_attr( $name ); ?>" value="<?php echo esc_attr( $value ); ?>">
 					<?php foreach ( $field['options'] as $option => $name ): ?>
-						<option value="<?php echo esc_attr( $option ); ?>" <?php selected( $option, $value, false ); ?>><?php echo esc_html( $name ); ?></option>
+						<option value="<?php echo esc_attr( $option ); ?>" <?php selected( $option, $value ); ?>><?php echo esc_html( $name ); ?></option>
 					<?php endforeach ?>
 					</select>
 					<?php
