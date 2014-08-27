@@ -2,7 +2,7 @@
 Contributors: makoto_kw
 Tags: Amazon, books, post, media, affiliate, japanese
 Requires at least: 3.3
-Tested up to: 3.9.1
+Tested up to: 3.9.2
 Stable tag: trunk
 License: GPLv2 or later
 
@@ -87,6 +87,11 @@ In first, AmazonJS converts <a/> tag from `amazonjs` short code in server side. 
 
 == Changelog ==
 
+= 0.7.3 =
+
+* Fixed to save settings by checkbox
+* Fixed image url over https
+
 = 0.7.2 =
 
 * Fixed PHP Short Open Tag in PHP5.3 or earlier by @shield-9
@@ -95,7 +100,7 @@ In first, AmazonJS converts <a/> tag from `amazonjs` short code in server side. 
 
 = 0.7.1 =
 
-* Fixed to parse ItemID from https URL
+* Fixed to parse ItemID into https URL
 * Fixed Japanese translation of search form
 * Improved to display to display the error response of Product Advertising API
 * Bundle the jquery.tmpl
