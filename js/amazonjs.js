@@ -2,9 +2,12 @@
 	if (!$) return;
 	var ua = navigator.userAgent,
 		isIE = ua.match(/msie/i),
-		isIE6 = isIE && ua.match(/msie 6\./i);
+		isIE6 = isIE && ua.match(/msie 6\./i),
+		location = window.location,
+		isHttpsScheme = location && location.protocol && location.protocol == 'https:';
 	$.extend({
 		amazonjs:{
+			imageAttributes: ['SmallImage', 'MediumImage', 'LargeImage'],
 			isCustomerReviewEnabled: false,
 			isTrackEventEnabled: false,
 			resource: {},
@@ -326,6 +329,16 @@
 				return defaultTmpl;
 			},
 			prepareData:function (item) {
+				
+				// workaround: https://forums.aws.amazon.com/thread.jspa?messageID=435131
+				if (isHttpsScheme) {
+					$.each(this.imageAttributes, function(i, v) {
+						var image = item[v];
+						if (image && image.src) {
+							image.src = image.src.replace('http://ecx.images-amazon.com', 'https://images-eu.ssl-images-amazon.com');
+						}
+					});
+				}
 				item._ShowDefaultImage = _ShowSmallImage = item._ShowMediumImage = item._ShowLargeImage = false;
 				if (item._ImageSize == 'small') item._ShowSmallImage = true;
 				else if (item._ImageSize == 'medium') item._ShowMediumImage = true;
