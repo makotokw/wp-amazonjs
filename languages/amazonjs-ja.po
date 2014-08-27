@@ -1,13 +1,10 @@
-# Japanese translations for PACKAGE package.
-# Copyright (C) 2011 THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# makoto_kw <makoto.kw+wordpress@gmail.com>, 2010.
-#
+# Copyright (C) 2014 makoto_kw
+# This file is distributed under the GPLv2.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: makoto.kw@gmail.com\n"
-"POT-Creation-Date: 2014-05-21 20:09+0900\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/amazonjs\n"
+"POT-Creation-Date: 2014-08-27 07:43:33+00:00\n"
 "PO-Revision-Date: 2010-11-08 00:37+0900\n"
 "Last-Translator: makoto_kw <makoto.kw+wordpress@gmail.com>\n"
 "Language-Team: Japanese\n"
@@ -15,7 +12,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: grunt-wp-i18n 0.4.7\n"
 
 #: amazonjs-aws-params.php:17
 msgid "All"
@@ -237,75 +234,67 @@ msgstr "無線"
 msgid "WirelessAccessories"
 msgstr "無線アクセサリー"
 
-#: amazonjs.php:15
-msgid ""
-"Easy to use interface to add an amazon product to your post and display it "
-"by using jQuery template."
-msgstr ""
-"Amazonの商品情報をブログに簡単に追加し、jQueryテンプレートを使って表示を行い"
-"ます。"
-
-#: amazonjs.php:73
+#: amazonjs.php:66
 msgid "United States"
 msgstr "アメリカ"
 
-#: amazonjs.php:80
+#: amazonjs.php:73
 msgid "United Kingdom"
 msgstr "イギリス"
 
-#: amazonjs.php:87
+#: amazonjs.php:80
 msgid "Deutschland"
 msgstr "ドイツ"
 
-#: amazonjs.php:94
+#: amazonjs.php:87
 msgid "France"
 msgstr "フランス"
 
-#: amazonjs.php:101
+#: amazonjs.php:94
 msgid "Japan"
 msgstr "日本"
 
-#: amazonjs.php:108
+#: amazonjs.php:101
 msgid "Canada"
 msgstr "カナダ"
 
-#: amazonjs.php:115
+#: amazonjs.php:108
 msgid "China"
 msgstr "中国"
 
-#: amazonjs.php:122
+#: amazonjs.php:115
 msgid "Italia"
 msgstr "イタリア"
 
-#: amazonjs.php:129
+#: amazonjs.php:122
 msgid "España"
 msgstr "スペイン"
 
-#: amazonjs.php:276
+#: amazonjs.php:264
 msgid "Author"
 msgstr "著者"
 
-#: amazonjs.php:277
+#: amazonjs.php:265
 msgid "PublicationDate"
 msgstr "出版日"
 
-#: amazonjs.php:278
+#: amazonjs.php:266
 msgid "Publisher"
 msgstr "出版社"
 
-#: amazonjs.php:279
+#: amazonjs.php:267
 msgid "${NumberOfPages} pages"
 msgstr "${NumberOfPages}ページ"
 
-#: amazonjs.php:280
+#: amazonjs.php:268
 msgid "List Price"
 msgstr "参考価格"
 
-#: amazonjs.php:281
+#: amazonjs.php:269
 msgid "Price"
 msgstr "価格"
 
-#: amazonjs.php:282
+#: amazonjs.php:270
 msgid ""
 "Product prices and availability are accurate as of the date/time indicated "
 "and are subject to change. Any price and availability information displayed "
@@ -316,83 +305,83 @@ msgstr ""
 "があります。商品の販売においては、購入の時点で [Amazon.co.jp または Javari."
 "jp] に表示されている価格および発送可能時期の情報が適用されます。"
 
-#: amazonjs.php:283
+#: amazonjs.php:271
 msgid "Publication Date"
 msgstr "発売日"
 
-#: amazonjs.php:284
+#: amazonjs.php:272
 msgid "Release Date"
 msgstr "リリース日"
 
-#: amazonjs.php:285
+#: amazonjs.php:273
 msgid "SalesRank"
 msgstr "商品ランキング"
 
-#: amazonjs.php:286
+#: amazonjs.php:274
 msgid "#${SalesRank}"
 msgstr "${SalesRank}位"
 
-#: amazonjs.php:287
+#: amazonjs.php:275
 msgid "Run Time"
 msgstr "時間"
 
-#: amazonjs.php:288
+#: amazonjs.php:276
 msgid "${RunningTime} minutes"
 msgstr "${RunningTime}分"
 
-#: amazonjs.php:289
+#: amazonjs.php:277
 msgid "${Title} Customer Review"
 msgstr "${Title} カスタマーレビュー"
 
-#: amazonjs.php:290
+#: amazonjs.php:278
 msgid "See Customer Reviews"
 msgstr "カスタマーレビューを見る"
 
-#: amazonjs.php:291
+#: amazonjs.php:279
 msgid "(at ${UpdatedDate})"
 msgstr "(${UpdatedDate}時点)"
 
-#: amazonjs.php:311
+#: amazonjs.php:299
 msgid "Product Advertising API settings"
 msgstr "Product Advertising APIの設定"
 
-#: amazonjs.php:314
+#: amazonjs.php:302
 msgid "Amazon Associates settings"
 msgstr "アソシエイトタグの設定"
 
-#: amazonjs.php:317
+#: amazonjs.php:305
 msgid "Appearance settings"
 msgstr "表示設定"
 
-#: amazonjs.php:320
+#: amazonjs.php:308
 msgid "Analytics settings"
 msgstr "アナリティクス設定"
 
-#: amazonjs.php:323
+#: amazonjs.php:311
 msgid "Customize"
 msgstr "カスタマイズ"
 
-#: amazonjs.php:330
+#: amazonjs.php:318
 msgid "Access Key ID"
 msgstr "アクセスキーID"
 
-#: amazonjs.php:336
+#: amazonjs.php:324
 msgid "Secret Access Key"
 msgstr "シークレットアクセスキー"
 
-#: amazonjs.php:342
+#: amazonjs.php:330
 msgid "Display customer review"
 msgstr "カスタマーレビューを表示する"
 
-#: amazonjs.php:345
+#: amazonjs.php:333
 msgid "AmazonJS will display customer review by using WordPress's Thickbox."
 msgstr "WordPressのThickboxを利用してカスタマーレビューを表示します"
 
-#: amazonjs.php:348
+#: amazonjs.php:336
 msgid "Display official widget when disabled javascript in web browser"
 msgstr "ブラウザのJavascriptが無効の時にオフィシャルウィジェットを表示する"
 
-#: amazonjs.php:351
+#: amazonjs.php:339
 msgid ""
 "If set to true, AmazonJS will output html by using <code>&lt;script "
 "type=&quot;text/javascript&quot;&gt;document.write(&quot;{$indicator_html}"
@@ -402,15 +391,15 @@ msgstr ""
 "document.write(&quot;{$indicator_html}&quot;)&lt;/script&gt;&lt;noscript&gt;"
 "{$link_html}&lt;/noscript&gt;</code>を出力します"
 
-#: amazonjs.php:354
+#: amazonjs.php:342
 msgid "Use fadeIn animation"
 msgstr "フェードインアニメーションを使用する"
 
-#: amazonjs.php:359
+#: amazonjs.php:347
 msgid "Override style of theme"
 msgstr "テーマのスタイルを上書きする"
 
-#: amazonjs.php:362
+#: amazonjs.php:350
 msgid ""
 "If set to true, AmazonJS will override the style of the theme by using "
 "<code>!important</code> declaration."
@@ -418,11 +407,11 @@ msgstr ""
 "設定が有効の場合、<code>!important</code>を使ってテーマのスタイルを上書きしま"
 "す"
 
-#: amazonjs.php:365
+#: amazonjs.php:353
 msgid "Click Tracking by using Google Analytics"
 msgstr "Google Analyticsで商品リンクのクリックをトラッキングする"
 
-#: amazonjs.php:368
+#: amazonjs.php:356
 msgid ""
 "If set to true, AmazonJS will call <code>_gaq.push([\"_trackEvent\", "
 "\"AmazonJS\", \"Click\", \"ASIN TITLE\"])</code> or <code>ga(\"send\", "
@@ -432,19 +421,23 @@ msgstr ""
 "\"ASIN TITLE\"])</code> または <code>ga(\"send\", \"event\", \"AmazonJS\", "
 "\"Click\", \"ASIN TITLE\")</code>を呼び出します"
 
-#: amazonjs.php:371
+#: amazonjs.php:359
 msgid "Use Custom Css"
 msgstr "カスタムCSSを使用する"
 
-#: amazonjs.php:377
+#: amazonjs.php:365
 msgid "Use Custom Javascript"
 msgstr "カスタムスクリプトを使用する"
 
-#: amazonjs.php:588
+#: amazonjs.php:576
 msgid "Settings"
 msgstr "設定"
 
-#: amazonjs.php:596
+#: amazonjs.php:580
+msgid "Old Releases"
+msgstr "過去のバージョン"
+
+#: amazonjs.php:588
 msgid ""
 "This plugin uses the Amazon Product Advertising API in order to get product "
 "infomation. Thus, you must use your Access Key ID &amp; Secret Access Key."
@@ -453,7 +446,7 @@ msgstr ""
 "Advertising APIを使うにはあなたのアクセスキーIDと秘密アクセスキーを使わなけれ"
 "ばいけません。"
 
-#: amazonjs.php:597
+#: amazonjs.php:589
 msgid ""
 "You can sign up the Amazon Product Advertising API from <a href=\"https://"
 "affiliate-program.amazon.com/gp/advertising/api/detail/main.html\" target="
@@ -467,7 +460,7 @@ msgstr ""
 "affiliate.amazon.co.jp/gp/advertising/api/detail/agreement.html\" target="
 "\"_blank\">Product Advertising API ライセンス契約</a> をよくお読みください。"
 
-#: amazonjs.php:603
+#: amazonjs.php:595
 msgid ""
 "Amazon has an affiliate program called Amazon Associates. To apply for the "
 "Associates Program, visit the <a href=\"https://affiliate-program.amazon.com/"
@@ -477,7 +470,7 @@ msgstr ""
 "フィリエイトプログラムの詳細は<a href=\"https://affiliate.amazon.co.jp/\" "
 "target=\"_blank\">Amazon アソシエイトウェブサイト</a>を参照してください。"
 
-#: amazonjs.php:604
+#: amazonjs.php:596
 msgid ""
 "Associate Tag has been a <strong>required and verified</strong> input "
 "parameter in all requests to the Amazon Product Advertising API since "
@@ -486,20 +479,19 @@ msgstr ""
 "2011年11月1日よりアソシエイトタグはAmazon Product Advertising APIへの全てのリ"
 "クエストにおいて<strong>必須かつ検証される</strong>パラメータになりました。"
 
-#: amazonjs.php:681
+#: amazonjs.php:669
 msgid "Add Amazon Link"
 msgstr "Amazonリンクを追加"
 
-#: amazonjs.php:713
+#: amazonjs.php:701
 msgid "Keyword Search"
 msgstr "キーワード検索"
 
-#: amazonjs.php:714
+#: amazonjs.php:702
 msgid "Search by ASIN/URL"
 msgstr "ASIN/URLで検索"
 
-#: amazonjs.php:737
-#, php-format
+#: amazonjs.php:725
 msgid ""
 "Error! \"simplexml_load_string\" function is not found. %s requires PHP 5 "
 "and SimpleXML extension."
@@ -507,8 +499,7 @@ msgstr ""
 "エラー! \"simplexml_load_string\" 関数が見つかりません。%s を使うにはPHP5以上"
 "でSimpleXML拡張が必要です"
 
-#: amazonjs.php:742
-#, php-format
+#: amazonjs.php:730
 msgid ""
 "Warning! Cache directory is not exist. Please create writable directory: <br/"
 "><code>%s</code>"
@@ -516,42 +507,38 @@ msgstr ""
 "警告! キャッシュディレクトリが存在しません<br/>書き込み可能なディレクトリを "
 "<code>%s</code> に作成してください"
 
-#: amazonjs.php:746
-#, php-format
+#: amazonjs.php:734
 msgid ""
 "Warning! Cache Directory \"%s\" is not writable, set permission as 0777."
 msgstr ""
 "警告! キャッシュディレクトリ \"%s\" に書き込み権限がありません。パーミッショ"
 "ンを0777に設定してください"
 
-#: amazonjs.php:812
+#: amazonjs.php:800
 msgid "Invalid Request Parameters"
 msgstr "リクエストが不正です"
 
-#: amazonjs.php:841
-#, php-format
+#: amazonjs.php:835
 msgid "Network Error: %s"
 msgstr "ネットワークエラー: %s"
 
-#: amazonjs.php:847
-#, php-format
+#: amazonjs.php:841
 msgid "Empty Response from %s"
 msgstr "%sからのレスポンスが空です"
 
-#: amazonjs.php:906 amazonjs.php:910
+#: amazonjs.php:899 amazonjs.php:903
 msgid "Amazon Product Advertising API Error"
 msgstr "Amazon Product Advertising APIのエラー"
 
-#: amazonjs.php:914
+#: amazonjs.php:907
 msgid "Cannot Parse Amazon Product Advertising API Response"
 msgstr "Amazon Product Advertising APIからのレスポンスをパースできません"
 
-#: amazonjs.php:920
+#: amazonjs.php:912
 msgid "Invalid Response"
 msgstr "レスポンスが不正です"
 
 #: media-upload-type-amazonjs.php:23
-#, php-format
 msgid ""
 "The Access Key ID or Secret Access Key is empty. Please specify it in <a "
 "href=\"%s\" target=\"_blank\">settings</a>."
@@ -560,7 +547,6 @@ msgstr ""
 "target=\"_blank\">設定画面</a>から設定してください。"
 
 #: media-upload-type-amazonjs.php:28
-#, php-format
 msgid "Warning! Cache Directory \"%s\" is not writable"
 msgstr "警告! キャッシュディレクトリ \"%s\" に書き込み権限がありません"
 
@@ -645,3 +631,27 @@ msgstr ""
 #: media-upload-type-amazonjs.php:162
 msgid "Select"
 msgstr "選択"
+
+#. Plugin Name of the plugin/theme
+msgid "AmazonJS"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://wordpress.org/extend/plugins/amazonjs/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Easy to use interface to add an amazon product to your post and display it "
+"by using jQuery template."
+msgstr ""
+"Amazonの商品情報をブログに簡単に追加し、jQueryテンプレートを使って表示を行い"
+"ます。"
+
+#. Author of the plugin/theme
+msgid "makoto_kw"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://makotokw.com"
+msgstr ""

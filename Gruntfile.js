@@ -1,16 +1,20 @@
 module.exports = function(grunt) {
 	require('load-grunt-tasks')(grunt);
 	grunt.initConfig({
+		makepot: {
+			target: {
+				options: {
+					type: 'wp-plugin'
+				}
+			}
+		},
 		exec: {
 			phpcs: {
 				cmd: 'phpcs --standard=WordPress *.php lib/*.php',
 				exitCode: [0, 1]
 			},
-			xgettext: {
-				cmd: 'xgettext --from-code=UTF-8 -k__ -k_e -L PHP -o ./languages/messages.po ./*.php --package-name=amazonjs --package-version=1.0 --msgid-bugs-address=makoto.kw@gmail.com'
-			},
 			msgmerge: {
-				cmd: 'msgmerge --update ./languages/amazonjs-ja.po ./languages/messages.po --backup=off'
+				cmd: 'msgmerge --update ./languages/amazonjs-ja.po ./languages/amazonjs.pot --backup=off'
 			},
 			msgfmt: {
 				cmd: 'msgfmt -o ./languages/amazonjs-ja.mo ./languages/amazonjs-ja.po'
@@ -59,7 +63,7 @@ module.exports = function(grunt) {
 	]);
 
 	grunt.registerTask('update-po', [
-		'exec:xgettext',
+		'makepot',
 		'exec:msgmerge'
 	]);
 	grunt.registerTask('update-mo', [

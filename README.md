@@ -19,6 +19,12 @@ You can install stable version from: [WordPress.org](http://wordpress.org/plugin
 grunt debug
 ```
 
+#### Translation
+
+1. Execute ``grunt update-po``
+1. Edit ``languages/amazonjs-*.po``
+1. Execute ``grunt update-mo``
+
 ### Production
 
 ```

@@ -1,21 +1,17 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# Copyright (C) 2014 makoto_kw
+# This file is distributed under the GPLv2.
 msgid ""
 msgstr ""
-"Project-Id-Version: amazonjs 1.0\n"
-"Report-Msgid-Bugs-To: makoto.kw@gmail.com\n"
-"POT-Creation-Date: 2014-05-21 20:09+0900\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Project-Id-Version: AmazonJS 0.7.3\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/amazonjs\n"
+"POT-Creation-Date: 2014-08-27 07:43:33+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: grunt-wp-i18n 0.4.7\n"
 
 #: amazonjs-aws-params.php:17
 msgid "All"
@@ -237,73 +233,67 @@ msgstr ""
 msgid "WirelessAccessories"
 msgstr ""
 
-#: amazonjs.php:15
-msgid ""
-"Easy to use interface to add an amazon product to your post and display it "
-"by using jQuery template."
-msgstr ""
-
-#: amazonjs.php:73
+#: amazonjs.php:66
 msgid "United States"
 msgstr ""
 
-#: amazonjs.php:80
+#: amazonjs.php:73
 msgid "United Kingdom"
 msgstr ""
 
-#: amazonjs.php:87
+#: amazonjs.php:80
 msgid "Deutschland"
 msgstr ""
 
-#: amazonjs.php:94
+#: amazonjs.php:87
 msgid "France"
 msgstr ""
 
-#: amazonjs.php:101
+#: amazonjs.php:94
 msgid "Japan"
 msgstr ""
 
-#: amazonjs.php:108
+#: amazonjs.php:101
 msgid "Canada"
 msgstr ""
 
-#: amazonjs.php:115
+#: amazonjs.php:108
 msgid "China"
 msgstr ""
 
-#: amazonjs.php:122
+#: amazonjs.php:115
 msgid "Italia"
 msgstr ""
 
-#: amazonjs.php:129
+#: amazonjs.php:122
 msgid "España"
 msgstr ""
 
-#: amazonjs.php:276
+#: amazonjs.php:264
 msgid "Author"
 msgstr ""
 
-#: amazonjs.php:277
+#: amazonjs.php:265
 msgid "PublicationDate"
 msgstr ""
 
-#: amazonjs.php:278
+#: amazonjs.php:266
 msgid "Publisher"
 msgstr ""
 
-#: amazonjs.php:279
+#: amazonjs.php:267
 msgid "${NumberOfPages} pages"
 msgstr ""
 
-#: amazonjs.php:280
+#: amazonjs.php:268
 msgid "List Price"
 msgstr ""
 
-#: amazonjs.php:281
+#: amazonjs.php:269
 msgid "Price"
 msgstr ""
 
-#: amazonjs.php:282
+#: amazonjs.php:270
 msgid ""
 "Product prices and availability are accurate as of the date/time indicated "
 "and are subject to change. Any price and availability information displayed "
@@ -311,222 +301,220 @@ msgid ""
 "apply to the purchase of this product."
 msgstr ""
 
-#: amazonjs.php:283
+#: amazonjs.php:271
 msgid "Publication Date"
 msgstr ""
 
-#: amazonjs.php:284
+#: amazonjs.php:272
 msgid "Release Date"
 msgstr ""
 
-#: amazonjs.php:285
+#: amazonjs.php:273
 msgid "SalesRank"
 msgstr ""
 
-#: amazonjs.php:286
+#: amazonjs.php:274
 msgid "#${SalesRank}"
 msgstr ""
 
-#: amazonjs.php:287
+#: amazonjs.php:275
 msgid "Run Time"
 msgstr ""
 
-#: amazonjs.php:288
+#: amazonjs.php:276
 msgid "${RunningTime} minutes"
 msgstr ""
 
-#: amazonjs.php:289
+#: amazonjs.php:277
 msgid "${Title} Customer Review"
 msgstr ""
 
-#: amazonjs.php:290
+#: amazonjs.php:278
 msgid "See Customer Reviews"
 msgstr ""
 
-#: amazonjs.php:291
+#: amazonjs.php:279
 msgid "(at ${UpdatedDate})"
 msgstr ""
 
-#: amazonjs.php:311
+#: amazonjs.php:299
 msgid "Product Advertising API settings"
 msgstr ""
 
-#: amazonjs.php:314
+#: amazonjs.php:302
 msgid "Amazon Associates settings"
 msgstr ""
 
-#: amazonjs.php:317
+#: amazonjs.php:305
 msgid "Appearance settings"
 msgstr ""
 
-#: amazonjs.php:320
+#: amazonjs.php:308
 msgid "Analytics settings"
 msgstr ""
 
-#: amazonjs.php:323
+#: amazonjs.php:311
 msgid "Customize"
 msgstr ""
 
-#: amazonjs.php:330
+#: amazonjs.php:318
 msgid "Access Key ID"
 msgstr ""
 
-#: amazonjs.php:336
+#: amazonjs.php:324
 msgid "Secret Access Key"
 msgstr ""
 
-#: amazonjs.php:342
+#: amazonjs.php:330
 msgid "Display customer review"
 msgstr ""
 
-#: amazonjs.php:345
+#: amazonjs.php:333
 msgid "AmazonJS will display customer review by using WordPress's Thickbox."
 msgstr ""
 
-#: amazonjs.php:348
+#: amazonjs.php:336
 msgid "Display official widget when disabled javascript in web browser"
 msgstr ""
 
-#: amazonjs.php:351
+#: amazonjs.php:339
 msgid ""
 "If set to true, AmazonJS will output html by using <code>&lt;script "
-"type=&quot;text/javascript&quot;&gt;document.write(&quot;{$indicator_html}"
-"&quot;)&lt;/script&gt;&lt;noscript&gt;{$link_html}&lt;/noscript&gt;</code>."
+"type=&quot;text/javascript&quot;&gt;document.write(&quot;{$indicator_html}&"
+"quot;)&lt;/script&gt;&lt;noscript&gt;{$link_html}&lt;/noscript&gt;</code>."
 msgstr ""
 
-#: amazonjs.php:354
+#: amazonjs.php:342
 msgid "Use fadeIn animation"
 msgstr ""
 
-#: amazonjs.php:359
+#: amazonjs.php:347
 msgid "Override style of theme"
 msgstr ""
 
-#: amazonjs.php:362
+#: amazonjs.php:350
 msgid ""
 "If set to true, AmazonJS will override the style of the theme by using "
 "<code>!important</code> declaration."
 msgstr ""
 
-#: amazonjs.php:365
+#: amazonjs.php:353
 msgid "Click Tracking by using Google Analytics"
 msgstr ""
 
-#: amazonjs.php:368
+#: amazonjs.php:356
 msgid ""
 "If set to true, AmazonJS will call <code>_gaq.push([\"_trackEvent\", "
 "\"AmazonJS\", \"Click\", \"ASIN TITLE\"])</code> or <code>ga(\"send\", "
 "\"event\", \"AmazonJS\", \"Click\", \"ASIN TITLE\")</code>."
 msgstr ""
 
-#: amazonjs.php:371
+#: amazonjs.php:359
 msgid "Use Custom Css"
 msgstr ""
 
-#: amazonjs.php:377
+#: amazonjs.php:365
 msgid "Use Custom Javascript"
 msgstr ""
 
-#: amazonjs.php:588
+#: amazonjs.php:576
 msgid "Settings"
 msgstr ""
 
-#: amazonjs.php:596
+#: amazonjs.php:580
+msgid "Old Releases"
+msgstr ""
+
+#: amazonjs.php:588
 msgid ""
 "This plugin uses the Amazon Product Advertising API in order to get product "
 "infomation. Thus, you must use your Access Key ID &amp; Secret Access Key."
 msgstr ""
 
-#: amazonjs.php:597
+#: amazonjs.php:589
 msgid ""
-"You can sign up the Amazon Product Advertising API from <a href=\"https://"
-"affiliate-program.amazon.com/gp/advertising/api/detail/main.html\" target="
-"\"_blank\">here</a>. Please review the <a href=\"http://affiliate-program."
-"amazon.com/gp/advertising/api/detail/agreement.html\" target=\"_blank"
-"\">Product Advertising API License Agreement</a> for details."
+"You can sign up the Amazon Product Advertising API from <a "
+"href=\"https://affiliate-program.amazon.com/gp/advertising/api/detail/main."
+"html\" target=\"_blank\">here</a>. Please review the <a "
+"href=\"http://affiliate-program.amazon.com/gp/advertising/api/detail/"
+"agreement.html\" target=\"_blank\">Product Advertising API License "
+"Agreement</a> for details."
 msgstr ""
 
-#: amazonjs.php:603
+#: amazonjs.php:595
 msgid ""
 "Amazon has an affiliate program called Amazon Associates. To apply for the "
-"Associates Program, visit the <a href=\"https://affiliate-program.amazon.com/"
-"\" target=\"_blank\">Amazon Associates website</a> for details."
+"Associates Program, visit the <a "
+"href=\"https://affiliate-program.amazon.com/\" target=\"_blank\">Amazon "
+"Associates website</a> for details."
 msgstr ""
 
-#: amazonjs.php:604
+#: amazonjs.php:596
 msgid ""
 "Associate Tag has been a <strong>required and verified</strong> input "
 "parameter in all requests to the Amazon Product Advertising API since "
 "11/1/2011."
 msgstr ""
 
-#: amazonjs.php:681
+#: amazonjs.php:669
 msgid "Add Amazon Link"
 msgstr ""
 
-#: amazonjs.php:713
+#: amazonjs.php:701
 msgid "Keyword Search"
 msgstr ""
 
-#: amazonjs.php:714
+#: amazonjs.php:702
 msgid "Search by ASIN/URL"
 msgstr ""
 
-#: amazonjs.php:737
-#, php-format
+#: amazonjs.php:725
 msgid ""
 "Error! \"simplexml_load_string\" function is not found. %s requires PHP 5 "
 "and SimpleXML extension."
 msgstr ""
 
-#: amazonjs.php:742
-#, php-format
+#: amazonjs.php:730
 msgid ""
-"Warning! Cache directory is not exist. Please create writable directory: <br/"
-"><code>%s</code>"
+"Warning! Cache directory is not exist. Please create writable directory: "
+"<br/><code>%s</code>"
 msgstr ""
 
-#: amazonjs.php:746
-#, php-format
-msgid ""
-"Warning! Cache Directory \"%s\" is not writable, set permission as 0777."
+#: amazonjs.php:734
+msgid "Warning! Cache Directory \"%s\" is not writable, set permission as 0777."
 msgstr ""
 
-#: amazonjs.php:812
+#: amazonjs.php:800
 msgid "Invalid Request Parameters"
 msgstr ""
 
-#: amazonjs.php:841
-#, php-format
+#: amazonjs.php:835
 msgid "Network Error: %s"
 msgstr ""
 
-#: amazonjs.php:847
-#, php-format
+#: amazonjs.php:841
 msgid "Empty Response from %s"
 msgstr ""
 
-#: amazonjs.php:906 amazonjs.php:910
+#: amazonjs.php:899 amazonjs.php:903
 msgid "Amazon Product Advertising API Error"
 msgstr ""
 
-#: amazonjs.php:914
+#: amazonjs.php:907
 msgid "Cannot Parse Amazon Product Advertising API Response"
 msgstr ""
 
-#: amazonjs.php:920
+#: amazonjs.php:912
 msgid "Invalid Response"
 msgstr ""
 
 #: media-upload-type-amazonjs.php:23
-#, php-format
 msgid ""
 "The Access Key ID or Secret Access Key is empty. Please specify it in <a "
 "href=\"%s\" target=\"_blank\">settings</a>."
 msgstr ""
 
 #: media-upload-type-amazonjs.php:28
-#, php-format
 msgid "Warning! Cache Directory \"%s\" is not writable"
 msgstr ""
 
@@ -598,11 +586,34 @@ msgstr ""
 
 #: media-upload-type-amazonjs.php:146
 msgid ""
-"<div class=\"searchpager\">{{if prev}}<button class=\"button prev\">Prev</"
-"button>{{/if}}${startIndex} - ${endIndex} / ${totalResults}{{if next}}"
-"<button class=\"button next\">Next</button>{{/if}}</div>"
+"<div class=\"searchpager\">{{if prev}}<button class=\"button "
+"prev\">Prev</button>{{/if}}${startIndex} - ${endIndex} / "
+"${totalResults}{{if next}}<button class=\"button "
+"next\">Next</button>{{/if}}</div>"
 msgstr ""
 
 #: media-upload-type-amazonjs.php:162
 msgid "Select"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "AmazonJS"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://wordpress.org/extend/plugins/amazonjs/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Easy to use interface to add an amazon product to your post and display it "
+"by using jQuery template."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "makoto_kw"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://makotokw.com"
 msgstr ""
