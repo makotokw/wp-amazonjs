@@ -5,31 +5,34 @@ This repository is in progress and unstable version. Do not install except lates
 
 You can install stable version from: [WordPress.org](http://wordpress.org/plugins/amazonjs/)
 
-## Build css
+## Development
 
 ### Requirement
 
-* npm
 * Grunt
 * Compass
 
-### Development
+### Build css
+
+
+for debug
 
 ```
 grunt debug
 ```
 
-#### Translation
-
-1. Execute ``grunt update-po``
-1. Edit ``languages/amazonjs-*.po``
-1. Execute ``grunt update-mo``
-
-### Production
+for production
 
 ```
 grunt
 ```
+
+
+### Translation
+
+1. Execute ``grunt update-po``
+1. Edit ``languages/amazonjs-*.po``
+1. Execute ``grunt update-mo``
 
 ## Support
 
