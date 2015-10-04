@@ -2,7 +2,7 @@
 Contributors: makoto_kw
 Tags: Amazon, books, post, media, affiliate, japanese
 Requires at least: 3.3
-Tested up to: 3.9.2
+Tested up to: 4.3.1
 Stable tag: trunk
 License: GPLv2 or later
 
