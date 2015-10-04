@@ -10,7 +10,7 @@ module.exports = function(grunt) {
 		},
 		exec: {
 			phpcs: {
-				cmd: 'phpcs --standard=WordPress *.php lib/*.php',
+				cmd: 'phpcs --standard=build/phpcs.xml --report-width=150 --colors -s *.php',
 				exitCode: [0, 1]
 			},
 			msgmerge: {

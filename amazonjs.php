@@ -12,7 +12,7 @@
  Text Domain: amazonjs
  Domain Path: /languages/
  */
-/* 
+/*
  AmazonJS depends on
    jQuery tmpl
    PEAR Cache_Lite: Fabien MARTY <fab@php.net>
@@ -179,7 +179,7 @@ class Amazonjs
 			}
 		}
 		foreach ( $this->setting_fields as $key => $field ) {
-			$label = ($field['type'] == 'checkbox') ? '' : $field['label'];
+			$label = ('checkbox' == $field['type']) ? '' : $field['label'];
 			add_settings_field(
 				$this->option_name . '_' . $key,
 				$label,
@@ -233,7 +233,7 @@ class Amazonjs
 		foreach ( $this->display_items as $country_code => $sub_items ) {
 			$locale_items = $this->fetch_items( $country_code, $sub_items );
 			foreach ( $locale_items as $asin => $item ) {
-				$items[$country_code . ':' . $asin] = $item;
+				$items[ $country_code . ':' . $asin ] = $item;
 			}
 			$country_codes[] = $country_code;
 		}
@@ -252,7 +252,7 @@ class Amazonjs
 		foreach ( $this->countries as $code => $value ) {
 			if ( in_array( $code, $country_codes ) ) {
 				foreach ( array( 'linkTemplate' ) as $attr ) {
-					$region['Link' . $code] = $this->tmpl( $value[$attr], array( 't' => $this->settings['associateTag' . $code] ) );
+					$region[ 'Link' . $code ] = $this->tmpl( $value[ $attr ], array( 't' => $this->settings[ 'associateTag' . $code ] ) );
 				}
 			}
 		}
@@ -297,19 +297,24 @@ class Amazonjs
 		$this->setting_sections = array(
 			'api'        => array(
 				'label' => __( 'Product Advertising API settings', $this->text_domain ),
-				'add'   => 'add_api_setting_section' ),
+				'add'   => 'add_api_setting_section',
+			),
 			'associate'  => array(
 				'label' => __( 'Amazon Associates settings', $this->text_domain ),
-				'add'   => 'add_associate_setting_section' ),
+				'add'   => 'add_associate_setting_section',
+			),
 			'appearance' => array(
 				'label' => __( 'Appearance settings', $this->text_domain ),
-				'add'   => 'add_appearance_setting_section' ),
+				'add'   => 'add_appearance_setting_section',
+			),
 			'analytics'  => array(
 				'label' => __( 'Analytics settings', $this->text_domain ),
-				'add'   => 'add_analytics_setting_section' ),
+				'add'   => 'add_analytics_setting_section',
+			),
 			'customize'  => array(
 				'label' => __( 'Customize', $this->text_domain ),
-				'add'   => 'add_customize_setting_section' ),
+				'add'   => 'add_customize_setting_section',
+			),
 		);
 		// filed
 		$template_url         = get_bloginfo( 'template_url' );
@@ -330,7 +335,7 @@ class Amazonjs
 				'label'       => __( 'Display customer review', $this->text_domain ),
 				'type'        => 'checkbox',
 				'section'     => 'appearance',
-				'description' => __( "AmazonJS will display customer review by using WordPress's Thickbox.", $this->text_domain )
+				'description' => __( "AmazonJS will display customer review by using WordPress's Thickbox.", $this->text_domain ),
 			),
 			'supportDisabledJavascript' => array(
 				'label'       => __( 'Display official widget when disabled javascript in web browser', $this->text_domain ),
@@ -369,7 +374,7 @@ class Amazonjs
 			),
 		);
 		foreach ( $this->countries as $key => $value ) {
-			$this->setting_fields['associateTag' . $key] = array(
+			$this->setting_fields[ 'associateTag' . $key ] = array(
 				'label'       => __( $value['domain'], $this->text_domain ),
 				'type'        => 'text',
 				'size'        => 30,
@@ -381,11 +386,11 @@ class Amazonjs
 		$this->default_settings = array();
 		if ( is_array( $this->setting_fields ) ) {
 			foreach ( $this->setting_fields as $key => $field ) {
-				$this->default_settings[$key] = @$field['defaults'];
+				$this->default_settings[ $key ] = @$field['defaults'];
 			}
 		}
 		//delete_option($this->option_name);
-		$this->settings = wp_parse_args( (array)get_option( $this->option_name ), $this->default_settings );
+		$this->settings = wp_parse_args( (array) get_option( $this->option_name ), $this->default_settings );
 	}
 
 	function delete_settings() {
@@ -394,18 +399,18 @@ class Amazonjs
 
 	function validate_settings( $settings ) {
 		foreach ( $this->setting_fields as $key => $field ) {
-			if ( $field['type'] == 'checkbox' ) {
-				$settings[$key] = ( @$settings[$key] == 'on' || @$settings[$key] == '1' );
+			if ( 'checkbox' == $field['type'] ) {
+				$settings[ $key ] = ( 'on' == @$settings[ $key ] || '1' == @$settings[ $key ] );
 			}
 		}
 
 		foreach ( array( 'accessKeyId', 'secretAccessKey' ) as $key ) {
-			$settings[$key] = trim( $settings[$key] );
+			$settings[ $key ] = trim( $settings[ $key ] );
 		}
 
 		foreach ( $this->countries as $locale => $value ) {
 			$key            = 'associateTag' . $locale;
-			$settings[$key] = trim( $settings[$key] );
+			$settings[ $key ] = trim( $settings[ $key ] );
 		}
 
 		return $settings;
@@ -425,9 +430,9 @@ class Amazonjs
 	}
 
 	function get_amazon_official_link( $asin, $locale ) {
-		$tmpl = $this->countries[$locale]['linkTemplate'];
+		$tmpl = $this->countries[ $locale ]['linkTemplate'];
 		$item = array(
-			't'     => $this->settings['associateTag' . $locale],
+			't'     => $this->settings[ 'associateTag' . $locale ],
 			'asins' => $asin,
 			'fc1'   => '000000',
 			'lc1'   => '0000FF',
@@ -472,12 +477,12 @@ EOF;
 			}
 			return $this->get_amazon_official_link( $asin, $locale );
 		}
-		if ( ! isset($this->display_items[$locale]) ) {
-			$this->display_items[$locale] = array();
+		if ( ! isset($this->display_items[ $locale ]) ) {
+			$this->display_items[ $locale ] = array();
 		}
-		$item = (array_key_exists( $asin, $this->display_items[$locale] ))
-			? $this->display_items[$locale][$asin]
-			: $this->display_items[$locale][$asin] = $this->cache->get( $asin, $locale );
+		$item = (array_key_exists( $asin, $this->display_items[ $locale ] ))
+			? $this->display_items[ $locale ][ $asin ]
+			: $this->display_items[ $locale ][ $asin ] = $this->cache->get( $asin, $locale );
 		$url  = '#';
 		if ( is_array( $item ) && array_key_exists( 'DetailPageURL', $item ) ) {
 			$url = $item['DetailPageURL'];
@@ -530,7 +535,7 @@ EOF;
 			return $ai;
 		}
 		$items = $this->fetch_items( $country_code, array( $asin => false ) );
-		return @$items[$asin];
+		return @$items[ $asin ];
 	}
 
 	/**
@@ -553,7 +558,7 @@ EOF;
 			$results = $this->itemlookup( $country_code, $itemid );
 			if ( $results && $results['success'] ) {
 				foreach ( $results['items'] as $item ) {
-					$items[$item['ASIN']] = $item;
+					$items[ $item['ASIN'] ] = $item;
 					$this->cache->save( $item, $item['ASIN'], $country_code );
 				}
 			}
@@ -614,7 +619,7 @@ EOF;
 		list ($key, $field) = $args;
 		$id    = $this->option_name . '_' . $key;
 		$name  = $this->option_name . "[{$key}]";
-		$value = $this->settings[$key];
+		$value = $this->settings[ $key ];
 		if ( isset($field['html']) ) {
 			echo '' . $field['html'] . '';
 		} else {
@@ -635,7 +640,7 @@ EOF;
 				case 'select':
 					?>
 					<select id="<?php echo esc_attr( $id ); ?>" name=<?php echo esc_attr( $name ); ?>" value="<?php echo esc_attr( $value ); ?>">
-					<?php foreach ( $field['options'] as $option => $name ): ?>
+					<?php foreach ( $field['options'] as $option => $name ) : ?>
 						<option value="<?php echo esc_attr( $option ); ?>" <?php selected( $option, $value ); ?>><?php echo esc_html( $name ); ?></option>
 					<?php endforeach ?>
 					</select>
@@ -664,7 +669,7 @@ EOF;
 
 	function media_buttons() {
 		global $post_ID, $temp_ID;
-		$iframe_ID  = (int)(0 == $post_ID ? $temp_ID : $post_ID);
+		$iframe_ID  = (int) ( 0 == $post_ID ? $temp_ID : $post_ID );
 		$iframe_src = 'media-upload.php?post_id=' . $iframe_ID . '&amp;type=' . $this->media_type . '&amp;tab=' . $this->media_type . '_keyword';
 		$label      = __( 'Add Amazon Link', $this->text_domain );
 		?>
@@ -696,10 +701,10 @@ EOF;
 		wp_iframe( 'media_upload_type_amazonjs_id' );
 	}
 
-	function media_upload_tabs( /*$tabs*/ ) {
+	function media_upload_tabs( $tabs ) {
 		return array(
 			$this->media_type . '_keyword' => __( 'Keyword Search', $this->text_domain ),
-			$this->media_type . '_id'      => __( 'Search by ASIN/URL', $this->text_domain )
+			$this->media_type . '_id'      => __( 'Search by ASIN/URL', $this->text_domain ),
 		);
 	}
 
@@ -720,16 +725,16 @@ EOF;
 	function options_page_header() {
 		$cache_dir_exists = @is_dir( $this->cache_dir );
 		?>
-		<?php if ( ! function_exists( 'simplexml_load_string' ) ): ?>
+		<?php if ( ! function_exists( 'simplexml_load_string' ) ) : ?>
 			<div class="error">
 				<p><?php printf( __( 'Error! "simplexml_load_string" function is not found. %s requires PHP 5 and SimpleXML extension.', $this->text_domain ), $this->title ); ?></p>
 			</div>
 		<?php endif ?>
-		<?php if ( ! $cache_dir_exists ): ?>
+		<?php if ( ! $cache_dir_exists ) : ?>
 			<div class="error">
 				<p><?php printf( __( 'Warning! Cache directory is not exist. Please create writable directory: <br/><code>%s</code>', $this->text_domain ), $this->cache_dir ); ?></p>
 			</div>
-		<?php elseif ( ! is_writable( $this->cache_dir ) ): ?>
+		<?php elseif ( ! is_writable( $this->cache_dir ) ) : ?>
 			<div class="error">
 				<p><?php printf( __( 'Warning! Cache Directory "%s" is not writable, set permission as 0777.', $this->text_domain ), $this->cache_dir ); ?></p>
 			</div>
@@ -752,7 +757,9 @@ EOF;
 		}
 		$options['Keywords']  = $keywords;
 		$options['Operation'] = 'ItemSearch';
-		if ( $searchIndex ) $options['SearchIndex'] = $searchIndex;
+		if ( $searchIndex ) {
+			$options['SearchIndex'] = $searchIndex;
+		}
 		return $this->amazon_get( $countryCode, $options );
 	}
 
@@ -790,10 +797,10 @@ EOF;
 	}
 
 	function amazon_get( $countryCode, $options ) {
-		$baseUri         = $this->countries[$countryCode]['baseUri'];
+		$baseUri         = $this->countries[ $countryCode ]['baseUri'];
 		$accessKeyId     = @trim( $this->settings['accessKeyId'] );
 		$secretAccessKey = @trim( $this->settings['secretAccessKey'] );
-		$associateTag    = @$this->settings['associateTag' . $countryCode];
+		$associateTag    = @$this->settings[ 'associateTag' . $countryCode ];
 
 		// validate request
 		if ( empty($countryCode) || (empty($options['ItemId']) && empty($options['Keywords'])) || (empty($accessKeyId) || empty($secretAccessKey)) ) {
@@ -811,7 +818,9 @@ EOF;
 		$options['Version']       = self::AWS_VERSION;
 		ksort( $options );
 		$params = array();
-		foreach ( $options as $k => $v ) $params[] = $k . '=' . self::urlencode_rfc3986( $v );
+		foreach ( $options as $k => $v ) {
+			$params[] = $k . '=' . self::urlencode_rfc3986( $v );
+		}
 		$query = implode( '&', $params );
 		unset($params);
 		$signature = sprintf( "GET\n%s\n/onca/xml\n%s", str_replace( 'http://', '', $baseUri ), $query );
@@ -853,30 +862,30 @@ EOF;
 		}
 
 		if ( $xml ) {
-			if ( 'True' == (string)@$xml->Items->Request->IsValid ) {
+			if ( 'True' == (string) @$xml->Items->Request->IsValid ) {
 				$success   = true;
 				$items     = array();
 				$operation = $options['Operation'];
-				if ( $operation == 'ItemSearch' ) {
+				if ( 'ItemSearch' == $operation ) {
 					$os                 = array(); // opensearch
 					$request            = $xml->Items->Request->ItemSearchRequest;
 					$resultMap          = self::to_array( $xml->Items->SearchResultsMap );
 					$itemsParPage       = 10;
-					$startPage          = ($request->ItemPage) ? (int)$request->ItemPage : 1;
+					$startPage          = ($request->ItemPage) ? (int) $request->ItemPage : 1;
 					$os['itemsPerPage'] = $itemsParPage;
 					$os['startIndex']   = ($startPage - 1) * $itemsParPage + 1;
-					$os['Query']        = array( 'searchTerms' => (string)$request->Keywords, 'startPage' => $startPage );
+					$os['Query']        = array( 'searchTerms' => (string) $request->Keywords, 'startPage' => $startPage );
 				}
-				$os['totalResults'] = (int)$xml->Items->TotalResults;
-				$os['totalPages']   = (int)$xml->Items->TotalPages;
+				$os['totalResults'] = (int) $xml->Items->TotalResults;
+				$os['totalPages']   = (int) $xml->Items->TotalPages;
 
 				foreach ( $xml->Items->Item as $item ) {
 					$r                  = self::to_array( $item->ItemAttributes );
-					$r['ASIN']          = trim( (string)$item->ASIN );
-					$r['DetailPageURL'] = trim( (string)$item->DetailPageURL );
-					$r['SalesRank']     = (int)$item->SalesRank;
+					$r['ASIN']          = trim( (string) $item->ASIN );
+					$r['DetailPageURL'] = trim( (string) $item->DetailPageURL );
+					$r['SalesRank']     = (int) $item->SalesRank;
 					if ( $reviews = $item->CustomerReviews ) {
-						$r['IFrameReviewURL'] = (string)$reviews->IFrameURL;
+						$r['IFrameReviewURL'] = (string) $reviews->IFrameURL;
 					}
 					$r['OfferSummary'] = self::to_array( $item->OfferSummary );
 					$r['SmallImage']   = self::image_element( $item->SmallImage );
@@ -886,26 +895,26 @@ EOF;
 					$r['UpdatedAt']    = $fetchedAt;
 					$items[]           = $r;
 				}
-				if ( $operation == 'ItemLookup' ) {
-					if ( $os['totalResults'] == 0 ) {
+				if ( 'ItemLookup' == $operation ) {
+					if ( 0 == $os['totalResults'] ) {
 						$os['totalResults'] = count( $items );
 					}
-					if ( $os['totalPages'] == 0 ) {
+					if ( 0 == $os['totalPages'] ) {
 						$os['totalPages'] = 1;
 					}
 				}
 			} else {
 				if ( $error = @$xml->Items->Request->Errors->Error ) {
 					$message = __( 'Amazon Product Advertising API Error', $this->text_domain );
-					$error_code    = (string)@$error->Code;
-					$error_message = (string)@$error->Message;
+					$error_code    = (string) @$error->Code;
+					$error_message = (string) @$error->Message;
 				} elseif ( $error = @$xml->Error ) {
 					$message = __( 'Amazon Product Advertising API Error', $this->text_domain );
-					$error_code    = (string)@$error->Code;
-					$error_message = (string)@$error->Message;
+					$error_code    = (string) @$error->Code;
+					$error_message = (string) @$error->Message;
 				} else {
 					$message    = __( 'Cannot Parse Amazon Product Advertising API Response' );
-					$error_body = (string)$body;
+					$error_body = (string) $body;
 				}
 			}
 		} else {
@@ -916,7 +925,7 @@ EOF;
 
 	static function to_array( $element ) {
 		$orgElement = $element;
-		if ( is_object( $element ) && get_class( $element ) == 'SimpleXMLElement' ) {
+		if ( is_object( $element ) && 'SimpleXMLElement' == get_class( $element ) ) {
 			$element = get_object_vars( $element );
 		}
 		if ( is_array( $element ) ) {
@@ -925,10 +934,10 @@ EOF;
 				return trim( strval( $orgElement ) );
 			}
 			foreach ( $element as $key => $value ) {
-				if ( is_string( $key ) && $key == '@attributes' ) {
+				if ( is_string( $key ) && '@attributes' == $key ) {
 					continue;
 				}
-				$result[$key] = self::to_array( $value );
+				$result[ $key ] = self::to_array( $value );
 			}
 			return $result;
 		} else {
@@ -938,9 +947,9 @@ EOF;
 
 	static function image_element( $element ) {
 		if ( $element ) {
-			$src    = trim( (string)@$element->URL );
-			$width  = (int)@$element->Width;
-			$height = (int)@$element->Height;
+			$src    = trim( (string) @$element->URL );
+			$width  = (int) @$element->Width;
+			$height = (int) @$element->Height;
 			return compact( 'src', 'width', 'height' );
 		}
 		return null;

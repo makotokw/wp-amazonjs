@@ -18,12 +18,12 @@ $cache_dir_writable = ($cache_dir_exists && is_writable( $amazonjs->cache_dir ))
 amazonjs_aws_params( $amazonjs );
 ?>
 <div id="media_amazon">
-	<?php if ( empty($access_key_id) || empty($secret_access_key) ): ?>
+	<?php if ( empty( $access_key_id ) || empty( $secret_access_key ) ) : ?>
 		<div class="updated error">
 			<p><?php printf( __( 'The Access Key ID or Secret Access Key is empty. Please specify it in <a href="%s" target="_blank">settings</a>.', $text_domain ), $amazonjs->option_page_url ); ?></p>
 		</div>
 	<?php endif ?>
-	<?php if ( ! $cache_dir_writable ): ?>
+	<?php if ( ! $cache_dir_writable ) : ?>
 		<div class="updated error">
 			<p><?php printf( __( 'Warning! Cache Directory "%s" is not writable', $text_domain ), $amazonjs->cache_dir ); ?></p>
 		</div>
@@ -32,14 +32,14 @@ amazonjs_aws_params( $amazonjs );
 		  action="<?php bloginfo( 'wpurl' ); ?>/wp-admin/admin-ajax.php">
 		<input type="hidden" nama="tab" value="<?php echo esc_attr( $tab ); ?>"/>
 		<input type="hidden" id="search_page" name="ItemPage" value="1"/>
-		<?php if ( $tab == 'amazonjs_keyword' ): ?>
+		<?php if ( 'amazonjs_keyword' == $tab ) : ?>
 			<fieldset>
 				<select id="search_locale" name="CountryCode"></select>
 				<select id="search_index" name="SearchIndex"></select>
 			</fieldset>
 			<input type="text" id="search_query" name="Keywords"
 				   placeholder="<?php _e( 'Input Keyword', $text_domain ) ?>"/>
-		<?php elseif ( $tab == 'amazonjs_id' ): ?>
+		<?php elseif ( 'amazonjs_id' == $tab ) : ?>
 			<fieldset>
 				<select id="search_locale" name="CountryCode"></select>
 			</fieldset>
