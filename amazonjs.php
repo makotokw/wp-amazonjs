@@ -822,9 +822,10 @@ EOF;
 			$params[] = $k . '=' . self::urlencode_rfc3986( $v );
 		}
 		$query = implode( '&', $params );
-		unset($params);
-		$signature = sprintf( "GET\n%s\n/onca/xml\n%s", str_replace( 'http://', '', $baseUri ), $query );
+		$urlInfo = parse_url( $baseUri );
+		$signature = sprintf( "GET\n%s\n/onca/xml\n%s", $urlInfo['host'], $query );
 		$signature = base64_encode( hash_hmac( 'sha256', $signature, $secretAccessKey, true ) );
+		unset($params, $urlInfo);
 
 		$url = sprintf( '%s/onca/xml?%s&Signature=%s', $baseUri, $query, self::urlencode_rfc3986( $signature ) );
 
