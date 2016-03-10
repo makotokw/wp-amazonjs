@@ -4,10 +4,10 @@
  Plugin URI: http://wordpress.org/extend/plugins/amazonjs/
  Description: Easy to use interface to add an amazon product to your post and display it by using jQuery template.
  Author: makoto_kw
- Version: 0.7.3
+ Version: 0.8
  Author URI: http://makotokw.com
  Requires at least: 3.3
- Tested up to: 3.9.2
+ Tested up to: 4.4.2
  License: GPLv2
  Text Domain: amazonjs
  Domain Path: /languages/
@@ -15,19 +15,17 @@
 /*
  AmazonJS depends on
    jQuery tmpl
-   PEAR Cache_Lite: Fabien MARTY <fab@php.net>
    PEAR Services_JSON: Michal Migurski <mike-json@teczno.com>
  */
 
 // TODO: Fixed NoSilencedErrors.Discouraged
 // @codingStandardsIgnoreStart Generic.PHP.NoSilencedErrors.Discouraged
 
-require_once dirname( __FILE__ ) . '/lib/Cache/Lite.php';
 require_once dirname( __FILE__ ) . '/lib/json.php';
 
 class Amazonjs
 {
-	const VERSION        = '0.7.3';
+	const VERSION        = '0.8';
 	const AWS_VERSION    = '2011-08-01';
 	const CACHE_LIFETIME = 86400;
 
@@ -46,8 +44,6 @@ class Amazonjs
 	public $media_type = 'amazonjs';
 	public $countries;
 	public $search_indexes;
-	public $cache;
-	public $cache_dir;
 	public $display_items = array();
 	public $simple_template;
 
@@ -129,26 +125,10 @@ class Amazonjs
 				'associateTagSuffix' => '-21',
 			),
 		);
-
-		//$this->cache_dir = dirname(__FILE__).DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR;
-		$wp_content_dir  = (defined( 'WP_CONTENT_DIR' ) && file_exists( WP_CONTENT_DIR )) ? WP_CONTENT_DIR : ABSPATH . 'wp-content';
-		$this->cache_dir = $wp_content_dir . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'amazonjs' . DIRECTORY_SEPARATOR;
-		if ( ! @is_dir( $this->cache_dir ) ) {
-			@mkdir( $this->cache_dir );
-		}
-		$this->cache = new Amazonjs_Cache_Lite(
-			array(
-				'cacheDir'               => $this->cache_dir,
-				'lifeTime'               => self::CACHE_LIFETIME,
-				'automaticSerialization' => true,
-			)
-		);
 	}
 
 	function clean() {
 		$this->delete_settings();
-		$this->cache->clean();
-		@rmdir( $this->cache_dir );
 	}
 
 	function init() {
@@ -234,8 +214,7 @@ class Amazonjs
 		$country_codes = array();
 		$items         = array();
 		foreach ( $this->display_items as $country_code => $sub_items ) {
-			$locale_items = $this->fetch_items( $country_code, $sub_items );
-			foreach ( $locale_items as $asin => $item ) {
+			foreach ( $this->fetch_items( $country_code, $sub_items ) as $asin => $item ) {
 				$items[ $country_code . ':' . $asin ] = $item;
 			}
 			$country_codes[] = $country_code;
@@ -411,8 +390,8 @@ class Amazonjs
 			$settings[ $key ] = trim( $settings[ $key ] );
 		}
 
-		foreach ( $this->countries as $locale => $value ) {
-			$key            = 'associateTag' . $locale;
+		foreach ( $this->countries as $country_code => $value ) {
+			$key            = 'associateTag' . $country_code;
 			$settings[ $key ] = trim( $settings[ $key ] );
 		}
 
@@ -432,10 +411,10 @@ class Amazonjs
 		}
 	}
 
-	function get_amazon_official_link( $asin, $locale ) {
-		$tmpl = $this->countries[ $locale ]['linkTemplate'];
+	function get_amazon_official_link( $asin, $country_code ) {
+		$tmpl = $this->countries[ $country_code ]['linkTemplate'];
 		$item = array(
-			't'     => $this->settings[ 'associateTag' . $locale ],
+			't'     => $this->settings[ 'associateTag' . $country_code ],
 			'asins' => $asin,
 			'fc1'   => '000000',
 			'lc1'   => '0000FF',
@@ -462,11 +441,11 @@ class Amazonjs
 		if ( empty($asin) ) {
 			return '';
 		}
-		$locale  = strtoupper( $locale );
+		$country_code  = strtoupper( $locale );
 		$imgsize = strtolower( $imgsize );
 		if ( is_feed() ) {
 			// use static html for rss reader
-			if ( $ai = $this->get_item( $locale, $asin ) ) {
+			if ( $ai = $this->get_item( $country_code, $asin ) ) {
 				$aimg = $ai['SmallImage'];
 				if ( array_key_exists( 'MediumImage', $ai ) ) {
 					$aimg = $ai['MediumImage'];
@@ -478,20 +457,20 @@ class Amazonjs
 </a>
 EOF;
 			}
-			return $this->get_amazon_official_link( $asin, $locale );
+			return $this->get_amazon_official_link( $asin, $country_code );
 		}
-		if ( ! isset($this->display_items[ $locale ]) ) {
-			$this->display_items[ $locale ] = array();
+		if ( ! isset($this->display_items[ $country_code ]) ) {
+			$this->display_items[ $country_code ] = array();
 		}
-		$item = (array_key_exists( $asin, $this->display_items[ $locale ] ))
-			? $this->display_items[ $locale ][ $asin ]
-			: $this->display_items[ $locale ][ $asin ] = $this->cache->get( $asin, $locale );
+		$item = (array_key_exists( $asin, $this->display_items[ $country_code ] ))
+			? $this->display_items[ $country_code ][ $asin ]
+			: $this->display_items[ $country_code ][ $asin ] =  get_site_transient("amazonjs_{$country_code}_{$asin}");
 		$url  = '#';
 		if ( is_array( $item ) && array_key_exists( 'DetailPageURL', $item ) ) {
 			$url = $item['DetailPageURL'];
 		}
 		$indicator_html = <<<EOF
-<div data-role="amazonjs" data-asin="{$asin}" data-locale="{$locale}" data-tmpl="${tmpl}" data-img-size="${imgsize}" class="asin_{$asin}_{$locale}_${tmpl} amazonjs_item"><div class="amazonjs_indicator"><span class="amazonjs_indicator_img"></span><a class="amazonjs_indicator_title" href="{$url}">{$title}</a><span class="amazonjs_indicator_footer"></span></div></div>
+<div data-role="amazonjs" data-asin="{$asin}" data-locale="{$country_code}" data-tmpl="${tmpl}" data-img-size="${imgsize}" class="asin_{$asin}_{$country_code}_${tmpl} amazonjs_item"><div class="amazonjs_indicator"><span class="amazonjs_indicator_img"></span><a class="amazonjs_indicator_title" href="{$url}">{$title}</a><span class="amazonjs_indicator_footer"></span></div></div>
 EOF;
 
 		$indicator_html = trim( $indicator_html );
@@ -499,7 +478,7 @@ EOF;
 			return $indicator_html;
 		}
 		$indicator_html = addslashes( $indicator_html );
-		$link_html      = $this->get_amazon_official_link( $asin, $locale );
+		$link_html      = $this->get_amazon_official_link( $asin, $country_code );
 
 		return <<<EOF
 <script type="text/javascript">document.write("{$indicator_html}")</script><noscript>{$link_html}</noscript>
@@ -533,7 +512,7 @@ EOF;
 	}
 
 	function get_item( $country_code, $asin ) {
-		if ( $ai = $this->cache->get( $asin, $country_code ) ) {
+		if ( $ai = get_site_transient( "amazonjs_{$country_code}_{$asin}" ) ) {
 			return $ai;
 		}
 		$items = $this->fetch_items( $country_code, array( $asin => false ) );
@@ -547,21 +526,21 @@ EOF;
 	 */
 	function fetch_items( $country_code, $items ) {
 		$now     = time();
-		$itemids = array();
+		$item_ids = array();
 		foreach ( $items as $asin => $item ) {
 			if ( ! $item && $item['UpdatedAt'] + 86400 < $now ) {
-				$itemids[] = $asin;
+				$item_ids[] = $asin;
 			}
 		}
-		while ( count( $itemids ) ) {
+		while ( count( $item_ids ) ) {
 			// fetch via 10 products
 			// ItemLookup ItemId: Must be a valid item ID. For more than one ID, use a comma-separated list of up to ten IDs.
-			$itemid  = implode( ',', array_splice( $itemids, 0, 10 ) );
+			$itemid  = implode( ',', array_splice( $item_ids, 0, 10 ) );
 			$results = $this->itemlookup( $country_code, $itemid );
 			if ( $results && $results['success'] ) {
 				foreach ( $results['items'] as $item ) {
 					$items[ $item['ASIN'] ] = $item;
-					$this->cache->save( $item, $item['ASIN'], $country_code );
+					set_site_transient("amazonjs_{$country_code}_{$item['ASIN']}", $item, self::CACHE_LIFETIME);
 				}
 			}
 		}
@@ -726,20 +705,10 @@ EOF;
 	}
 
 	function options_page_header() {
-		$cache_dir_exists = @is_dir( $this->cache_dir );
 		?>
 		<?php if ( ! function_exists( 'simplexml_load_string' ) ) : ?>
 			<div class="error">
 				<p><?php printf( __( 'Error! "simplexml_load_string" function is not found. %s requires PHP 5 and SimpleXML extension.', $this->text_domain ), $this->title ); ?></p>
-			</div>
-		<?php endif ?>
-		<?php if ( ! $cache_dir_exists ) : ?>
-			<div class="error">
-				<p><?php printf( __( 'Warning! Cache directory is not exist. Please create writable directory: <br/><code>%s</code>', $this->text_domain ), $this->cache_dir ); ?></p>
-			</div>
-		<?php elseif ( ! is_writable( $this->cache_dir ) ) : ?>
-			<div class="error">
-				<p><?php printf( __( 'Warning! Cache Directory "%s" is not writable, set permission as 0777.', $this->text_domain ), $this->cache_dir ); ?></p>
 			</div>
 		<?php endif ?>
 	<?php
