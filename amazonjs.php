@@ -504,12 +504,11 @@ EOF;
 	}
 
 	/**
-	 * Gets default country code by WPLANG
+	 * Gets default country code by get_locale
 	 * @return string
 	 */
 	function default_country_code() {
-		// https://codex.wordpress.org/WordPress_in_Your_Language
-		switch ( WPLANG ) {
+		switch ( get_locale() ) {
 			case 'en_CA':
 				return 'CA';
 			case 'de_DE':
