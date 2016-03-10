@@ -19,6 +19,9 @@
    PEAR Services_JSON: Michal Migurski <mike-json@teczno.com>
  */
 
+// TODO: Fixed NoSilencedErrors.Discouraged
+// @codingStandardsIgnoreStart Generic.PHP.NoSilencedErrors.Discouraged
+
 require_once dirname( __FILE__ ) . '/lib/Cache/Lite.php';
 require_once dirname( __FILE__ ) . '/lib/json.php';
 
@@ -446,7 +449,7 @@ class Amazonjs
 		return $this->tmpl( $tmpl, $item );
 	}
 
-	function shortcode( $atts /*, $content*/ ) {
+	function shortcode( $atts, /** @noinspection PhpUnusedParameterInspection */ $content ) {
 		/**
 		 * @var string $asin
 		 * @var string $tmpl
@@ -496,7 +499,7 @@ EOF;
 			return $indicator_html;
 		}
 		$indicator_html = addslashes( $indicator_html );
-		$link_html      = $this->get_amazon_official_link( $asin, $locale, true );
+		$link_html      = $this->get_amazon_official_link( $asin, $locale );
 
 		return <<<EOF
 <script type="text/javascript">document.write("{$indicator_html}")</script><noscript>{$link_html}</noscript>
@@ -700,7 +703,7 @@ EOF;
 		wp_iframe( 'media_upload_type_amazonjs_id' );
 	}
 
-	function media_upload_tabs( $tabs ) {
+	function media_upload_tabs( /** @noinspection PhpUnusedParameterInspection */$tabs ) {
 		return array(
 			$this->media_type . '_keyword' => __( 'Keyword Search', $this->text_domain ),
 			$this->media_type . '_id'      => __( 'Search by ASIN/URL', $this->text_domain ),
@@ -712,6 +715,7 @@ EOF;
 		<div class="wrap wrap-amazonjs">
 			<h2><?php echo esc_html( $this->title ); ?></h2>
 			<?php $this->options_page_header(); ?>
+			<!--suppress HtmlUnknownTarget -->
 			<form action="options.php" method="post">
 				<?php settings_fields( $this->option_name ); ?>
 				<?php do_settings_sections( $this->option_page_name ); ?>
@@ -867,7 +871,7 @@ EOF;
 				$items     = array();
 				$operation = $options['Operation'];
 				if ( 'ItemSearch' == $operation ) {
-					$os                 = array(); // opensearch
+					$os                 = array(); // OpenSearch
 					$request            = $xml->Items->Request->ItemSearchRequest;
 					$resultMap          = self::to_array( $xml->Items->SearchResultsMap );
 					$itemsParPage       = 10;
