@@ -218,9 +218,9 @@ class Amazonjs
 	}
 
 	function wp_enqueue_scripts() {
-		wp_register_script( 'jqeury-tmpl', $this->url . '/components/js/jquery-tmpl/jquery.tmpl.min.js', array( 'jquery' ), '1.0.0pre', true );
+		wp_register_script( 'jquery-tmpl', $this->url . '/components/js/jquery-tmpl/jquery.tmpl.min.js', array( 'jquery' ), '1.0.0pre', true );
 
-		$depends = array( 'jqeury-tmpl' );
+		$depends = array( 'jquery-tmpl' );
 		if ( $this->settings['displayCustomerReview'] ) {
 			$depends[] = 'thickbox';
 		}
