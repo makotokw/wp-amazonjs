@@ -638,7 +638,7 @@ EOF;
 					break;
 				case 'select':
 					?>
-					<select id="<?php echo esc_attr( $id ); ?>" name=<?php echo esc_attr( $name ); ?>" value="<?php echo esc_attr( $value ); ?>">
+					<select id="<?php echo esc_attr( $id ); ?>" name="<?php echo esc_attr( $name ); ?>" value="<?php echo esc_attr( $value ); ?>">
 					<?php foreach ( $field['options'] as $option => $name ) : ?>
 						<option value="<?php echo esc_attr( $option ); ?>" <?php selected( $option, $value ); ?>><?php echo esc_html( $name ); ?></option>
 					<?php endforeach ?>
