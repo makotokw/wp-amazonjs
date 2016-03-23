@@ -16,7 +16,7 @@ AmazonJS uses `amazonjs' shortcode and jQuery template to display Amazon product
 
 * Requires WorPress 3.3 or later
 * Requires your Amazon Product Advertising API
-* Plugin Uses file cache (Plugin does not touch database)
+* Plugin Uses API cache by using Transient API
 * Customize template by using jQuery template
 * Supports Amazon domains ([US](http://www.amazon.com), [UK](http://www.amazon.co.uk), [Germany](http://www.amazon.de), [France](http://www.amazon.fr), [Japan](http://www.amazon.co.jp/), [Canada](http://www.amazon.ca), [China](http://www.amazon.cn), [Italy](http://www.amazon.it), [Spain](http://www.amazon.es))
 
@@ -54,15 +54,12 @@ In first, AmazonJS converts <a/> tag from `amazonjs` short code in server side. 
 == Installation ==
 
 1. Upload `amazonjs` to the `/wp-content/plugins/` directory
-1. Create `/wp-content/cache/amazonjs/` directory and change mode it 0777
 1. Activate the plugin through the `Plugins` menu in WordPress
 1. Set your associate tags and your keys of the Product Advertising API through the  `Settubgs` > `Amazonjs` menu in WordPress
 
 = Directory structure =
 
     /wp-content
-      /cache
-        + /amazonjs <- writable (0777 as mode)
       /plugins/amazonjs
         + /css/*
         + /images/*
@@ -150,7 +147,7 @@ In first, AmazonJS converts <a/> tag from `amazonjs` short code in server side. 
 
 = 0.3 =
 
-* Used MidiumImage in blog feed for the magazine view of feedly
+* Used MediumImage in blog feed for the magazine view of feedly
 * Add an Amazon product url to indicator if it has cache data
 * Supported disable javascript to display amazon link widget
 * Fixed to fetch more 10 products at once
