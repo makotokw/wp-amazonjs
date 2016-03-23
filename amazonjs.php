@@ -607,20 +607,24 @@ EOF;
 			switch ( $field['type'] ) {
 				case 'checkbox':
 					?>
-					<input id="<?php echo esc_attr( $id ); ?>" name="<?php echo esc_attr( $name ); ?>" type="checkbox" value="1" <?php checked( true, $value ); ?> />
+					<input id="<?php echo esc_attr( $id ); ?>" name="<?php echo esc_attr( $name ); ?>" type="checkbox" <?php checked( true, $value ); ?> value="1" />
 					<label for="<?php echo esc_attr( $id ); ?>"><?php echo esc_html( $field['label'] ); ?></label>
 					<?php
 					break;
 				case 'radio':
+					$index = 1;
 					foreach ( $field['options'] as $v => $content ) {
+						$input_element_id = $id . '_' . $index;
 						?>
-						<input name="<?php echo esc_attr( $name ); ?>" type="radio" <?php checked( $v, $value ); ?> value="<?php echo esc_attr( $v ); ?>"><?php echo esc_html( $content ); ?>
+						<input id="<?php echo esc_attr( $input_element_id ); ?>" name="<?php echo esc_attr( $name ); ?>" type="radio" <?php checked( $v, $value ); ?> value="<?php echo esc_attr( $v ); ?>" />
+						<label for="<?php echo esc_attr( $input_element_id ); ?>"><?php echo esc_html( $content ); ?></label>
 						<?php
+						$index++;
 					}
 					break;
 				case 'select':
 					?>
-					<select id="<?php echo esc_attr( $id ); ?>" name="<?php echo esc_attr( $name ); ?>" value="<?php echo esc_attr( $value ); ?>">
+					<select id="<?php echo esc_attr( $id ); ?>" name="<?php echo esc_attr( $name ); ?>">
 					<?php foreach ( $field['options'] as $option => $name ) : ?>
 						<option value="<?php echo esc_attr( $option ); ?>" <?php selected( $option, $value ); ?>><?php echo esc_html( $name ); ?></option>
 					<?php endforeach ?>
@@ -827,7 +831,8 @@ EOF;
 		$fetchedAt = time();
 
 		$success = false;
-		$xml     = @simplexml_load_string( $body );
+		/* @var $xml stdClass */
+		$xml = @simplexml_load_string( $body );
 		if ( WP_DEBUG ) {
 			if ( ! $xml ) {
 				error_log( 'amazonjs: cannot parse xml: ' . $body );
