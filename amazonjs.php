@@ -726,6 +726,7 @@ EOF;
 		return $this->amazon_get( $countryCode, $options );
 	}
 
+	// amazon api
 	function itemsearch( $countryCode, $searchIndex, $keywords, $itemPage = 0 ) {
 		$options = array();
 		if ( $itemPage > 0 ) {
@@ -739,7 +740,21 @@ EOF;
 		return $this->amazon_get( $countryCode, $options );
 	}
 
+	/**
+	 * parse ASIN from URL
+	 * @param string $url
+	 * @return bool|string
+	 */
+	static function parse_asin( $url ) {
+		if ( preg_match( '/^https?:\/\/.+\.amazon\.([^\/]+).+\/(dp|gp\/product|ASIN)\/([^\/]+)/', $url, $matches ) ) {
+			return $matches[3];
+		}
+		return null;
+	}
+
 	function ajax_amazonjs_search() {
+		$itemId = null;
+
 		// from http get
 		$itemPage    = @$_GET['ItemPage'];
 		$id          = @$_GET['ID'];
@@ -749,16 +764,20 @@ EOF;
 
 		if ( ! empty($id) ) {
 			if ( preg_match( '/^https?:\/\//', $id ) ) {
-				// parse ItemId from URL
-				if ( preg_match( '/^https?:\/\/.+\.amazon\.([^\/]+).+(\/dp\/|\/gp\/product\/)([^\/]+)/', $id, $matches ) ) {
-					//$domain = $matches[1];
-					$itemId = $matches[3];
-				}
-				if ( ! isset($itemId) ) {
+				if ( $asin = self::parse_asin( $id ) ) {
+					$itemId = $asin;
+				} else {
+					// url string as query keyword
 					$keywords = $id;
 				}
 			} else {
 				$itemId = $id;
+			}
+		} else if ( ! empty($keywords) ) {
+			if ( preg_match( '/^https?:\/\//', $keywords ) ) {
+				if ( $asin = self::parse_asin( $keywords ) ) {
+					$itemId = $asin;
+				}
 			}
 		}
 		$amazonjs = new Amazonjs();
