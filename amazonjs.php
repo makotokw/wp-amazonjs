@@ -241,7 +241,7 @@ class Amazonjs
 
 		$amazonVars = array(
 			'thickboxUrl'             => $wpurl . '/wp-includes/js/thickbox/',
-			'regionTempalte'          => $region,
+			'regionTemplate'          => $region,
 			'resource'                => array(
 				'BookAuthor'          => __( 'Author', $this->text_domain ),
 				'BookPublicationDate' => __( 'PublicationDate', $this->text_domain ),

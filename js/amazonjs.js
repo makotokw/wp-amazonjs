@@ -277,7 +277,7 @@
 						}
 					}
 				}
-				if (amazonjsVars.isFadeInEnabled) {
+				if ($.amazonjs.isFadeInEnabled) {
 					function fadeIn() {
 						if ($items.length > 0) {
 							var $item = $items.shift();
@@ -384,30 +384,32 @@
 		}
 	});
 
-	if (amazonjsVars) {
-		function render() {
-			if (amazonjsVars.isCustomerReviewEnabled) {
-				if (typeof tb_pathToImage === 'undefined') {
-					tb_pathToImage = amazonjsVars.thickboxUrl + '/loadingAnimation.gif';
+	$(document).ready(function(){
+		var amazonjsVars = window.amazonjsVars;
+		if (amazonjsVars) {
+			function render() {
+				if (amazonjsVars.isCustomerReviewEnabled) {
+					if (typeof tb_pathToImage === 'undefined') {
+						tb_pathToImage = amazonjsVars.thickboxUrl + '/loadingAnimation.gif';
+					}
+					if (typeof tb_closeImage === 'undefined') {
+						tb_closeImage = amazonjsVars.thickboxUrl + '/tb-close.png';
+					}
 				}
-				if (typeof tb_closeImage === 'undefined') {
-					tb_closeImage = amazonjsVars.thickboxUrl + '/tb-close.png';
-				}
+				$.amazonjs.isFadeInEnabled = amazonjsVars.isFadeInEnabled;
+				$.amazonjs.isCustomerReviewEnabled = amazonjsVars.isCustomerReviewEnabled;
+				$.amazonjs.isTrackEventEnabled = amazonjsVars.isTrackEventEnabled;
+				$.amazonjs.resource = amazonjsVars.resource;
+				$.amazonjs.template(amazonjsVars.regionTemplate);
+				$.amazonjs.render(amazonjsVars.items);
 			}
-			$.amazonjs.isCustomerReviewEnabled = amazonjsVars.isCustomerReviewEnabled;
-			$.amazonjs.isTrackEventEnabled = amazonjsVars.isTrackEventEnabled;
-			$.amazonjs.resource = amazonjsVars.resource;
-			$.amazonjs.template(amazonjsVars.regionTempalte);
-			$.amazonjs.render(amazonjsVars.items);
-		}
-
-		$(document).ready(function(){
 			if (amazonjsVars.isFadeInEnabled) {
-				setTimeout(function () { render(); }, 1000);
+				setTimeout(function () {
+					render();
+				}, 1000);
 			} else {
 				render();
 			}
-		});
-	}
-
+		}
+	});
 })(jQuery);
