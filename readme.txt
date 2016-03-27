@@ -2,7 +2,7 @@
 Contributors: makoto_kw
 Tags: Amazon, books, post, media, affiliate, japanese
 Requires at least: 3.3
-Tested up to: 4.3.1
+Tested up to: 4.4.2
 Stable tag: trunk
 License: GPLv2 or later
 
@@ -16,7 +16,7 @@ AmazonJS uses `amazonjs' shortcode and jQuery template to display Amazon product
 
 * Requires WorPress 3.3 or later
 * Requires your Amazon Product Advertising API
-* Plugin Uses API cache by using Transient API
+* Plugin Uses API cache by using Transients API
 * Customize template by using jQuery template
 * Supports Amazon domains ([US](http://www.amazon.com), [UK](http://www.amazon.co.uk), [Germany](http://www.amazon.de), [France](http://www.amazon.fr), [Japan](http://www.amazon.co.jp/), [Canada](http://www.amazon.ca), [China](http://www.amazon.cn), [Italy](http://www.amazon.it), [Spain](http://www.amazon.es))
 
@@ -40,7 +40,7 @@ AmazonJS supports the `amazonjs' shortcode.
 * *locale*: (required) `US`, `UK`, `DE`, `FR`, `JP`, `CA`, `CN`, `IT` or `ES`
 * *tmpl*: (optional) `Small`. if tmpl is empty, apply a template via Product Group of Amazon Product Advertising API.
 * *title*: (optional) It will be used for loading message.
-* *imgsize*: (optional) Thumbnail imge size. `small`, `medium` or `large`.
+* *imgsize*: (optional) Thumbnail image size. `small`, `medium` or `large`.
 
 = Display by javascript =
 
@@ -48,14 +48,14 @@ In first, AmazonJS converts <a/> tag from `amazonjs` short code in server side. 
 
 = Link =
 
-* GitHub Repository (lastest source code and old verisons): https://github.com/makotokw/wp-amazonjs
+* GitHub Repository (latest source code and old versions): https://github.com/makotokw/wp-amazonjs
 * Japanese article: http://blog.makotokw.com/portfolio/wordpress/amazonjs/
 
 == Installation ==
 
 1. Upload `amazonjs` to the `/wp-content/plugins/` directory
 1. Activate the plugin through the `Plugins` menu in WordPress
-1. Set your associate tags and your keys of the Product Advertising API through the  `Settubgs` > `Amazonjs` menu in WordPress
+1. Set your associate tags and your keys of the Product Advertising API through the  `Settings` > `Amazonjs` menu in WordPress
 
 = Directory structure =
 
@@ -83,6 +83,12 @@ In first, AmazonJS converts <a/> tag from `amazonjs` short code in server side. 
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 0.8 =
+
+* Supported Transients API for cache (file cache is no longer in use)
+* Improved to start rendering
+* Fixed to use `get_locale()` instead of `WPLANG`
 
 = 0.7.3 =
 
