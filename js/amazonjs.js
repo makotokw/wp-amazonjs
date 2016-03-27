@@ -329,7 +329,7 @@
 				return defaultTmpl;
 			},
 			prepareData:function (item) {
-				
+
 				// workaround: https://forums.aws.amazon.com/thread.jspa?messageID=435131
 				if (isHttpsScheme) {
 					$.each(this.imageAttributes, function(i, v) {
@@ -380,36 +380,53 @@
 						return this.data._InfoMarginLeft = margin;
 					}
 				});
-			}
-		}
-	});
-
-	$(document).ready(function(){
-		var amazonjsVars = window.amazonjsVars;
-		if (amazonjsVars) {
-			function render() {
-				if (amazonjsVars.isCustomerReviewEnabled) {
-					if (typeof tb_pathToImage === 'undefined') {
-						tb_pathToImage = amazonjsVars.thickboxUrl + '/loadingAnimation.gif';
+			},
+			execute: function() {
+				var amazonjsVars = window.amazonjsVars;
+				if (amazonjsVars) {
+					function render() {
+						if (!amazonjsVars.items) {
+							return;
+						}
+						if ($.amazonjs.isExecuted) {
+							return;
+						}
+						if (amazonjsVars.isCustomerReviewEnabled) {
+							if (typeof tb_pathToImage === 'undefined') {
+								tb_pathToImage = amazonjsVars.thickboxUrl + '/loadingAnimation.gif';
+							}
+							if (typeof tb_closeImage === 'undefined') {
+								tb_closeImage = amazonjsVars.thickboxUrl + '/tb-close.png';
+							}
+						}
+						$.amazonjs.isFadeInEnabled = amazonjsVars.isFadeInEnabled;
+						$.amazonjs.isCustomerReviewEnabled = amazonjsVars.isCustomerReviewEnabled;
+						$.amazonjs.isTrackEventEnabled = amazonjsVars.isTrackEventEnabled;
+						$.amazonjs.resource = amazonjsVars.resource;
+						$.amazonjs.template(amazonjsVars.regionTemplate);
+						$.amazonjs.render(amazonjsVars.items);
+						$.amazonjs.isExecuted = true;
 					}
-					if (typeof tb_closeImage === 'undefined') {
-						tb_closeImage = amazonjsVars.thickboxUrl + '/tb-close.png';
+					if (amazonjsVars.isFadeInEnabled) {
+						setTimeout(function () {
+							render();
+						}, 1000);
+					} else {
+						render();
 					}
 				}
-				$.amazonjs.isFadeInEnabled = amazonjsVars.isFadeInEnabled;
-				$.amazonjs.isCustomerReviewEnabled = amazonjsVars.isCustomerReviewEnabled;
-				$.amazonjs.isTrackEventEnabled = amazonjsVars.isTrackEventEnabled;
-				$.amazonjs.resource = amazonjsVars.resource;
-				$.amazonjs.template(amazonjsVars.regionTemplate);
-				$.amazonjs.render(amazonjsVars.items);
-			}
-			if (amazonjsVars.isFadeInEnabled) {
-				setTimeout(function () {
-					render();
-				}, 1000);
-			} else {
-				render();
 			}
 		}
 	});
+	$(document).ready(function(){
+		$.amazonjs.execute();
+	});
+	$(window).load(function() {
+		$.amazonjs.execute();
+	});
+	if (document.addEventListener) {
+		document.addEventListener('DOMContentLoaded', function () {
+			$.amazonjs.execute();
+		});
+	}
 })(jQuery);
