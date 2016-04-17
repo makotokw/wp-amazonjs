@@ -1,6 +1,7 @@
 {
   "name": "amazonjs",
   "description": "AmazonJS (WordPress Plugin)",
+  "private": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/makotokw/wp-amazonjs"

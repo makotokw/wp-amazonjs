@@ -2,11 +2,11 @@
   font-size: 14px;
   margin: .5em 0 1em 0;
   padding: 25px 10px 25px 10px;
-  border: 1px solid #dddddd;
+  border: 1px solid #ddd;
   position: relative;
   display: block;
   background: white url(../images/amazonjs.png) no-repeat right bottom;
-  color: #333333;
+  color: #333;
 }
 .amazonjs_item a {
   color: #e47911;
@@ -69,14 +69,14 @@
 }
 .amazonjs_item .amazonjs_info ul li b {
   margin-right: .5em;
-  color: #555555;
+  color: #555;
   font-weight: normal;
 }
 .amazonjs_item .amazonjs_info .amazonjs_price {
-  color: #990000;
+  color: #900;
 }
 .amazonjs_item .amazonjs_info .amazonjs_price span {
-  color: #666666;
+  color: #666;
   margin-left: .5em;
 }
 .amazonjs_item .amazonjs_info .amazonjs_listprice {
