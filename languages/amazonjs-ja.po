@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/amazonjs\n"
-"POT-Creation-Date: 2014-08-27 07:43:33+00:00\n"
+"POT-Creation-Date: 2016-04-25 19:59:31+00:00\n"
 "PO-Revision-Date: 2010-11-08 00:37+0900\n"
 "Last-Translator: makoto_kw <makoto.kw+wordpress@gmail.com>\n"
 "Language-Team: Japanese\n"
@@ -234,67 +234,67 @@ msgstr "無線"
 msgid "WirelessAccessories"
 msgstr "無線アクセサリー"
 
-#: amazonjs.php:66
+#: amazonjs.php:65
 msgid "United States"
 msgstr "アメリカ"
 
-#: amazonjs.php:73
+#: amazonjs.php:72
 msgid "United Kingdom"
 msgstr "イギリス"
 
-#: amazonjs.php:80
+#: amazonjs.php:79
 msgid "Deutschland"
 msgstr "ドイツ"
 
-#: amazonjs.php:87
+#: amazonjs.php:86
 msgid "France"
 msgstr "フランス"
 
-#: amazonjs.php:94
+#: amazonjs.php:93
 msgid "Japan"
 msgstr "日本"
 
-#: amazonjs.php:101
+#: amazonjs.php:100
 msgid "Canada"
 msgstr "カナダ"
 
-#: amazonjs.php:108
+#: amazonjs.php:107
 msgid "China"
 msgstr "中国"
 
-#: amazonjs.php:115
+#: amazonjs.php:114
 msgid "Italia"
 msgstr "イタリア"
 
-#: amazonjs.php:122
+#: amazonjs.php:121
 msgid "España"
 msgstr "スペイン"
 
-#: amazonjs.php:264
+#: amazonjs.php:247
 msgid "Author"
 msgstr "著者"
 
-#: amazonjs.php:265
+#: amazonjs.php:248
 msgid "PublicationDate"
 msgstr "出版日"
 
-#: amazonjs.php:266
+#: amazonjs.php:249
 msgid "Publisher"
 msgstr "出版社"
 
-#: amazonjs.php:267
+#: amazonjs.php:250
 msgid "${NumberOfPages} pages"
 msgstr "${NumberOfPages}ページ"
 
-#: amazonjs.php:268
+#: amazonjs.php:251
 msgid "List Price"
 msgstr "参考価格"
 
-#: amazonjs.php:269
+#: amazonjs.php:252
 msgid "Price"
 msgstr "価格"
 
-#: amazonjs.php:270
+#: amazonjs.php:253
 msgid ""
 "Product prices and availability are accurate as of the date/time indicated "
 "and are subject to change. Any price and availability information displayed "
@@ -305,83 +305,83 @@ msgstr ""
 "があります。商品の販売においては、購入の時点で [Amazon.co.jp または Javari."
 "jp] に表示されている価格および発送可能時期の情報が適用されます。"
 
-#: amazonjs.php:271
+#: amazonjs.php:254
 msgid "Publication Date"
 msgstr "発売日"
 
-#: amazonjs.php:272
+#: amazonjs.php:255
 msgid "Release Date"
 msgstr "リリース日"
 
-#: amazonjs.php:273
+#: amazonjs.php:256
 msgid "SalesRank"
 msgstr "商品ランキング"
 
-#: amazonjs.php:274
+#: amazonjs.php:257
 msgid "#${SalesRank}"
 msgstr "${SalesRank}位"
 
-#: amazonjs.php:275
+#: amazonjs.php:258
 msgid "Run Time"
 msgstr "時間"
 
-#: amazonjs.php:276
+#: amazonjs.php:259
 msgid "${RunningTime} minutes"
 msgstr "${RunningTime}分"
 
-#: amazonjs.php:277
+#: amazonjs.php:260
 msgid "${Title} Customer Review"
 msgstr "${Title} カスタマーレビュー"
 
-#: amazonjs.php:278
+#: amazonjs.php:261
 msgid "See Customer Reviews"
 msgstr "カスタマーレビューを見る"
 
-#: amazonjs.php:279
+#: amazonjs.php:262
 msgid "(at ${UpdatedDate})"
 msgstr "(${UpdatedDate}時点)"
 
-#: amazonjs.php:299
+#: amazonjs.php:282
 msgid "Product Advertising API settings"
 msgstr "Product Advertising APIの設定"
 
-#: amazonjs.php:302
+#: amazonjs.php:286
 msgid "Amazon Associates settings"
 msgstr "アソシエイトタグの設定"
 
-#: amazonjs.php:305
+#: amazonjs.php:290
 msgid "Appearance settings"
 msgstr "表示設定"
 
-#: amazonjs.php:308
+#: amazonjs.php:294
 msgid "Analytics settings"
 msgstr "アナリティクス設定"
 
-#: amazonjs.php:311
+#: amazonjs.php:298
 msgid "Customize"
 msgstr "カスタマイズ"
 
-#: amazonjs.php:318
+#: amazonjs.php:306
 msgid "Access Key ID"
 msgstr "アクセスキーID"
 
-#: amazonjs.php:324
+#: amazonjs.php:312
 msgid "Secret Access Key"
 msgstr "シークレットアクセスキー"
 
-#: amazonjs.php:330
+#: amazonjs.php:318
 msgid "Display customer review"
 msgstr "カスタマーレビューを表示する"
 
-#: amazonjs.php:333
+#: amazonjs.php:321
 msgid "AmazonJS will display customer review by using WordPress's Thickbox."
 msgstr "WordPressのThickboxを利用してカスタマーレビューを表示します"
 
-#: amazonjs.php:336
+#: amazonjs.php:324
 msgid "Display official widget when disabled javascript in web browser"
 msgstr "ブラウザのJavascriptが無効の時にオフィシャルウィジェットを表示する"
 
-#: amazonjs.php:339
+#: amazonjs.php:327
 msgid ""
 "If set to true, AmazonJS will output html by using <code>&lt;script "
 "type=&quot;text/javascript&quot;&gt;document.write(&quot;{$indicator_html}"
@@ -391,15 +391,15 @@ msgstr ""
 "document.write(&quot;{$indicator_html}&quot;)&lt;/script&gt;&lt;noscript&gt;"
 "{$link_html}&lt;/noscript&gt;</code>を出力します"
 
-#: amazonjs.php:342
+#: amazonjs.php:330
 msgid "Use fadeIn animation"
 msgstr "フェードインアニメーションを使用する"
 
-#: amazonjs.php:347
+#: amazonjs.php:335
 msgid "Override style of theme"
 msgstr "テーマのスタイルを上書きする"
 
-#: amazonjs.php:350
+#: amazonjs.php:338
 msgid ""
 "If set to true, AmazonJS will override the style of the theme by using "
 "<code>!important</code> declaration."
@@ -407,11 +407,11 @@ msgstr ""
 "設定が有効の場合、<code>!important</code>を使ってテーマのスタイルを上書きしま"
 "す"
 
-#: amazonjs.php:353
+#: amazonjs.php:341
 msgid "Click Tracking by using Google Analytics"
 msgstr "Google Analyticsで商品リンクのクリックをトラッキングする"
 
-#: amazonjs.php:356
+#: amazonjs.php:344
 msgid ""
 "If set to true, AmazonJS will call <code>_gaq.push([\"_trackEvent\", "
 "\"AmazonJS\", \"Click\", \"ASIN TITLE\"])</code> or <code>ga(\"send\", "
@@ -421,23 +421,23 @@ msgstr ""
 "\"ASIN TITLE\"])</code> または <code>ga(\"send\", \"event\", \"AmazonJS\", "
 "\"Click\", \"ASIN TITLE\")</code>を呼び出します"
 
-#: amazonjs.php:359
+#: amazonjs.php:347
 msgid "Use Custom Css"
 msgstr "カスタムCSSを使用する"
 
-#: amazonjs.php:365
+#: amazonjs.php:353
 msgid "Use Custom Javascript"
 msgstr "カスタムスクリプトを使用する"
 
-#: amazonjs.php:576
+#: amazonjs.php:563
 msgid "Settings"
 msgstr "設定"
 
-#: amazonjs.php:580
+#: amazonjs.php:567
 msgid "Old Releases"
 msgstr "過去のバージョン"
 
-#: amazonjs.php:588
+#: amazonjs.php:575
 msgid ""
 "This plugin uses the Amazon Product Advertising API in order to get product "
 "infomation. Thus, you must use your Access Key ID &amp; Secret Access Key."
@@ -446,7 +446,7 @@ msgstr ""
 "Advertising APIを使うにはあなたのアクセスキーIDと秘密アクセスキーを使わなけれ"
 "ばいけません。"
 
-#: amazonjs.php:589
+#: amazonjs.php:576
 msgid ""
 "You can sign up the Amazon Product Advertising API from <a href=\"https://"
 "affiliate-program.amazon.com/gp/advertising/api/detail/main.html\" target="
@@ -460,7 +460,7 @@ msgstr ""
 "affiliate.amazon.co.jp/gp/advertising/api/detail/agreement.html\" target="
 "\"_blank\">Product Advertising API ライセンス契約</a> をよくお読みください。"
 
-#: amazonjs.php:595
+#: amazonjs.php:582
 msgid ""
 "Amazon has an affiliate program called Amazon Associates. To apply for the "
 "Associates Program, visit the <a href=\"https://affiliate-program.amazon.com/"
@@ -470,7 +470,7 @@ msgstr ""
 "フィリエイトプログラムの詳細は<a href=\"https://affiliate.amazon.co.jp/\" "
 "target=\"_blank\">Amazon アソシエイトウェブサイト</a>を参照してください。"
 
-#: amazonjs.php:596
+#: amazonjs.php:583
 msgid ""
 "Associate Tag has been a <strong>required and verified</strong> input "
 "parameter in all requests to the Amazon Product Advertising API since "
@@ -479,19 +479,27 @@ msgstr ""
 "2011年11月1日よりアソシエイトタグはAmazon Product Advertising APIへの全てのリ"
 "クエストにおいて<strong>必須かつ検証される</strong>パラメータになりました。"
 
-#: amazonjs.php:669
+#: amazonjs.php:667
+msgid "The Access Key ID may be invalid"
+msgstr "アクセスキーIDが間違っているかもしれません"
+
+#: amazonjs.php:670
+msgid "The Secret Access Key may be invalid"
+msgstr "シークレットアクセスキーが間違っているかもしれません"
+
+#: amazonjs.php:683
 msgid "Add Amazon Link"
 msgstr "Amazonリンクを追加"
 
-#: amazonjs.php:701
+#: amazonjs.php:715
 msgid "Keyword Search"
 msgstr "キーワード検索"
 
-#: amazonjs.php:702
+#: amazonjs.php:716
 msgid "Search by ASIN/URL"
 msgstr "ASIN/URLで検索"
 
-#: amazonjs.php:725
+#: amazonjs.php:739
 msgid ""
 "Error! \"simplexml_load_string\" function is not found. %s requires PHP 5 "
 "and SimpleXML extension."
@@ -499,46 +507,31 @@ msgstr ""
 "エラー! \"simplexml_load_string\" 関数が見つかりません。%s を使うにはPHP5以上"
 "でSimpleXML拡張が必要です"
 
-#: amazonjs.php:730
-msgid ""
-"Warning! Cache directory is not exist. Please create writable directory: <br/"
-"><code>%s</code>"
-msgstr ""
-"警告! キャッシュディレクトリが存在しません<br/>書き込み可能なディレクトリを "
-"<code>%s</code> に作成してください"
-
-#: amazonjs.php:734
-msgid ""
-"Warning! Cache Directory \"%s\" is not writable, set permission as 0777."
-msgstr ""
-"警告! キャッシュディレクトリ \"%s\" に書き込み権限がありません。パーミッショ"
-"ンを0777に設定してください"
-
-#: amazonjs.php:800
+#: amazonjs.php:826
 msgid "Invalid Request Parameters"
 msgstr "リクエストが不正です"
 
-#: amazonjs.php:835
+#: amazonjs.php:864
 msgid "Network Error: %s"
 msgstr "ネットワークエラー: %s"
 
-#: amazonjs.php:841
+#: amazonjs.php:870
 msgid "Empty Response from %s"
 msgstr "%sからのレスポンスが空です"
 
-#: amazonjs.php:899 amazonjs.php:903
+#: amazonjs.php:929 amazonjs.php:933
 msgid "Amazon Product Advertising API Error"
 msgstr "Amazon Product Advertising APIのエラー"
 
-#: amazonjs.php:907
+#: amazonjs.php:937
 msgid "Cannot Parse Amazon Product Advertising API Response"
 msgstr "Amazon Product Advertising APIからのレスポンスをパースできません"
 
-#: amazonjs.php:912
+#: amazonjs.php:942
 msgid "Invalid Response"
 msgstr "レスポンスが不正です"
 
-#: media-upload-type-amazonjs.php:23
+#: media-upload-type-amazonjs.php:20
 msgid ""
 "The Access Key ID or Secret Access Key is empty. Please specify it in <a "
 "href=\"%s\" target=\"_blank\">settings</a>."
@@ -546,71 +539,67 @@ msgstr ""
 "アクセスキーIDかシークレットアクセスキーが設定されていません。<a href=\"%s\" "
 "target=\"_blank\">設定画面</a>から設定してください。"
 
-#: media-upload-type-amazonjs.php:28
-msgid "Warning! Cache Directory \"%s\" is not writable"
-msgstr "警告! キャッシュディレクトリ \"%s\" に書き込み権限がありません"
-
-#: media-upload-type-amazonjs.php:41
+#: media-upload-type-amazonjs.php:31
 msgid "Input Keyword"
 msgstr "キーワードを入力"
 
-#: media-upload-type-amazonjs.php:47
+#: media-upload-type-amazonjs.php:36
 msgid "Input ASIN or URL"
 msgstr "ASINかURLを入力"
 
-#: media-upload-type-amazonjs.php:49
+#: media-upload-type-amazonjs.php:38
 msgid "Search"
 msgstr "検索"
 
-#: media-upload-type-amazonjs.php:58
+#: media-upload-type-amazonjs.php:47
 msgid "Select template"
 msgstr "テンプレートの選択"
 
-#: media-upload-type-amazonjs.php:62
+#: media-upload-type-amazonjs.php:51
 msgid "Simple Html"
 msgstr "単純なHtml"
 
-#: media-upload-type-amazonjs.php:64
+#: media-upload-type-amazonjs.php:53
 msgid "Title"
 msgstr "タイトル"
 
-#: media-upload-type-amazonjs.php:66
+#: media-upload-type-amazonjs.php:55
 msgid "Small Image"
 msgstr "画像(小)"
 
-#: media-upload-type-amazonjs.php:68
+#: media-upload-type-amazonjs.php:57
 msgid "Medium Image"
 msgstr "画像(中)"
 
-#: media-upload-type-amazonjs.php:70
+#: media-upload-type-amazonjs.php:59
 msgid "Large Image"
 msgstr "画像(大)"
 
-#: media-upload-type-amazonjs.php:73
+#: media-upload-type-amazonjs.php:62
 msgid "Dynamic Template"
 msgstr "動的なテンプレート"
 
-#: media-upload-type-amazonjs.php:75
+#: media-upload-type-amazonjs.php:64
 msgid "Default"
 msgstr "デフォルト"
 
-#: media-upload-type-amazonjs.php:77
+#: media-upload-type-amazonjs.php:66
 msgid "Small"
 msgstr "少ない情報"
 
-#: media-upload-type-amazonjs.php:80
+#: media-upload-type-amazonjs.php:69
 msgid "Preview"
 msgstr "プレビュー"
 
-#: media-upload-type-amazonjs.php:86
+#: media-upload-type-amazonjs.php:75
 msgid "Cancel"
 msgstr "キャンセル"
 
-#: media-upload-type-amazonjs.php:87
+#: media-upload-type-amazonjs.php:76
 msgid "Insert"
 msgstr "挿入"
 
-#: media-upload-type-amazonjs.php:145
+#: media-upload-type-amazonjs.php:134
 msgid ""
 "<h3 class=\"searchindex\"><a href=\"#\" rel=\"${IndexName}\">${Label}</a> "
 "(${Results} hits)</h3>"
@@ -618,7 +607,7 @@ msgstr ""
 "<h3 class=\"searchindex\"><a href=\"#\" rel=\"${IndexName}\">${Label}</a> "
 "(${Results} 件)</h3>"
 
-#: media-upload-type-amazonjs.php:146
+#: media-upload-type-amazonjs.php:135
 msgid ""
 "<div class=\"searchpager\">{{if prev}}<button class=\"button prev\">Prev</"
 "button>{{/if}}${startIndex} - ${endIndex} / ${totalResults}{{if next}}"
@@ -628,7 +617,7 @@ msgstr ""
 "button>{{/if}}${startIndex} - ${endIndex} / ${totalResults}{{if next}}"
 "<button class=\"button next\">次</button>{{/if}}</div>"
 
-#: media-upload-type-amazonjs.php:162
+#: media-upload-type-amazonjs.php:151
 msgid "Select"
 msgstr "選択"
 

@@ -153,6 +153,7 @@ class Amazonjs
 		add_action( 'media_upload_amazonjs_keyword', array( $this, 'media_upload_amazonjs_keyword' ) );
 		add_action( 'media_upload_amazonjs_id', array( $this, 'media_upload_amazonjs_id' ) );
 		add_action( 'wp_ajax_amazonjs_search', array( $this, 'ajax_amazonjs_search' ) );
+		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
 
 		$page = $this->option_page_name;
 		register_setting( $this->option_name, $this->option_name, array( $this, 'validate_settings' ) );
@@ -649,6 +650,29 @@ EOF;
 		}
 		if ( @$field['description'] ) {
 			echo '<p class="description">' . $field['description'] . '</p>';
+		}
+	}
+
+	function admin_notices() {
+		global $pagenow;
+		// https://wordpress.org/support/topic/how-to-use-settings-api-and-print-custom-validation-errors?replies=3
+		if ( 'options-general.php' == $pagenow && $this->option_page_name == $_GET['page'] ) {
+			if ( (isset($_GET['updated']) && 'true' == $_GET['updated']) || (isset($_GET['settings-updated']) && 'true' == $_GET['settings-updated']) ) {
+				// Validate keys
+				if ( !empty($this->settings['accessKeyId']) && !empty($this->settings['secretAccessKey']) ) {
+					$results = $this->itemsearch( $this->default_country_code(), null, 'WordPress' );
+					if ( is_array( $results ) && isset($results['error_code']) ) {
+						switch ( $results['error_code'] ) {
+							case 'InvalidClientTokenId':
+								add_settings_error( 'general', 'settings_updated', __( 'The Access Key ID may be invalid', $this->text_domain )  . ' (' . $results['error_code'] . ')', 'error' );
+								break;
+							case 'SignatureDoesNotMatch':
+								add_settings_error( 'general', 'settings_updated', __( 'The Secret Access Key may be invalid', $this->text_domain ). ' (' . $results['error_code'] . ')', 'error' );
+								break;
+						}
+					}
+				}
+			}
 		}
 	}
 
