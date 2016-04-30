@@ -656,7 +656,7 @@ EOF;
 	function admin_notices() {
 		global $pagenow;
 		// https://wordpress.org/support/topic/how-to-use-settings-api-and-print-custom-validation-errors?replies=3
-		if ( 'options-general.php' == $pagenow && $this->option_page_name == $_GET['page'] ) {
+		if ( 'options-general.php' == $pagenow && isset($_GET['page']) && $this->option_page_name == $_GET['page'] ) {
 			if ( (isset($_GET['updated']) && 'true' == $_GET['updated']) || (isset($_GET['settings-updated']) && 'true' == $_GET['settings-updated']) ) {
 				// Validate keys
 				if ( !empty($this->settings['accessKeyId']) && !empty($this->settings['secretAccessKey']) ) {
