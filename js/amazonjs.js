@@ -421,7 +421,7 @@
 	$(document).ready(function(){
 		$.amazonjs.execute();
 	});
-	$(window).load(function() {
+	$(window).on("load",function() {
 		$.amazonjs.execute();
 	});
 	if (document.addEventListener) {
