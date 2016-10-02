@@ -130,7 +130,7 @@ class Amazonjs_JSON
     *                                   bubble up with an error, so all return values
     *                                   from encode() should be checked with isError()
     */
-    function Amazonjs_JSON($use = 0)
+    function __construct($use = 0)
     {
         $this->use = $use;
     }
@@ -780,7 +780,7 @@ if (class_exists('PEAR_Error')) {
 
     class Amazonjs_JSON_Error extends PEAR_Error
     {
-        function Amazonjs_JSON_Error($message = 'unknown error', $code = null,
+        function __construct($message = 'unknown error', $code = null,
                                      $mode = null, $options = null, $userinfo = null)
         {
             parent::PEAR_Error($message, $code, $mode, $options, $userinfo);
@@ -794,7 +794,7 @@ if (class_exists('PEAR_Error')) {
      */
     class Amazonjs_JSON_Error
     {
-        function Amazonjs_JSON_Error($message = 'unknown error', $code = null,
+        function __construct($message = 'unknown error', $code = null,
                                      $mode = null, $options = null, $userinfo = null)
         {
 
