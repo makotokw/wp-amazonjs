@@ -388,7 +388,7 @@
 						if (!amazonjsVars.items) {
 							return;
 						}
-						if ($.amazonjs.isExecuted) {
+						if ($.amazonjs.isRendered) {
 							return;
 						}
 						if (amazonjsVars.isCustomerReviewEnabled) {
@@ -405,7 +405,7 @@
 						$.amazonjs.resource = amazonjsVars.resource;
 						$.amazonjs.template(amazonjsVars.regionTemplate);
 						$.amazonjs.render(amazonjsVars.items);
-						$.amazonjs.isExecuted = true;
+						$.amazonjs.isRendered = true;
 					}
 					if (amazonjsVars.isFadeInEnabled) {
 						setTimeout(function () {
@@ -418,15 +418,21 @@
 			}
 		}
 	});
-	$(document).ready(function(){
+
+	var boot = function() {
 		$.amazonjs.execute();
-	});
-	$(window).load(function() {
-		$.amazonjs.execute();
-	});
+	};
+
+	$(document).ready(boot);
+
+	// sometime ready callback never call
+	// jQuery 1.7 or later
+	if ($.fn.on) {
+		$(window).on('load', boot);
+	} else if ($.fn.load) {
+		$(window).load(boot);
+	}
 	if (document.addEventListener) {
-		document.addEventListener('DOMContentLoaded', function () {
-			$.amazonjs.execute();
-		});
+		document.addEventListener('DOMContentLoaded', boot);
 	}
 })(jQuery);
