@@ -26,7 +26,7 @@ require_once dirname( __FILE__ ) . '/lib/json.php';
 class Amazonjs
 {
 	const VERSION        = '0.8';
-	const AWS_VERSION    = '2011-08-01';
+	const AWS_VERSION    = '2013-08-01';
 	const CACHE_LIFETIME = 86400;
 
 	public $title;
@@ -64,64 +64,64 @@ class Amazonjs
 			'US' => array(
 				'label'              => __( 'United States', $this->text_domain ),
 				'domain'             => 'Amazon.com',
-				'baseUri'            => 'http://webservices.amazon.com',
-				'linkTemplate'       => '<iframe src="http://rcm.amazon.com/e/cm?t=${t}&o=1&p=8&l=as1&asins=${asins}&fc1=${fc1}&IS2=${IS2}&lt1=${lt1}&m=amazon&lc1=${lc1}&bc1=${bc1}&bg1=${bg1}&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
+				'baseUri'            => 'https://webservices.amazon.com',
+				'linkTemplate'       => '<iframe src="https://rcm.amazon.com/e/cm?t=${t}&o=1&p=8&l=as1&asins=${asins}&fc1=${fc1}&IS2=${IS2}&lt1=${lt1}&m=amazon&lc1=${lc1}&bc1=${bc1}&bg1=${bg1}&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
 				'associateTagSuffix' => '-20',
 			),
 			'UK' => array(
 				'label'              => __( 'United Kingdom', $this->text_domain ),
 				'domain'             => 'Amazon.co.uk',
-				'baseUri'            => 'http://webservices.amazon.co.uk',
-				'linkTemplate'       => '<iframe src="http://rcm-uk.amazon.co.uk/e/cm?t=${t}&o=2&p=8&l=as1&asins=${asins}&fc1=${fc1}&IS2=${IS2}&lt1=${lt1}&m=amazon&lc1=${lc1}&bc1=${bc1}&bg1=${bg1}&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
+				'baseUri'            => 'https://webservices.amazon.co.uk',
+				'linkTemplate'       => '<iframe src="https://rcm-uk.amazon.co.uk/e/cm?t=${t}&o=2&p=8&l=as1&asins=${asins}&fc1=${fc1}&IS2=${IS2}&lt1=${lt1}&m=amazon&lc1=${lc1}&bc1=${bc1}&bg1=${bg1}&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
 				'associateTagSuffix' => '-21',
 			),
 			'DE' => array(
 				'label'              => __( 'Deutschland', $this->text_domain ),
 				'domain'             => 'Amazon.de',
-				'baseUri'            => 'http://webservices.amazon.de',
-				'linkTemplate'       => '<iframe src="http://rcm-de.amazon.de/e/cm?t=${t}&o=3&p=8&l=as1&asins=${asins}&fc1=${fc1}&IS2=${IS2}&lt1=${lt1}&m=amazon&lc1=${lc1}&bc1=${bc1}&bg1=${bg1}&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
+				'baseUri'            => 'https://webservices.amazon.de',
+				'linkTemplate'       => '<iframe src="https://rcm-de.amazon.de/e/cm?t=${t}&o=3&p=8&l=as1&asins=${asins}&fc1=${fc1}&IS2=${IS2}&lt1=${lt1}&m=amazon&lc1=${lc1}&bc1=${bc1}&bg1=${bg1}&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
 				'associateTagSuffix' => '04-21',
 			),
 			'FR' => array(
 				'label'              => __( 'France', $this->text_domain ),
 				'domain'             => 'Amazon.fr',
-				'baseUri'            => 'http://webservices.amazon.fr',
-				'linkTemplate'       => '<iframe src="http://rcm-fr.amazon.fr/e/cm?t=${t}&o=8&p=8&l=as1&asins=${asins}&fc1=${fc1}&IS2=${IS2}&lt1=${lt1}&m=amazon&lc1=${lc1}&bc1=${bc1}&bg1=${bg1}&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
+				'baseUri'            => 'https://webservices.amazon.fr',
+				'linkTemplate'       => '<iframe src="https://rcm-fr.amazon.fr/e/cm?t=${t}&o=8&p=8&l=as1&asins=${asins}&fc1=${fc1}&IS2=${IS2}&lt1=${lt1}&m=amazon&lc1=${lc1}&bc1=${bc1}&bg1=${bg1}&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
 				'associateTagSuffix' => '09-21',
 			),
 			'JP' => array(
 				'label'              => __( 'Japan', $this->text_domain ),
 				'domain'             => 'Amazon.co.jp',
-				'baseUri'            => 'http://webservices.amazon.co.jp',
-				'linkTemplate'       => '<iframe src="http://rcm-jp.amazon.co.jp/e/cm?t=${t}&o=9&p=8&l=as1&asins=${asins}&fc1=${fc1}&IS2=${IS2}&lt1=${lt1}&m=amazon&lc1=${lc1}&bc1=${bc1}&bg1=${bg1}&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
+				'baseUri'            => 'https://webservices.amazon.co.jp',
+				'linkTemplate'       => '<iframe src="https://rcm-jp.amazon.co.jp/e/cm?t=${t}&o=9&p=8&l=as1&asins=${asins}&fc1=${fc1}&IS2=${IS2}&lt1=${lt1}&m=amazon&lc1=${lc1}&bc1=${bc1}&bg1=${bg1}&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
 				'associateTagSuffix' => '-22',
 			),
 			'CA' => array(
 				'label'              => __( 'Canada', $this->text_domain ),
 				'domain'             => 'Amazon.ca',
-				'baseUri'            => 'http://webservices.amazon.ca',
-				'linkTemplate'       => '<iframe src="http://rcm-ca.amazon.ca/e/cm?t=${t}&o=15&p=8&l=as1&asins=${asins}&fc1=${fc1}&IS2=${IS2}&lt1=${lt1}&m=amazon&lc1=${lc1}&bc1=${bc1}&bg1=${bg1}&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
+				'baseUri'            => 'https://webservices.amazon.ca',
+				'linkTemplate'       => '<iframe src="https://rcm-ca.amazon.ca/e/cm?t=${t}&o=15&p=8&l=as1&asins=${asins}&fc1=${fc1}&IS2=${IS2}&lt1=${lt1}&m=amazon&lc1=${lc1}&bc1=${bc1}&bg1=${bg1}&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
 				'associateTagSuffix' => '0c-20',
 			),
 			'CN' => array(
 				'label'              => __( 'China', $this->text_domain ),
 				'domain'             => 'Amazon.cn',
-				'baseUri'            => 'http://webservices.amazon.cn',
-				'linkTemplate'       => '<iframe src="http://rcm-cn.amazon.cn/e/cm?t=${t}&o=28&p=8&l=as1&asins=${asins}&fc1=${fc1}&IS2=${IS2}&lt1=${lt1}&m=amazon&lc1=${lc1}&bc1=${bc1}&bg1=${bg1}&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
+				'baseUri'            => 'https://webservices.amazon.cn',
+				'linkTemplate'       => '<iframe src="https://rcm-cn.amazon.cn/e/cm?t=${t}&o=28&p=8&l=as1&asins=${asins}&fc1=${fc1}&IS2=${IS2}&lt1=${lt1}&m=amazon&lc1=${lc1}&bc1=${bc1}&bg1=${bg1}&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
 				'associateTagSuffix' => '-23',
 			),
 			'IT' => array(
 				'label'              => __( 'Italia', $this->text_domain ),
 				'domain'             => 'Amazon.it',
-				'baseUri'            => 'http://webservices.amazon.it',
-				'linkTemplate'       => '<iframe src="http://rcm-it.amazon.it/e/cm?t=${t}&o=29&p=8&l=as1&asins=${asins}&fc1=${fc1}&IS2=${IS2}&lt1=${lt1}&m=amazon&lc1=${lc1}&bc1=${bc1}&bg1=${bg1}&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
+				'baseUri'            => 'https://webservices.amazon.it',
+				'linkTemplate'       => '<iframe src="https://rcm-it.amazon.it/e/cm?t=${t}&o=29&p=8&l=as1&asins=${asins}&fc1=${fc1}&IS2=${IS2}&lt1=${lt1}&m=amazon&lc1=${lc1}&bc1=${bc1}&bg1=${bg1}&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
 				'associateTagSuffix' => '-21',
 			),
 			'ES' => array(
 				'label'              => __( 'España', $this->text_domain ),
 				'domain'             => 'Amazon.es',
-				'baseUri'            => 'http://webservices.amazon.es',
-				'linkTemplate'       => '<iframe src="http://rcm-es.amazon.es/e/cm?t=${t}&o=30&p=8&l=as1&asins=${asins}&fc1=${fc1}&IS2=${IS2}&lt1=${lt1}&m=amazon&lc1=${lc1}&bc1=${bc1}&bg1=${bg1}&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
+				'baseUri'            => 'https://webservices.amazon.es',
+				'linkTemplate'       => '<iframe src="https://rcm-es.amazon.es/e/cm?t=${t}&o=30&p=8&l=as1&asins=${asins}&fc1=${fc1}&IS2=${IS2}&lt1=${lt1}&m=amazon&lc1=${lc1}&bc1=${bc1}&bg1=${bg1}&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
 				'associateTagSuffix' => '-21',
 			),
 		);
@@ -513,8 +513,9 @@ EOF;
 	}
 
 	function get_item( $country_code, $asin ) {
-		if ( $ai = get_site_transient( "amazonjs_{$country_code}_{$asin}" ) ) {
-			return $ai;
+		if ( $cached_item = get_site_transient( "amazonjs_{$country_code}_{$asin}" ) ) {
+			self::convert_ssl_item( $cached_item );
+			return $cached_item;
 		}
 		$items = $this->fetch_items( $country_code, array( $asin => false ) );
 		return @$items[ $asin ];
@@ -914,6 +915,8 @@ EOF;
 					$r['LargeImage']   = self::image_element( $item->LargeImage );
 					$r['CountryCode']  = $countryCode;
 					$r['UpdatedAt']    = $fetchedAt;
+
+					self::convert_ssl_item( $r );
 					$items[]           = $r;
 				}
 				if ( 'ItemLookup' == $operation ) {
@@ -974,6 +977,29 @@ EOF;
 			return compact( 'src', 'width', 'height' );
 		}
 		return null;
+	}
+
+	/**
+	 * @param array $item
+	 */
+	static function convert_ssl_item( &$item ) {
+		$item['DetailPageURL'] = self::to_ssl_detail_url( $item['DetailPageURL'] );
+		if ( isset( $item['IFrameReviewURL'] ) ) {
+			$item['IFrameReviewURL'] = self::to_ssl_detail_url( $item['IFrameReviewURL'] );
+		}
+		foreach ( array('SmallImage', 'MediumImage', 'LargeImage') as $imageKey ) {
+			if ( isset( $item[$imageKey] ) ) {
+				$item[$imageKey]['src'] = self::to_ssl_image_url( $item[$imageKey]['src'] );
+			}
+		}
+	}
+
+	static function to_ssl_detail_url( $url ) {
+		return preg_replace('/^http:\/\//', 'https://', $url);
+	}
+
+	static function to_ssl_image_url( $url ) {
+		return preg_replace('/^http:\/\/ecx\./', 'https://images-na.ssl-', $url);
 	}
 
 	static function urlencode_rfc3986( $string ) {
