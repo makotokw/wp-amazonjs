@@ -320,12 +320,6 @@ class Amazonjs
 				'section'     => 'appearance',
 				'description' => __( "AmazonJS will display customer review by using WordPress's Thickbox.", $this->text_domain ),
 			),
-			'supportDisabledJavascript' => array(
-				'label'       => __( 'Display official widget when disabled javascript in web browser', $this->text_domain ),
-				'type'        => 'checkbox',
-				'section'     => 'appearance',
-				'description' => __( 'If set to true, AmazonJS will output html by using <code>&lt;script type=&quot;text/javascript&quot;&gt;document.write(&quot;{$indicator_html}&quot;)&lt;/script&gt;&lt;noscript&gt;{$link_html}&lt;/noscript&gt;</code>.', $this->text_domain ),
-			),
 			'useAnimation'              => array(
 				'label'   => __( 'Use fadeIn animation', $this->text_domain ),
 				'type'    => 'checkbox',
@@ -336,6 +330,18 @@ class Amazonjs
 				'type'        => 'checkbox',
 				'section'     => 'appearance',
 				'description' => __( 'If set to true, AmazonJS will override the style of the theme by using <code>!important</code> declaration.', $this->text_domain ),
+			),
+			'useShortItemUrl'     => array(
+				'label'       => __( 'Use short item url', $this->text_domain ),
+				'type'        => 'checkbox',
+				'section'     => 'appearance',
+				'description' => __( "AmazonJS will remove a product title from an item url.", $this->text_domain ),
+			),
+			'supportDisabledJavascript' => array(
+				'label'       => __( 'Uf set to true, display an official widget instead javascript code', $this->text_domain ),
+				'type'        => 'checkbox',
+				'section'     => 'appearance',
+				'description' => __( 'If set to true, AmazonJS will output html by using <code>&lt;script type=&quot;text/javascript&quot;&gt;document.write(&quot;{$indicator_html}&quot;)&lt;/script&gt;&lt;noscript&gt;{$link_html}&lt;/noscript&gt;</code>.', $this->text_domain ),
 			),
 			'useTrackEvent'             => array(
 				'label'       => __( 'Click Tracking by using Google Analytics', $this->text_domain ),
@@ -465,7 +471,7 @@ EOF;
 		}
 		$item = (array_key_exists( $asin, $this->display_items[ $country_code ] ))
 			? $this->display_items[ $country_code ][ $asin ]
-			: $this->display_items[ $country_code ][ $asin ] =  get_site_transient("amazonjs_{$country_code}_{$asin}");
+			: $this->display_items[ $country_code ][ $asin ] =  $this->get_cached_item( $country_code, $asin );
 		$url  = '#';
 		if ( is_array( $item ) && array_key_exists( 'DetailPageURL', $item ) ) {
 			$url = $item['DetailPageURL'];
@@ -512,9 +518,16 @@ EOF;
 		return 'US';
 	}
 
-	function get_item( $country_code, $asin ) {
+	function get_cached_item( $country_code, $asin ) {
 		if ( $cached_item = get_site_transient( "amazonjs_{$country_code}_{$asin}" ) ) {
-			self::convert_ssl_item( $cached_item );
+			$this->fix_item( $cached_item );
+			return $cached_item;
+		}
+		return null;
+	}
+
+	function get_item( $country_code, $asin ) {
+		if ( $cached_item = $this->get_cached_item( $country_code, $asin ) ) {
 			return $cached_item;
 		}
 		$items = $this->fetch_items( $country_code, array( $asin => false ) );
@@ -916,7 +929,7 @@ EOF;
 					$r['CountryCode']  = $countryCode;
 					$r['UpdatedAt']    = $fetchedAt;
 
-					self::convert_ssl_item( $r );
+					$this->fix_item( $r );
 					$items[]           = $r;
 				}
 				if ( 'ItemLookup' == $operation ) {
@@ -982,8 +995,11 @@ EOF;
 	/**
 	 * @param array $item
 	 */
-	static function convert_ssl_item( &$item ) {
+	function fix_item( &$item ) {
 		$item['DetailPageURL'] = self::to_ssl_detail_url( $item['DetailPageURL'] );
+		if ( $this->settings['useShortItemUrl'] ) {
+			$item['DetailPageURL'] = self::trim_title_from_detail_url( $item['DetailPageURL'] );
+		}
 		if ( isset( $item['IFrameReviewURL'] ) ) {
 			$item['IFrameReviewURL'] = self::to_ssl_detail_url( $item['IFrameReviewURL'] );
 		}
@@ -992,6 +1008,10 @@ EOF;
 				$item[$imageKey]['src'] = self::to_ssl_image_url( $item[$imageKey]['src'] );
 			}
 		}
+	}
+
+	static function trim_title_from_detail_url( $url ) {
+		return preg_replace('/(\.amazon\.[^\/]+)\/([^\/]+)\/dp\//', '$1/dp/', $url);
 	}
 
 	static function to_ssl_detail_url( $url ) {
