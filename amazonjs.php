@@ -127,10 +127,6 @@ class Amazonjs
 		);
 	}
 
-	function clean() {
-		$this->delete_settings();
-	}
-
 	function init() {
 		$this->init_settings();
 
@@ -387,6 +383,7 @@ class Amazonjs
 	}
 
 	function validate_settings( $settings ) {
+
 		foreach ( $this->setting_fields as $key => $field ) {
 			if ( 'checkbox' == $field['type'] ) {
 				$settings[ $key ] = ( 'on' == @$settings[ $key ] || '1' == @$settings[ $key ] );
@@ -516,6 +513,19 @@ EOF;
 				return 'ES';
 		}
 		return 'US';
+	}
+
+	function delete_cache() {
+		global $wpdb;
+
+		if ( !empty( $wpdb ) && $wpdb instanceof wpdb ) {
+			$flag = $wpdb->suppress_errors;
+			$wpdb->suppress_errors( true );
+			$wpdb->query("DELETE FROM $wpdb->options o WHERE o.option_name LIKE '\_site\_transient\_amazonjs\_%'");
+			$wpdb->suppress_errors( $flag );
+			return true;
+		}
+		return false;
 	}
 
 	function get_cached_item( $country_code, $asin ) {
@@ -667,10 +677,18 @@ EOF;
 		}
 	}
 
-	function admin_notices() {
+	/**
+	 * @return bool
+	 */
+	function is_page_amazonjs_options() {
 		global $pagenow;
+		return ( 'options-general.php' == $pagenow && isset($_GET['page']) && $this->option_page_name == $_GET['page'] );
+	}
+
+	function admin_notices() {
 		// https://wordpress.org/support/topic/how-to-use-settings-api-and-print-custom-validation-errors?replies=3
-		if ( 'options-general.php' == $pagenow && isset($_GET['page']) && $this->option_page_name == $_GET['page'] ) {
+		if ( $this->is_page_amazonjs_options() ) {
+
 			if ( (isset($_GET['updated']) && 'true' == $_GET['updated']) || (isset($_GET['settings-updated']) && 'true' == $_GET['settings-updated']) ) {
 				// Validate keys
 				if ( !empty($this->settings['accessKeyId']) && !empty($this->settings['secretAccessKey']) ) {
@@ -685,6 +703,12 @@ EOF;
 								break;
 						}
 					}
+				}
+			}
+
+			if ( isset($_POST['amazonjs_delete_cache']) ) {
+				if ( $this->delete_cache() ) {
+					add_settings_error( 'general', 'settings_updated', __( 'The Caches are deleted', $this->text_domain ), 'updated' );
 				}
 			}
 		}
@@ -741,6 +765,11 @@ EOF;
 				<?php settings_fields( $this->option_name ); ?>
 				<?php do_settings_sections( $this->option_page_name ); ?>
 				<?php submit_button(); ?>
+			</form>
+
+			<form action="<?php echo $_SERVER["REQUEST_URI"] ?>" method="post">
+				<input type="hidden" name="action" value="amazonjs_delete_cache"/>
+				<?php submit_button( __( 'Delete Cache', $this->text_domain ), 'secondary', 'amazonjs_delete_cache' ); ?>
 			</form>
 		</div>
 	<?php
@@ -1047,7 +1076,8 @@ function amazonjs_init() {
 
 function amazonjs_uninstall() {
 	$amazonjs = new Amazonjs();
-	$amazonjs->clean();
+	$amazonjs->delete_settings();
+	$amazonjs->delete_cache();
 	unset($amazonjs);
 }
 
