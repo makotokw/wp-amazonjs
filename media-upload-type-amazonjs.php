@@ -37,13 +37,13 @@ amazonjs_aws_params( $amazonjs );
 		<?php endif ?>
 		<input type="submit" value="<?php _e( 'Search', $text_domain ) ?>" class="button button-large"/>
 	</form>
-	<div id="search_results">
+	<div id="search_results" class="amazonjs_search_results">
 		<div id="pager"></div>
 		<ul id="items"></ul>
 	</div>
 </div>
-<div id="overlay"></div>
-<form id="template_form" onsubmit="return false" style="display: none;">
+<div id="amazonjs_overlay" class="amazonjs_overlay"></div>
+<form id="amazonjs_template_form" class="amazonjs_template_form" onsubmit="return false" style="display: none;">
 	<h2><?php _e( 'Select template', $text_domain ) ?></h2>
 
 	<div id="select_template" class="select_template">
@@ -69,7 +69,7 @@ amazonjs_aws_params( $amazonjs );
 	<h2><?php _e( 'Preview', $text_domain ) ?></h2>
 
 	<div id="preview"></div>
-	<textarea id="preview_code"></textarea>
+	<textarea id="preview_code" class="preview_code"></textarea>
 
 	<div id="buttons" class="buttons">
 		<input id="cancel" type="button" value="<?php _e( 'Cancel', $text_domain ) ?>" class="button"/>
@@ -88,8 +88,8 @@ amazonjs_aws_params( $amazonjs );
 			$searchIndex = $('#search_index'),
 			$searchPage = $('#search_page'),
 			$searchQuery = $('#search_query'),
-			$templateForm = $('#template_form'),
-			$overlay = $('#overlay'),
+			$templateForm = $('#amazonjs_template_form'),
+			$overlay = $('#amazonjs_overlay'),
 			loading = false,
 			selectedItem,
 			defaultLocale = '<?php echo esc_js( $amazonjs->default_country_code() ); ?>',

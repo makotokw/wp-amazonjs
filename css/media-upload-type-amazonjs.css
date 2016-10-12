@@ -9,67 +9,67 @@
   padding: 0 12px 2px !important;
 }
 
-#search_results {
+.amazonjs_search_results {
   margin: 1em;
   min-height: 200px;
 }
-#search_results .error .error_body {
+.amazonjs_search_results .error .error_body {
   overflow: auto;
 }
-#search_results .indicator {
+.amazonjs_search_results .indicator {
   display: block;
   width: 300px;
   height: 200px;
   margin: 0 auto;
   background: transparent url(../images/ajax-loader.gif) no-repeat center;
 }
-#search_results .searchindex {
+.amazonjs_search_results .searchindex {
   clear: both;
 }
-#search_results .searchpager {
+.amazonjs_search_results .searchpager {
   border: 1px solid #ddd;
   text-align: center;
   padding: 2px;
   margin: 2px;
 }
-#search_results .searchpager .prev {
+.amazonjs_search_results .searchpager .prev {
   margin-right: 1em;
 }
-#search_results .searchpager .next {
+.amazonjs_search_results .searchpager .next {
   margin-left: 1em;
 }
-#search_results .amazonjs_searchitem {
+.amazonjs_search_results .amazonjs_searchitem {
   display: block;
   margin: 0;
   padding: 5px;
   border-bottom: 1px solid #ddd;
 }
-#search_results .amazonjs_searchitem .amazonjs_footer {
+.amazonjs_search_results .amazonjs_searchitem .amazonjs_footer {
   clear: both;
 }
-#search_results h4 {
+.amazonjs_search_results h4 {
   display: inline;
   font-size: 1em;
   font-weight: normal;
   margin: .5em;
 }
-#search_results h4 a {
+.amazonjs_search_results h4 a {
   text-decoration: none;
 }
-#search_results img {
+.amazonjs_search_results img {
   float: left;
   border: 1px solid #DFDFDF;
 }
-#search_results .amazonjs_searchitem .select {
+.amazonjs_search_results .amazonjs_searchitem .select {
   float: right !important;
   margin-left: 1em;
 }
 
-#overlay {
+.amazonjs_overlay {
   position: absolute;
   display: none;
-  top: 0px;
-  left: 0px;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   background-color: #fff;
@@ -80,7 +80,7 @@
   opacity: 0.75;
 }
 
-#template_form {
+.amazonjs_template_form {
   position: absolute;
   display: none;
   border: 1px solid #ddd;
@@ -89,36 +89,34 @@
   right: 5px;
   padding: 10px;
 }
-#template_form h2 {
+.amazonjs_template_form h2 {
   font-size: 1em;
   margin: 5px 0;
   padding: 0;
 }
-#template_form label, #template_form legend {
+.amazonjs_template_form label, .amazonjs_template_form legend {
   font-size: .9em;
 }
-#template_form label.disabled {
+.amazonjs_template_form label.disabled {
   color: #999;
 }
-#template_form .select_template {
+.amazonjs_template_form .select_template {
   margin-bottom: 10px;
 }
-#template_form .select_template legend {
+.amazonjs_template_form .select_template fieldset {
+  margin-left: 1em;
+}
+.amazonjs_template_form .select_template fieldset input {
+  margin-left: 1em;
+}
+.amazonjs_template_form .select_template legend {
   margin: 5px 0;
 }
-#template_form .buttons {
+.amazonjs_template_form .buttons {
   margin: 5px auto 0 auto;
   text-align: center;
 }
-
-#select_template fieldset {
-  margin-left: 1em;
-}
-#select_template fieldset input {
-  margin-left: 1em;
-}
-
-#preview_code {
+.amazonjs_template_form .preview_code {
   width: 100%;
   height: 4em;
   font-size: .9em;
