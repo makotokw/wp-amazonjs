@@ -62,11 +62,11 @@ module.exports = function(grunt) {
 		'exec:phpcs'
 	]);
 
-	grunt.registerTask('update-po', [
+	grunt.registerTask('translate1-update-po', [
 		'makepot',
 		'exec:msgmerge'
 	]);
-	grunt.registerTask('update-mo', [
+	grunt.registerTask('translate2-update-mo', [
 		'exec:msgfmt'
 	]);
 
