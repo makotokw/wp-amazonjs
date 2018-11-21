@@ -7,7 +7,7 @@
  Version: 0.8
  Author URI: http://makotokw.com
  Requires at least: 3.3
- Tested up to: 4.5
+ Tested up to: 4.9.8
  License: GPLv2
  Text Domain: amazonjs
  Domain Path: /languages/
