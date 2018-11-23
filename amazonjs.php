@@ -32,6 +32,7 @@ class Amazonjs
 	public $title;
 	public $url;
 	public $option_page_url;
+	public $plugin_dir;
 	public $plugin_rel_file;
 	public $option_page_name;
 	public $option_name;
@@ -52,12 +53,17 @@ class Amazonjs
 		$dir                    = dirname( $path );
 		$slug                   = basename( $dir );
 		$this->title            = 'AmazonJS';
+		$this->plugin_dir       = $dir;
 		$this->plugin_rel_file  = basename( $dir ) . DIRECTORY_SEPARATOR . basename( $path );
 		$this->option_page_name = basename( $dir );
 		$this->option_name      = preg_replace( '/[\-\.]/', '_', $this->option_page_name ) . '_settings';
 		$this->url              = plugins_url( '', $path );
 		$this->option_page_url  = admin_url() . 'options-general.php?page=' . $this->option_page_name;
 		$this->text_domain      = $slug;
+
+		if ( get_locale() == 'ja' ) {
+			add_filter( 'load_textdomain_mofile', array( $this, 'load_textdomain_mofile' ), 10, 2 );
+		}
 		load_plugin_textdomain( $this->text_domain, false, dirname( $this->plugin_rel_file ) . '/languages' );
 
 		$this->countries = array(
@@ -135,12 +141,22 @@ class Amazonjs
 			add_action( 'admin_init', array( $this, 'admin_init' ) );
 			add_action( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 2 );
 		}
-		add_shortcode( 'amazonjs', array( $this, 'shortcode' ) );
 		if ( ! is_admin() ) {
 			add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_styles' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
 			add_action( 'wp_footer', array( $this, 'wp_enqueue_scripts_for_footer' ), 1 );
 		}
+
+		add_shortcode( 'amazonjs', array( $this, 'shortcode' ) );
+	}
+
+	function load_textdomain_mofile( $mofile, $domain ) {
+		if ( $this->text_domain === $domain ) {
+			if ( strpos( $mofile, 'languages/plugins/amazonjs-ja.mo' ) !== false ) {
+				return $this->plugin_dir . '/languages/amazonjs-ja.mo';
+			}
+		}
+		return $mofile;
 	}
 
 	function admin_init() {
@@ -169,6 +185,42 @@ class Amazonjs
 				array( $key, $field )
 			);
 		}
+
+		$gutenberg = false;
+		if ( version_compare( $GLOBALS['wp_version'], '5.0-beta', '>' ) ) {
+			$gutenberg = true;
+			if ( function_exists( 'use_block_editor_for_post_type' )
+				&& ! use_block_editor_for_post_type( 'post' ) ) {
+				// block editor is disabled
+				$gutenberg = false;
+			}
+		}
+
+		if ( $gutenberg ) {
+			add_filter( 'mce_buttons',  array( $this, 'mce_buttons' ) );
+			add_filter( 'mce_external_plugins', array( $this, 'mce_external_plugins' ) );
+
+			wp_register_script( 'amazonjs_admin', $this->url . '/js/admin.js' );
+			$admin_vars = array(
+				'mce' => array(
+					'buttonTitle' => __( 'Insert Amazon Product', $this->text_domain ),
+					'dialogTitle' => __( 'Insert Amazon Product', $this->text_domain ),
+					'dialogUrl' => get_bloginfo( 'wpurl' ) . '/wp-admin/media-upload.php?post_id=0&type=amazonjs&tab=amazonjs_keyword'
+				)
+			);
+			wp_localize_script( 'amazonjs_admin', 'amazonjsAdmin', $admin_vars );
+			wp_enqueue_script( 'amazonjs_admin' );
+		}
+	}
+
+	function mce_buttons( $buttons ) {
+		array_push( $buttons, 'amazonjs' );
+		return $buttons;
+	}
+
+	function mce_external_plugins( $plugin_array ) {
+		$plugin_array['amazonjs'] = $this->url .'/js/tinymce-plugin.js';
+		return $plugin_array;
 	}
 
 	function admin_print_styles() {
@@ -489,11 +541,7 @@ EOF;
 EOF;
 	}
 
-	/**
-	 * Gets default country code by get_locale
-	 * @return string
-	 */
-	function default_country_code() {
+	function wp_locale_to_amazon_locale() {
 		switch ( get_locale() ) {
 			case 'en_CA':
 				return 'CA';
@@ -513,6 +561,27 @@ EOF;
 				return 'ES';
 		}
 		return 'US';
+	}
+
+	/**
+	 * Gets default country code by get_locale
+	 * @return string
+	 */
+	function default_country_code() {
+		$locale = $this->wp_locale_to_amazon_locale();
+
+		if ( isset( $this->settings[ 'associateTag' . $locale ] ) && ! empty( $this->settings[ 'associateTag' . $locale ] ) ) {
+			return $locale;
+		}
+
+		// search
+		foreach ( $this->countries as $code => $value ) {
+			if ( isset( $this->settings[ 'associateTag' . $code ] ) && ! empty( $this->settings[ 'associateTag' . $code ] ) ) {
+				return $code;
+			}
+		}
+
+		return $locale;
 	}
 
 	function delete_cache() {
