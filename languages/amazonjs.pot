@@ -1,17 +1,17 @@
-# Copyright (C) 2016 makoto_kw
+# Copyright (C) 2018 makoto_kw
 # This file is distributed under the GPLv2.
 msgid ""
 msgstr ""
 "Project-Id-Version: AmazonJS 0.8\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/amazonjs\n"
-"POT-Creation-Date: 2016-10-06 00:28:04+00:00\n"
+"POT-Creation-Date: 2018-11-23 04:43:01+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2018-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"X-Generator: grunt-wp-i18n 0.4.7\n"
+"X-Generator: grunt-wp-i18n 0.4.9\n"
 
 #: amazonjs-aws-params.php:17
 msgid "All"
@@ -233,67 +233,71 @@ msgstr ""
 msgid "WirelessAccessories"
 msgstr ""
 
-#: amazonjs.php:65
+#: amazonjs.php:71
 msgid "United States"
 msgstr ""
 
-#: amazonjs.php:72
+#: amazonjs.php:78
 msgid "United Kingdom"
 msgstr ""
 
-#: amazonjs.php:79
+#: amazonjs.php:85
 msgid "Deutschland"
 msgstr ""
 
-#: amazonjs.php:86
+#: amazonjs.php:92
 msgid "France"
 msgstr ""
 
-#: amazonjs.php:93
+#: amazonjs.php:99
 msgid "Japan"
 msgstr ""
 
-#: amazonjs.php:100
+#: amazonjs.php:106
 msgid "Canada"
 msgstr ""
 
-#: amazonjs.php:107
+#: amazonjs.php:113
 msgid "China"
 msgstr ""
 
-#: amazonjs.php:114
+#: amazonjs.php:120
 msgid "Italia"
 msgstr ""
 
-#: amazonjs.php:121
+#: amazonjs.php:127
 msgid "España"
 msgstr ""
 
-#: amazonjs.php:243
+#: amazonjs.php:206 amazonjs.php:207
+msgid "Insert Amazon Product"
+msgstr ""
+
+#: amazonjs.php:295
 msgid "Author"
 msgstr ""
 
-#: amazonjs.php:244
+#: amazonjs.php:296
 msgid "PublicationDate"
 msgstr ""
 
-#: amazonjs.php:245
+#: amazonjs.php:297
 msgid "Publisher"
 msgstr ""
 
-#: amazonjs.php:246
+#: amazonjs.php:298
 msgid "${NumberOfPages} pages"
 msgstr ""
 
-#: amazonjs.php:247
+#: amazonjs.php:299
 msgid "List Price"
 msgstr ""
 
-#: amazonjs.php:248
+#: amazonjs.php:300
 msgid "Price"
 msgstr ""
 
-#: amazonjs.php:249
+#: amazonjs.php:301
 msgid ""
 "Product prices and availability are accurate as of the date/time indicated "
 "and are subject to change. Any price and availability information displayed "
@@ -301,145 +305,145 @@ msgid ""
 "apply to the purchase of this product."
 msgstr ""
 
-#: amazonjs.php:250
+#: amazonjs.php:302
 msgid "Publication Date"
 msgstr ""
 
-#: amazonjs.php:251
+#: amazonjs.php:303
 msgid "Release Date"
 msgstr ""
 
-#: amazonjs.php:252
+#: amazonjs.php:304
 msgid "SalesRank"
 msgstr ""
 
-#: amazonjs.php:253
+#: amazonjs.php:305
 msgid "#${SalesRank}"
 msgstr ""
 
-#: amazonjs.php:254
+#: amazonjs.php:306
 msgid "Run Time"
 msgstr ""
 
-#: amazonjs.php:255
+#: amazonjs.php:307
 msgid "${RunningTime} minutes"
 msgstr ""
 
-#: amazonjs.php:256
+#: amazonjs.php:308
 msgid "${Title} Customer Review"
 msgstr ""
 
-#: amazonjs.php:257
+#: amazonjs.php:309
 msgid "See Customer Reviews"
 msgstr ""
 
-#: amazonjs.php:258
+#: amazonjs.php:310
 msgid "(at ${UpdatedDate})"
 msgstr ""
 
-#: amazonjs.php:278
+#: amazonjs.php:330
 msgid "Product Advertising API settings"
 msgstr ""
 
-#: amazonjs.php:282
+#: amazonjs.php:334
 msgid "Amazon Associates settings"
 msgstr ""
 
-#: amazonjs.php:286
+#: amazonjs.php:338
 msgid "Appearance settings"
 msgstr ""
 
-#: amazonjs.php:290
+#: amazonjs.php:342
 msgid "Analytics settings"
 msgstr ""
 
-#: amazonjs.php:294
+#: amazonjs.php:346
 msgid "Customize"
 msgstr ""
 
-#: amazonjs.php:302
+#: amazonjs.php:354
 msgid "Access Key ID"
 msgstr ""
 
-#: amazonjs.php:308
+#: amazonjs.php:360
 msgid "Secret Access Key"
 msgstr ""
 
-#: amazonjs.php:314
+#: amazonjs.php:366
 msgid "Display customer review"
 msgstr ""
 
-#: amazonjs.php:317
+#: amazonjs.php:369
 msgid "AmazonJS will display customer review by using WordPress's Thickbox."
 msgstr ""
 
-#: amazonjs.php:320
+#: amazonjs.php:372
 msgid "Use fadeIn animation"
 msgstr ""
 
-#: amazonjs.php:325
+#: amazonjs.php:377
 msgid "Override style of theme"
 msgstr ""
 
-#: amazonjs.php:328
+#: amazonjs.php:380
 msgid ""
 "If set to true, AmazonJS will override the style of the theme by using "
 "<code>!important</code> declaration."
 msgstr ""
 
-#: amazonjs.php:331
+#: amazonjs.php:383
 msgid "Use short item url"
 msgstr ""
 
-#: amazonjs.php:334
+#: amazonjs.php:386
 msgid "AmazonJS will remove a product title from an item url."
 msgstr ""
 
-#: amazonjs.php:337
+#: amazonjs.php:389
 msgid "Uf set to true, display an official widget instead javascript code"
 msgstr ""
 
-#: amazonjs.php:340
+#: amazonjs.php:392
 msgid ""
 "If set to true, AmazonJS will output html by using <code>&lt;script "
 "type=&quot;text/javascript&quot;&gt;document.write(&quot;{$indicator_html}&"
 "quot;)&lt;/script&gt;&lt;noscript&gt;{$link_html}&lt;/noscript&gt;</code>."
 msgstr ""
 
-#: amazonjs.php:343
+#: amazonjs.php:395
 msgid "Click Tracking by using Google Analytics"
 msgstr ""
 
-#: amazonjs.php:346
+#: amazonjs.php:398
 msgid ""
 "If set to true, AmazonJS will call <code>_gaq.push([\"_trackEvent\", "
 "\"AmazonJS\", \"Click\", \"ASIN TITLE\"])</code> or <code>ga(\"send\", "
 "\"event\", \"AmazonJS\", \"Click\", \"ASIN TITLE\")</code>."
 msgstr ""
 
-#: amazonjs.php:349
+#: amazonjs.php:401
 msgid "Use Custom Css"
 msgstr ""
 
-#: amazonjs.php:355
+#: amazonjs.php:407
 msgid "Use Custom Javascript"
 msgstr ""
 
-#: amazonjs.php:587
+#: amazonjs.php:656
 msgid "Settings"
 msgstr ""
 
-#: amazonjs.php:591
+#: amazonjs.php:660
 msgid "Old Releases"
 msgstr ""
 
-#: amazonjs.php:599
+#: amazonjs.php:668
 msgid ""
 "This plugin uses the Amazon Product Advertising API in order to get product "
 "infomation. Thus, you must use your Access Key ID &amp; Secret Access Key."
 msgstr ""
 
-#: amazonjs.php:600
+#: amazonjs.php:669
 msgid ""
 "You can sign up the Amazon Product Advertising API from <a "
 "href=\"https://affiliate-program.amazon.com/gp/advertising/api/detail/main."
@@ -449,7 +453,7 @@ msgid ""
 "Agreement</a> for details."
 msgstr ""
 
-#: amazonjs.php:606
+#: amazonjs.php:675
 msgid ""
 "Amazon has an affiliate program called Amazon Associates. To apply for the "
 "Associates Program, visit the <a "
@@ -457,68 +461,68 @@ msgid ""
 "Associates website</a> for details."
 msgstr ""
 
-#: amazonjs.php:607
+#: amazonjs.php:676
 msgid ""
 "Associate Tag has been a <strong>required and verified</strong> input "
 "parameter in all requests to the Amazon Product Advertising API since "
 "11/1/2011."
 msgstr ""
 
-#: amazonjs.php:699
+#: amazonjs.php:768
 msgid "The Access Key ID may be invalid"
 msgstr ""
 
-#: amazonjs.php:702
+#: amazonjs.php:771
 msgid "The Secret Access Key may be invalid"
 msgstr ""
 
-#: amazonjs.php:711
+#: amazonjs.php:780
 msgid "The Caches are deleted"
 msgstr ""
 
-#: amazonjs.php:721
+#: amazonjs.php:790
 msgid "Add Amazon Link"
 msgstr ""
 
-#: amazonjs.php:753
+#: amazonjs.php:822
 msgid "Keyword Search"
 msgstr ""
 
-#: amazonjs.php:754
+#: amazonjs.php:823
 msgid "Search by ASIN/URL"
 msgstr ""
 
-#: amazonjs.php:772
+#: amazonjs.php:841
 msgid "Delete Cache"
 msgstr ""
 
-#: amazonjs.php:782
+#: amazonjs.php:851
 msgid ""
 "Error! \"simplexml_load_string\" function is not found. %s requires PHP 5 "
 "and SimpleXML extension."
 msgstr ""
 
-#: amazonjs.php:869
+#: amazonjs.php:938
 msgid "Invalid Request Parameters"
 msgstr ""
 
-#: amazonjs.php:907
+#: amazonjs.php:976
 msgid "Network Error: %s"
 msgstr ""
 
-#: amazonjs.php:913
+#: amazonjs.php:982
 msgid "Empty Response from %s"
 msgstr ""
 
-#: amazonjs.php:974 amazonjs.php:978
+#: amazonjs.php:1043 amazonjs.php:1047
 msgid "Amazon Product Advertising API Error"
 msgstr ""
 
-#: amazonjs.php:982
+#: amazonjs.php:1051
 msgid "Cannot Parse Amazon Product Advertising API Response"
 msgstr ""
 
-#: amazonjs.php:987
+#: amazonjs.php:1056
 msgid "Invalid Response"
 msgstr ""
 
