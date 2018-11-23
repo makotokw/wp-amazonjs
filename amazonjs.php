@@ -1,21 +1,21 @@
 <?php
 /*
- Plugin Name: AmazonJS
- Plugin URI: http://wordpress.org/extend/plugins/amazonjs/
- Description: Easy to use interface to add an amazon product to your post and display it by using jQuery template.
- Author: makoto_kw
- Version: 0.8
- Author URI: http://makotokw.com
- Requires at least: 3.3
- Tested up to: 4.9.8
- License: GPLv2
- Text Domain: amazonjs
- Domain Path: /languages/
+	Plugin Name: AmazonJS
+	Plugin URI: http://wordpress.org/extend/plugins/amazonjs/
+	Description: Easy to use interface to add an amazon product to your post and display it by using jQuery template.
+	Author: makoto_kw
+	Version: 0.8
+	Author URI: http://makotokw.com
+	Requires at least: 3.3
+	Tested up to: 4.9.8
+	License: GPLv2
+	Text Domain: amazonjs
+	Domain Path: /languages/
  */
 /*
- AmazonJS depends on
-   jQuery tmpl
-   PEAR Services_JSON: Michal Migurski <mike-json@teczno.com>
+	AmazonJS depends on
+		jQuery tmpl
+		PEAR Services_JSON: Michal Migurski <mike-json@teczno.com>
  */
 
 // TODO: Fixed NoSilencedErrors.Discouraged

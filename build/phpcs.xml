@@ -3,6 +3,9 @@
     <description>AmazonJS Coding Standard.</description>
     <rule ref="WordPress-Core">
         <exclude name="Generic.PHP.NoSilencedErrors.Discouraged"/>
+        <exclude name="WordPress.WP.I18n.NonSingularStringLiteralDomain"/>
+        <exclude name="WordPress.WP.I18n.MissingTranslatorsComment"/>
+        <exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
     </rule>
     <exclude-pattern>*/lib/*</exclude-pattern>
 </ruleset>

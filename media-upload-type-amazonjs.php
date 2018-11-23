@@ -10,7 +10,7 @@ media_upload_header();
 $text_domain       = $amazonjs->text_domain;
 $access_key_id     = $amazonjs->settings['accessKeyId'];
 $secret_access_key = $amazonjs->settings['secretAccessKey'];
-$error             = (empty( $access_key_id ) || empty( $secret_access_key ));
+$error             = ( empty( $access_key_id ) || empty( $secret_access_key ) );
 
 amazonjs_aws_params( $amazonjs );
 ?>
@@ -28,14 +28,14 @@ amazonjs_aws_params( $amazonjs );
 				<select id="search_locale" name="CountryCode"></select>
 				<select id="search_index" name="SearchIndex"></select>
 			</fieldset>
-			<input type="text" id="search_query" name="Keywords" placeholder="<?php _e( 'Input Keyword', $text_domain ) ?>"/>
+			<input type="text" id="search_query" name="Keywords" placeholder="<?php _e( 'Input Keyword', $text_domain ); ?>"/>
 		<?php elseif ( 'amazonjs_id' == $tab ) : ?>
 			<fieldset>
 				<select id="search_locale" name="CountryCode"></select>
 			</fieldset>
-			<input type="text" id="search_query" name="ID" placeholder="<?php _e( 'Input ASIN or URL', $text_domain ) ?>"/>
+			<input type="text" id="search_query" name="ID" placeholder="<?php _e( 'Input ASIN or URL', $text_domain ); ?>"/>
 		<?php endif ?>
-		<input type="submit" value="<?php _e( 'Search', $text_domain ) ?>" class="button button-large"/>
+		<input type="submit" value="<?php _e( 'Search', $text_domain ); ?>" class="button button-large"/>
 	</form>
 	<div id="search_results" class="amazonjs_search_results">
 		<div id="pager"></div>
@@ -44,36 +44,36 @@ amazonjs_aws_params( $amazonjs );
 </div>
 <div id="amazonjs_overlay" class="amazonjs_overlay"></div>
 <form id="amazonjs_template_form" class="amazonjs_template_form" onsubmit="return false" style="display: none;">
-	<h2><?php _e( 'Select template', $text_domain ) ?></h2>
+	<h2><?php _e( 'Select template', $text_domain ); ?></h2>
 
 	<div id="select_template" class="select_template">
 		<fieldset>
-			<legend><?php _e( 'Simple Html', $text_domain ) ?></legend>
+			<legend><?php _e( 'Simple Html', $text_domain ); ?></legend>
 			<input type="radio" id="template_link" name="template" value="link" class="html"/>
-			<label for="template_link"><?php _e( 'Title', $text_domain ) ?></label>
+			<label for="template_link"><?php _e( 'Title', $text_domain ); ?></label>
 			<input type="radio" id="template_small_image" name="template" value="smallImage" class="html has_image"/>
-			<label for="template_small_image" class="has_image"><?php _e( 'Small Image', $text_domain ) ?></label>
+			<label for="template_small_image" class="has_image"><?php _e( 'Small Image', $text_domain ); ?></label>
 			<input type="radio" id="template_medium_image" name="template" value="mediumImage" class="html has_image"/>
-			<label for="template_medium_image" class="has_image"><?php _e( 'Medium Image', $text_domain ) ?></label>
+			<label for="template_medium_image" class="has_image"><?php _e( 'Medium Image', $text_domain ); ?></label>
 			<input type="radio" id="template_large_image" name="template" value="largeImage" class="html has_image"/>
-			<label for="template_large_image" class="has_image"><?php _e( 'Large Image', $text_domain ) ?></label>
+			<label for="template_large_image" class="has_image"><?php _e( 'Large Image', $text_domain ); ?></label>
 		</fieldset>
 		<fieldset>
-			<legend><?php _e( 'Dynamic Template', $text_domain ) ?></legend>
+			<legend><?php _e( 'Dynamic Template', $text_domain ); ?></legend>
 			<input type="radio" id="template_amazonjs" name="template" value="shortCode" class="shortcode"/>
-			<label for="template_amazonjs"><?php _e( 'Default', $text_domain ) ?></label>
+			<label for="template_amazonjs"><?php _e( 'Default', $text_domain ); ?></label>
 			<input type="radio" id="template_amazonjs_small" name="template" value="shortCodeSmall" class="shortcode"/>
-			<label for="template_amazonjs_small"><?php _e( 'Small', $text_domain ) ?></label>
+			<label for="template_amazonjs_small"><?php _e( 'Small', $text_domain ); ?></label>
 		</fieldset>
 	</div>
-	<h2><?php _e( 'Preview', $text_domain ) ?></h2>
+	<h2><?php _e( 'Preview', $text_domain ); ?></h2>
 
 	<div id="preview"></div>
 	<textarea id="preview_code" class="preview_code"></textarea>
 
 	<div id="buttons" class="buttons">
-		<input id="cancel" type="button" value="<?php _e( 'Cancel', $text_domain ) ?>" class="button"/>
-		<input id="insert" type="submit" value="<?php _e( 'Insert', $text_domain ) ?>" class="button button-primary"/>
+		<input id="cancel" type="button" value="<?php _e( 'Cancel', $text_domain ); ?>" class="button"/>
+		<input id="insert" type="submit" value="<?php _e( 'Insert', $text_domain ); ?>" class="button button-primary"/>
 	</div>
 </form>
 <script type="text/javascript">
@@ -93,8 +93,8 @@ amazonjs_aws_params( $amazonjs );
 			loading = false,
 			selectedItem,
 			defaultLocale = '<?php echo esc_js( $amazonjs->default_country_code() ); ?>',
-			countries = <?php echo json_encode( $amazonjs->countries );?>,
-			searchIndexes = <?php echo json_encode( $amazonjs->search_indexes );?>
+			countries = <?php echo json_encode( $amazonjs->countries ); ?>,
+			searchIndexes = <?php echo json_encode( $amazonjs->search_indexes ); ?>
 			;
 
 		$.each(countries, function (key, value) {
@@ -131,8 +131,8 @@ amazonjs_aws_params( $amazonjs );
 		});
 
 		$.amazonjs.initTemplate();
-		$.template('amazonjsSearchIndexHeaderTpl', '<?php _e( '<h3 class="searchindex"><a href="#" rel="${IndexName}">${Label}</a> (${Results} hits)</h3>', $text_domain )?>');
-		$.template('amazonjsSearchPagerTpl', '<?php _e( '<div class="searchpager">{{if prev}}<button class="button prev">Prev</button>{{/if}}${startIndex} - ${endIndex} / ${totalResults}{{if next}}<button class="button next">Next</button>{{/if}}</div>', $text_domain )?>');
+		$.template('amazonjsSearchIndexHeaderTpl', '<?php _e( '<h3 class="searchindex"><a href="#" rel="${IndexName}">${Label}</a> (${Results} hits)</h3>', $text_domain ); ?>');
+		$.template('amazonjsSearchPagerTpl', '<?php _e( '<div class="searchpager">{{if prev}}<button class="button prev">Prev</button>{{/if}}${startIndex} - ${endIndex} / ${totalResults}{{if next}}<button class="button next">Next</button>{{/if}}</div>', $text_domain ); ?>');
 		$.template('amazonjsSearchItemTpl',
 			[
 				'<li id="asin_${ASIN}" class="amazonjs_searchitem">',
@@ -148,7 +148,7 @@ amazonjs_aws_params( $amazonjs );
 				'{{if OfferSummary.LowestNewPrice}}&nbsp;Price: ${OfferSummary.LowestNewPrice.FormattedPrice}<br/>{{/if}}',
 				'{{if PublicationDate}}&nbsp;${PublicationDate}<br/>{{/if}}',
 				'{{if SalesRank}}&nbsp;Rank: ${SalesRank}<br/>{{/if}}',
-				'<button id="btn_${ASIN}" class="button select"><?php _e( 'Select', $text_domain )?></button>',
+				'<button id="btn_${ASIN}" class="button select"><?php _e( 'Select', $text_domain ); ?></button>',
 				'<div class="amazonjs_footer"></div>',
 				'</li>'
 			].join(''));
