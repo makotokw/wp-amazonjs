@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/amazonjs\n"
-"POT-Creation-Date: 2018-11-23 04:43:01+00:00\n"
+"POT-Creation-Date: 2018-11-23 04:50:26+00:00\n"
 "PO-Revision-Date: 2010-11-08 00:37+0900\n"
 "Last-Translator: makoto_kw <makoto.kw+wordpress@gmail.com>\n"
 "Language-Team: Japanese\n"
@@ -270,9 +270,9 @@ msgstr "イタリア"
 msgid "España"
 msgstr "スペイン"
 
-#: amazonjs.php:206 amazonjs.php:207
-msgid "Insert Amazon Product"
-msgstr "Amazon商品を追加"
+#: amazonjs.php:206 amazonjs.php:207 amazonjs.php:790
+msgid "Add Amazon Link"
+msgstr "Amazonリンクを追加"
 
 #: amazonjs.php:295
 msgid "Author"
@@ -503,10 +503,6 @@ msgstr "シークレットアクセスキーが間違っているかもしれま
 #: amazonjs.php:780
 msgid "The Caches are deleted"
 msgstr "キャッシュを削除しました"
-
-#: amazonjs.php:790
-msgid "Add Amazon Link"
-msgstr "Amazonリンクを追加"
 
 #: amazonjs.php:822
 msgid "Keyword Search"

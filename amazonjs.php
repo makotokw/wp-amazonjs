@@ -203,8 +203,8 @@ class Amazonjs
 			wp_register_script( 'amazonjs_admin', $this->url . '/js/admin.js' );
 			$admin_vars = array(
 				'mce' => array(
-					'buttonTitle' => __( 'Insert Amazon Product', $this->text_domain ),
-					'dialogTitle' => __( 'Insert Amazon Product', $this->text_domain ),
+					'buttonTitle' => __( 'Add Amazon Link', $this->text_domain ),
+					'dialogTitle' => __( 'Add Amazon Link', $this->text_domain ),
 					'dialogUrl' => get_bloginfo( 'wpurl' ) . '/wp-admin/media-upload.php?post_id=0&type=amazonjs&tab=amazonjs_keyword'
 				)
 			);

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AmazonJS 0.8\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/amazonjs\n"
-"POT-Creation-Date: 2018-11-23 04:43:01+00:00\n"
+"POT-Creation-Date: 2018-11-23 04:50:26+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -269,8 +269,8 @@ msgstr ""
 msgid "España"
 msgstr ""
 
-#: amazonjs.php:206 amazonjs.php:207
-msgid "Insert Amazon Product"
+#: amazonjs.php:206 amazonjs.php:207 amazonjs.php:790
+msgid "Add Amazon Link"
 msgstr ""
 
 #: amazonjs.php:295
@@ -478,10 +478,6 @@ msgstr ""
 
 #: amazonjs.php:780
 msgid "The Caches are deleted"
-msgstr ""
-
-#: amazonjs.php:790
-msgid "Add Amazon Link"
 msgstr ""
 
 #: amazonjs.php:822
