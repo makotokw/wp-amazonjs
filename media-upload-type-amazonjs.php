@@ -180,7 +180,10 @@ amazonjs_aws_params( $amazonjs );
 		}
 
 		function close() {
-			top.tb_remove();
+			if (top.tb_remove) {
+				top.tb_remove();
+			}
+			top.tinymce.activeEditor.windowManager.close();
 		}
 
 		function request(params) {
