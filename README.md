@@ -27,7 +27,6 @@ for production
 grunt
 ```
 
-
 ### Translation
 
 1. Execute ``grunt update-po``

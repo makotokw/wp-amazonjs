@@ -1,10 +1,12 @@
 === Amazon JS ===
 Contributors: makoto_kw
-Tags: Amazon, books, post, media, affiliate, japanese
+Tags: Amazon, books, post, media, affiliate
 Requires at least: 3.3
-Tested up to: 4.5
+Tested up to: 4.9.8
 Stable tag: trunk
+Requires PHP: 5.3.3
 License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Easy to add an Amazon product to your post and you can customize display it by using jQuery template.
 
@@ -18,6 +20,7 @@ AmazonJS uses `amazonjs' shortcode and jQuery template to display Amazon product
 * Requires your Amazon Product Advertising API
 * Plugin Uses API cache by using Transients API
 * Customize template by using jQuery template
+* HTTPS Support
 * Supports Amazon domains ([US](http://www.amazon.com), [UK](http://www.amazon.co.uk), [Germany](http://www.amazon.de), [France](http://www.amazon.fr), [Japan](http://www.amazon.co.jp/), [Canada](http://www.amazon.ca), [China](http://www.amazon.cn), [Italy](http://www.amazon.it), [Spain](http://www.amazon.es))
 
 = Using Amazon Product Advertising API =
@@ -83,6 +86,13 @@ In first, AmazonJS converts <a/> tag from `amazonjs` short code in server side. 
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 0.9 =
+
+* Use https link for image and anchor
+* Use saved AssociateTag country instead locale country as default
+* Added TinyMCE Button to editor on Gutenberg Classic Block
+* Fixed to conflict with stylesheet of WP Limit Login Attempts plugin
 
 = 0.8 =
 
