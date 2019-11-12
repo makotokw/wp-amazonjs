@@ -29,7 +29,7 @@ require_once dirname( __FILE__ ) . '/amazonjs-item-fixer.php';
 
 class Amazonjs
 {
-	const VERSION        = '0.10-beta';
+	const VERSION        = '0.10-beta2';
 	const AWS_VERSION    = '2013-08-01';
 	const CACHE_LIFETIME = 86400;
 
