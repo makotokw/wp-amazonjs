@@ -968,18 +968,10 @@ EOF;
 				$fetchedAt   = time();
 				$fixed_items = [];
 				foreach ( $result['items'] as $item ) {
-//					if ( WP_DEBUG ) {
-//						ksort( $item );
-//						file_put_contents( __DIR__ . '/vendor/' . $item['ASIN'] . '_PA-API-v5.json', json_encode( $item, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT ) );
-//					}
 					Amazonjs_Itemfixer::fixed_item( $item );
 					$item['CountryCode'] = $countryCode;
 					$item['UpdatedAt']   = $fetchedAt;
 					$fixed_items[]       = $item;
-//					if ( WP_DEBUG ) {
-//						ksort( $item );
-//						file_put_contents( __DIR__ . '/vendor/' . $item['ASIN'] . '_amazonjs_PA-API-v5.json', json_encode( $item, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT ) );
-//					}
 				}
 				$result['items'] = $fixed_items;
 			}
@@ -987,9 +979,9 @@ EOF;
 			$result = array( 'success' => false, 'message' => $e->getMessage() );
 		}
 
-		if ( WP_DEBUG ) {
+		if ( self::is_debug() ) {
 			if ( isset( $result ) && ! $result['success'] ) {
-				error_log( var_export( [$client, $result], true ) );
+				error_log( var_export( [$options, $result], true ) );
 			}
 		}
 		return $result;
@@ -1190,6 +1182,13 @@ EOF;
 
 	static function urlencode_rfc3986( $string ) {
 		return str_replace( '%7E', '~', rawurlencode( $string ) );
+	}
+
+	/**
+	 * @return bool
+	 */
+	static function is_debug() {
+		return defined( 'WP_DEBUG_AMAZONJS' ) && WP_DEBUG_AMAZONJS;
 	}
 }
 
