@@ -72,7 +72,7 @@
 				var priceLiTemplate = '{{if ListPrice}}<li class="amazonjs_price" title="' + r.PriceUsage + '">' + priceContentTemplate + '</li>{{/if}}';
 				var reviewLinkTemplate = '';
 				if (this.isCustomerReviewEnabled) {
-					reviewLinkTemplate = '<a href="${IFrameReviewURL}&TB_iframe=true&height=500&width=600" title="' + r.CustomerReviewTitle + '" target="_blank" class="amazonjs_review">' + r.SeeCustomerReviews + '</a>';
+					reviewLinkTemplate = '{{if IFrameReviewURL}}<a href="${IFrameReviewURL}&TB_iframe=true&height=500&width=600" title="' + r.CustomerReviewTitle + '" target="_blank" class="amazonjs_review">' + r.SeeCustomerReviews + '</a>{{/if}}';
 				}
 
 				this.partial = {
@@ -150,13 +150,15 @@
 						'<h4>',linkTemplate,'</h4>',
 						'<ul>',
 						'{{if Author}}<li><b>' + r.BookAuthor + '</b>${Author}</li>{{/if}}',
+            '{{if Creator}}<li>${Creator}</li>{{/if}}',
 						priceLiTemplate,
-						'<li><b>' + r.BookPublicationDate + '</b>${PublicationDate}</li>',
+						'{{if PublicationDate}}<li><b>' + r.BookPublicationDate + '</b>${PublicationDate}</li>{{/if}}',
 						'{{if SalesRank}}<li><b>' + r.SalesRank + '</b>' + r.SalesRankValue + '</li>{{/if}}',
-						'<li><b>${Binding}</b>' + r.NumberOfPagesValue + '</li>',
-						'<li><b>ISBN-10</b>${ISBN}</li>',
-						'<li><b>ISBN-13</b>${EAN}</li>',
-						'<li><b>' + r.BookPublisher + '</b>${Publisher}</li>',
+						'{{if NumberOfPages}}<li><b>${Binding}</b>' + r.NumberOfPagesValue + '</li>{{/if}}',
+						'{{if ISBN}}<li><b>ISBN-10</b>${ISBN}</li>{{/if}}',
+						'{{if EAN}}<li><b>ISBN-13</b>${EAN}</li>{{/if}}',
+						'{{if Publisher}}<li><b>' + r.BookPublisher + '</b>${Publisher}</li>{{/if}}',
+            '{{if Manufacturer}}<li><b>' + r.BookPublisher + '</b>${Manufacturer}</li>{{/if}}',
 						'</ul>',
 						'</div>',
 						reviewLinkTemplate,
@@ -172,10 +174,10 @@
 						'<ul>',
 						'{{if Author}}<li><b>' + r.BookAuthor + '</b>${Author}</li>{{/if}}',
 						priceLiTemplate,
-						'<li><b>' + r.BookPublicationDate + '</b>${PublicationDate}</li>',
+            '{{if PublicationDate}}<li><b>' + r.BookPublicationDate + '</b>${PublicationDate}</li>{{/if}}',
 						'{{if SalesRank}}<li><b>' + r.SalesRank + '</b>' + r.SalesRankValue + '</li>{{/if}}',
-						'<li><b>${Binding}</b>' + r.NumberOfPagesValue + '</li>',
-						'<li><b>' + r.BookPublisher + '</b>${Publisher}</li>',
+            '{{if NumberOfPages}}<li><b>${Binding}</b>' + r.NumberOfPagesValue + '</li>{{/if}}',
+            '{{if Publisher}}<li><b>' + r.BookPublisher + '</b>${Publisher}</li>{{/if}}',
 						'</ul>',
 						'</div>',
 						reviewLinkTemplate,

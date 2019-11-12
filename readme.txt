@@ -2,7 +2,7 @@
 Contributors: makoto_kw
 Tags: Amazon, books, post, media, affiliate
 Requires at least: 3.3
-Tested up to: 4.9.8
+Tested up to: 5.2.5
 Stable tag: trunk
 Requires PHP: 5.3.3
 License: GPLv2 or later
@@ -25,21 +25,21 @@ AmazonJS uses `amazonjs' shortcode and jQuery template to display Amazon product
 
 = Using Amazon Product Advertising API =
 
-AmazonJS requires [Amazon Product Advertising API](https://affiliate-program.amazon.com/gp/advertising/api/detail/main.html) 
-in order to get Amazon product information from ASIN or keyword. 
-Thus, you have to sign up Amazon Product Advertising API and specify your **Access Key** and **Secret Access Key**. 
+AmazonJS requires [Amazon Product Advertising API](https://affiliate-program.amazon.com/gp/advertising/api/detail/main.html)
+in order to get Amazon product information from ASIN or keyword.
+Thus, you have to sign up Amazon Product Advertising API and specify your **Access Key** and **Secret Access Key**.
 And you must set your associate tags for Amazon Associates also.
 
 = Shortcode =
 
 AmazonJS adds a media link above an editor in the editing post page. The form that searches an Amazon product is shown when you click it. AmazonJS adds a simple html code (like WP-amazon) or an `amazonjs` shortcode from form.
 
-AmazonJS supports the `amazonjs' shortcode. 
+AmazonJS supports the `amazonjs' shortcode.
 
-    ex) 
+    ex)
     [amazonjs asin="B00005ED8E" locale="JP" tmpl="Small" title="D・N・A"]
 
-* *asin*: (required) ASIN (ProductID of Amazon) 
+* *asin*: (required) ASIN (ProductID of Amazon)
 * *locale*: (required) `US`, `UK`, `DE`, `FR`, `JP`, `CA`, `CN`, `IT` or `ES`
 * *tmpl*: (optional) `Small`. if tmpl is empty, apply a template via Product Group of Amazon Product Advertising API.
 * *title*: (optional) It will be used for loading message.

@@ -4,10 +4,10 @@
 	Plugin URI: http://wordpress.org/extend/plugins/amazonjs/
 	Description: Easy to use interface to add an amazon product to your post and display it by using jQuery template.
 	Author: makoto_kw
-	Version: 0.9
+	Version: 0.10-beta
 	Author URI: https://makotokw.com
 	Requires at least: 3.3
-	Tested up to: 4.9.8
+	Tested up to: 5.2.5
 	License: GPLv2
 	License URI: https://www.gnu.org/licenses/gpl-2.0.html
 	Text Domain: amazonjs
@@ -23,10 +23,13 @@
 // @codingStandardsIgnoreStart Generic.PHP.NoSilencedErrors.Discouraged
 
 require_once dirname( __FILE__ ) . '/lib/json.php';
+require_once dirname( __FILE__ ) . '/lib/Amazon/AwsV4.php';
+require_once dirname( __FILE__ ) . '/lib/Amazon/PaApiClientV5.php';
+require_once dirname( __FILE__ ) . '/amazonjs-item-fixer.php';
 
 class Amazonjs
 {
-	const VERSION        = '0.9';
+	const VERSION        = '0.10-beta';
 	const AWS_VERSION    = '2013-08-01';
 	const CACHE_LIFETIME = 86400;
 
@@ -74,6 +77,7 @@ class Amazonjs
 				'baseUri'            => 'https://webservices.amazon.com',
 				'linkTemplate'       => '<iframe src="https://rcm.amazon.com/e/cm?t=${t}&o=1&p=8&l=as1&asins=${asins}&fc1=${fc1}&IS2=${IS2}&lt1=${lt1}&m=amazon&lc1=${lc1}&bc1=${bc1}&bg1=${bg1}&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
 				'associateTagSuffix' => '-20',
+				'region'             => 'us-east-1',
 			),
 			'UK' => array(
 				'label'              => __( 'United Kingdom', $this->text_domain ),
@@ -81,6 +85,7 @@ class Amazonjs
 				'baseUri'            => 'https://webservices.amazon.co.uk',
 				'linkTemplate'       => '<iframe src="https://rcm-uk.amazon.co.uk/e/cm?t=${t}&o=2&p=8&l=as1&asins=${asins}&fc1=${fc1}&IS2=${IS2}&lt1=${lt1}&m=amazon&lc1=${lc1}&bc1=${bc1}&bg1=${bg1}&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
 				'associateTagSuffix' => '-21',
+				'region'             => 'eu-west-1',
 			),
 			'DE' => array(
 				'label'              => __( 'Deutschland', $this->text_domain ),
@@ -88,6 +93,7 @@ class Amazonjs
 				'baseUri'            => 'https://webservices.amazon.de',
 				'linkTemplate'       => '<iframe src="https://rcm-de.amazon.de/e/cm?t=${t}&o=3&p=8&l=as1&asins=${asins}&fc1=${fc1}&IS2=${IS2}&lt1=${lt1}&m=amazon&lc1=${lc1}&bc1=${bc1}&bg1=${bg1}&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
 				'associateTagSuffix' => '04-21',
+				'region'             => 'eu-west-1',
 			),
 			'FR' => array(
 				'label'              => __( 'France', $this->text_domain ),
@@ -95,6 +101,7 @@ class Amazonjs
 				'baseUri'            => 'https://webservices.amazon.fr',
 				'linkTemplate'       => '<iframe src="https://rcm-fr.amazon.fr/e/cm?t=${t}&o=8&p=8&l=as1&asins=${asins}&fc1=${fc1}&IS2=${IS2}&lt1=${lt1}&m=amazon&lc1=${lc1}&bc1=${bc1}&bg1=${bg1}&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
 				'associateTagSuffix' => '09-21',
+				'region'             => 'eu-west-1',
 			),
 			'JP' => array(
 				'label'              => __( 'Japan', $this->text_domain ),
@@ -102,6 +109,7 @@ class Amazonjs
 				'baseUri'            => 'https://webservices.amazon.co.jp',
 				'linkTemplate'       => '<iframe src="https://rcm-jp.amazon.co.jp/e/cm?t=${t}&o=9&p=8&l=as1&asins=${asins}&fc1=${fc1}&IS2=${IS2}&lt1=${lt1}&m=amazon&lc1=${lc1}&bc1=${bc1}&bg1=${bg1}&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
 				'associateTagSuffix' => '-22',
+				'region'             => 'us-west-2',
 			),
 			'CA' => array(
 				'label'              => __( 'Canada', $this->text_domain ),
@@ -109,6 +117,7 @@ class Amazonjs
 				'baseUri'            => 'https://webservices.amazon.ca',
 				'linkTemplate'       => '<iframe src="https://rcm-ca.amazon.ca/e/cm?t=${t}&o=15&p=8&l=as1&asins=${asins}&fc1=${fc1}&IS2=${IS2}&lt1=${lt1}&m=amazon&lc1=${lc1}&bc1=${bc1}&bg1=${bg1}&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
 				'associateTagSuffix' => '0c-20',
+				'region'             => 'us-east-1',
 			),
 			'CN' => array(
 				'label'              => __( 'China', $this->text_domain ),
@@ -116,6 +125,7 @@ class Amazonjs
 				'baseUri'            => 'https://webservices.amazon.cn',
 				'linkTemplate'       => '<iframe src="https://rcm-cn.amazon.cn/e/cm?t=${t}&o=28&p=8&l=as1&asins=${asins}&fc1=${fc1}&IS2=${IS2}&lt1=${lt1}&m=amazon&lc1=${lc1}&bc1=${bc1}&bg1=${bg1}&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
 				'associateTagSuffix' => '-23',
+				'region'             => 'us-west-2',
 			),
 			'IT' => array(
 				'label'              => __( 'Italia', $this->text_domain ),
@@ -123,6 +133,7 @@ class Amazonjs
 				'baseUri'            => 'https://webservices.amazon.it',
 				'linkTemplate'       => '<iframe src="https://rcm-it.amazon.it/e/cm?t=${t}&o=29&p=8&l=as1&asins=${asins}&fc1=${fc1}&IS2=${IS2}&lt1=${lt1}&m=amazon&lc1=${lc1}&bc1=${bc1}&bg1=${bg1}&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
 				'associateTagSuffix' => '-21',
+				'region'             => 'eu-west-1',
 			),
 			'ES' => array(
 				'label'              => __( 'España', $this->text_domain ),
@@ -130,6 +141,7 @@ class Amazonjs
 				'baseUri'            => 'https://webservices.amazon.es',
 				'linkTemplate'       => '<iframe src="https://rcm-es.amazon.es/e/cm?t=${t}&o=30&p=8&l=as1&asins=${asins}&fc1=${fc1}&IS2=${IS2}&lt1=${lt1}&m=amazon&lc1=${lc1}&bc1=${bc1}&bg1=${bg1}&f=ifr" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>',
 				'associateTagSuffix' => '-21',
+				'region'             => 'eu-west-1',
 			),
 		);
 	}
@@ -600,7 +612,6 @@ EOF;
 
 	function get_cached_item( $country_code, $asin ) {
 		if ( $cached_item = get_site_transient( "amazonjs_{$country_code}_{$asin}" ) ) {
-			$this->fix_item( $cached_item );
 			return $cached_item;
 		}
 		return null;
@@ -855,28 +866,6 @@ EOF;
 	<?php
 	}
 
-	// amazon api
-	function itemlookup( $countryCode, $itemId ) {
-		$options              = array();
-		$options['ItemId']    = $itemId;
-		$options['Operation'] = 'ItemLookup';
-		return $this->amazon_get( $countryCode, $options );
-	}
-
-	// amazon api
-	function itemsearch( $countryCode, $searchIndex, $keywords, $itemPage = 0 ) {
-		$options = array();
-		if ( $itemPage > 0 ) {
-			$options['ItemPage'] = $itemPage;
-		}
-		$options['Keywords']  = $keywords;
-		$options['Operation'] = 'ItemSearch';
-		if ( $searchIndex ) {
-			$options['SearchIndex'] = $searchIndex;
-		}
-		return $this->amazon_get( $countryCode, $options );
-	}
-
 	/**
 	 * parse ASIN from URL
 	 * @param string $url
@@ -928,7 +917,85 @@ EOF;
 		}
 	}
 
+	// amazon api
+	function itemlookup( $countryCode, $itemId ) {
+		$options              = array();
+		$options['ItemId']    = $itemId;
+		$options['Operation'] = 'ItemLookup';
+		return $this->amazon_get( $countryCode, $options );
+	}
+
+	// amazon api
+	function itemsearch( $countryCode, $searchIndex, $keywords, $itemPage = 0 ) {
+		$options = array();
+		if ( $itemPage > 0 ) {
+			$options['ItemPage'] = $itemPage;
+		}
+		$options['Keywords']  = $keywords;
+		$options['Operation'] = 'ItemSearch';
+		if ( $searchIndex ) {
+			$options['SearchIndex'] = $searchIndex;
+		}
+		return $this->amazon_get( $countryCode, $options );
+	}
+
 	function amazon_get( $countryCode, $options ) {
+		return $this->amazon_get_v5( $countryCode, $options );
+	}
+
+	function amazon_get_v5( $countryCode, $options ) {
+		try {
+			$baseUri         = $this->countries[ $countryCode ]['baseUri'];
+			$region          = $this->countries[ $countryCode ]['region'];
+			$accessKeyId     = @trim( $this->settings['accessKeyId'] );
+			$secretAccessKey = @trim( $this->settings['secretAccessKey'] );
+			$associateTag    = @$this->settings[ 'associateTag' . $countryCode ];
+
+			// validate request
+			if ( empty( $countryCode ) || ( empty( $options['ItemId'] ) && empty( $options['Keywords'] ) ) || ( empty( $accessKeyId ) || empty( $secretAccessKey ) ) ) {
+				throw new Exception( __( 'Invalid Request Parameters', $this->text_domain ) );
+			}
+
+			$client = new \amazonjs\Amazon\PaApiClientV5( $accessKeyId, $secretAccessKey, $associateTag, $baseUri, $region, $this->text_domain );
+
+			if ( $options['Operation'] == 'ItemLookup' ) {
+				$result = $client->lookup( explode( ',', $options['ItemId'] ) );
+			} else {
+				$result = $client->search( null, $options['Keywords'], $options['ItemPage'] );
+			}
+
+			if ( isset( $result['items'] ) ) {
+				$fetchedAt   = time();
+				$fixed_items = [];
+				foreach ( $result['items'] as $item ) {
+//					if ( WP_DEBUG ) {
+//						ksort( $item );
+//						file_put_contents( __DIR__ . '/vendor/' . $item['ASIN'] . '_PA-API-v5.json', json_encode( $item, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT ) );
+//					}
+					Amazonjs_Itemfixer::fixed_item( $item );
+					$item['CountryCode'] = $countryCode;
+					$item['UpdatedAt']   = $fetchedAt;
+					$fixed_items[]       = $item;
+//					if ( WP_DEBUG ) {
+//						ksort( $item );
+//						file_put_contents( __DIR__ . '/vendor/' . $item['ASIN'] . '_amazonjs_PA-API-v5.json', json_encode( $item, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT ) );
+//					}
+				}
+				$result['items'] = $fixed_items;
+			}
+		} catch (Exception $e) {
+			$result = array( 'success' => false, 'message' => $e->getMessage() );
+		}
+
+		if ( WP_DEBUG ) {
+			if ( isset( $result ) && ! $result['success'] ) {
+				error_log( var_export( [$client, $result], true ) );
+			}
+		}
+		return $result;
+	}
+
+	function amazon_get_v4( $countryCode, $options ) {
 		$baseUri         = $this->countries[ $countryCode ]['baseUri'];
 		$accessKeyId     = @trim( $this->settings['accessKeyId'] );
 		$secretAccessKey = @trim( $this->settings['secretAccessKey'] );
@@ -1151,7 +1218,9 @@ function amazonjs_uninstall() {
 	unset($amazonjs);
 }
 
-add_action( 'init', 'amazonjs_init' );
+if ( function_exists( 'add_action' ) ) {
+	add_action( 'init', 'amazonjs_init' );
+}
 if ( function_exists( 'register_uninstall_hook' ) ) {
 	register_uninstall_hook( __FILE__, 'amazonjs_uninstall' );
 }
