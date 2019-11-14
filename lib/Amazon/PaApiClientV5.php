@@ -105,6 +105,7 @@ class PaApiClientV5 {
 				'Images.Primary.Small',
 				'Images.Primary.Medium',
 				'Images.Primary.Large',
+				'BrowseNodeInfo.WebsiteSalesRank',
 				'Offers.Listings.Price',
 			),
 		);

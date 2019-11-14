@@ -29,7 +29,7 @@ require_once dirname( __FILE__ ) . '/amazonjs-item-fixer.php';
 
 class Amazonjs
 {
-	const VERSION        = '0.10-beta2';
+	const VERSION        = '0.10-beta3';
 	const AWS_VERSION    = '2013-08-01';
 	const CACHE_LIFETIME = 86400;
 
@@ -603,9 +603,9 @@ EOF;
 		if ( !empty( $wpdb ) && $wpdb instanceof wpdb ) {
 			$flag = $wpdb->suppress_errors;
 			$wpdb->suppress_errors( true );
-			$wpdb->query("DELETE FROM $wpdb->options o WHERE o.option_name LIKE '\_site\_transient\_amazonjs\_%'");
+			$result = $wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE '\_site\_transient\_%amazonjs\_%'");
 			$wpdb->suppress_errors( $flag );
-			return true;
+			return $result !== false;
 		}
 		return false;
 	}
@@ -787,7 +787,7 @@ EOF;
 				}
 			}
 
-			if ( isset($_POST['amazonjs_delete_cache']) ) {
+			if ( isset( $_POST['action'] ) && $_POST['action'] === 'amazonjs_delete_cache' ) {
 				if ( $this->delete_cache() ) {
 					add_settings_error( 'general', 'settings_updated', __( 'The Caches are deleted', $this->text_domain ), 'updated' );
 				}

@@ -14,7 +14,10 @@ class Amazonjs_Itemfixer {
 		}
 
 		if ( isset( $item['BrowseNodeInfo']['WebsiteSalesRank'] ) ) {
-			$item['WebsiteSalesRank'] = $item['BrowseNodeInfo']['WebsiteSalesRank'];
+			$r = $item['BrowseNodeInfo']['WebsiteSalesRank'];
+			if ( isset( $r['SalesRank'] ) ) {
+				$item['SalesRank'] = $r['SalesRank'];
+			}
 		}
 		unset( $item['BrowseNodeInfo'] );
 	}
