@@ -1,14 +1,9 @@
 <?php
 
 // phpcs:disable WordPress.Files.FileName
+// phpcs:disable WordPress.WP.I18n.NonSingularStringLiteralDomain
 
-/** @noinspection PhpComposerExtensionStubsInspection */
-
-namespace amazonjs\Amazon;
-
-use WP_Error;
-
-class PaApiClientV5 {
+class Amazonjs_Amazon_PaApiClientV5 {
 	const OPERATION_GET_ITEMS = 'GetItems';
 	const OPERATION_SEARCH_ITEMS = 'SearchItems';
 	const SEARCH_ITEMS_DEFAULT_ITEM_COUNT = 10;
@@ -73,7 +68,7 @@ class PaApiClientV5 {
 			'ItemPage' => intval( $item_page ),
 		);
 		if ( ! empty( $search_index ) ) {
-			$options['SearchIndex'] = $search_index;
+			$params['SearchIndex'] = $search_index;
 		}
 
 		return $this->find_items( self::OPERATION_SEARCH_ITEMS, $params );
@@ -86,12 +81,6 @@ class PaApiClientV5 {
 	 * @return array
 	 */
 	private function find_items( $operation, $params ) {
-		// Creator
-		// Manufacturer
-		// PublicationDate
-		/**
-		 * SalesRank
-		 */
 		$request_params = array(
 			'PartnerTag'  => $this->associate_tag,
 			'PartnerType' => 'Associates',
@@ -117,7 +106,7 @@ class PaApiClientV5 {
 		$payload = json_encode( $request_params );
 		$path    = '/paapi5/' . strtolower( $operation );
 
-		$aws = new AwsV4( $this->access_key_id, $this->secret_access_key );
+		$aws = new Amazonjs_Amazon_AwsV4( $this->access_key_id, $this->secret_access_key );
 		$aws->setRegionName( $this->region );
 		$aws->setServiceName( 'ProductAdvertisingAPI' );
 		$aws->setPath( $path );
@@ -147,15 +136,15 @@ class PaApiClientV5 {
 		if ( empty( $body ) ) {
 			return array(
 				'success' => false,
-				'message' => __( 'Invalid Response', $this->text_domain )
+				'message' => __( 'Invalid Response', $this->text_domain ),
 			);
 		}
 
 		$r = json_decode( $body, true );
 
 		if ( self::is_error_response( $r ) ) {
-			if (WP_DEBUG) {
-				error_log(var_export($r, true));
+			if ( Amazonjs::is_debug() ) {
+				error_log( var_export( $r, true ) );
 			}
 			return self::api_error_to_result( $r );
 		}
@@ -170,17 +159,25 @@ class PaApiClientV5 {
 		if ( empty( $operation_result ) ) {
 			error_log( $body );
 
-			return array( 'success' => false, 'message' => __( 'Invalid Response', $this->text_domain ) );
+			return array(
+				'success' => false,
+				'message' => __( 'Invalid Response', $this->text_domain ),
+			);
 		}
 
-		$open_search = array();
 		if ( isset( $operation_result['TotalResultCount'] ) ) {
-			$page_index                  = isset( $params['ItemPage'] ) ? intval( max( 0, intval( $params['ItemPage'] ) - 1 ) ) : 0;
+			$page_index                  = isset( $params['ItemPage'] ) ? intval( $params['ItemPage'] ) : 1;
 			$open_search['totalResults'] = $operation_result['TotalResultCount'];
-			$open_search['startIndex']   = self::SEARCH_ITEMS_DEFAULT_ITEM_COUNT * $page_index + 1;
+			$open_search['startIndex']   = self::SEARCH_ITEMS_DEFAULT_ITEM_COUNT * ( $page_index - 1 ) + 1;
+			$open_search['startPage']    = $page_index;
+			$open_search['totalPages']   = intval( ceil( $operation_result['TotalResultCount'] / self::SEARCH_ITEMS_DEFAULT_ITEM_COUNT ) );
 			$open_search['itemsPerPage'] = self::SEARCH_ITEMS_DEFAULT_ITEM_COUNT;
 		} else {
 			$open_search['totalResults'] = count( $operation_result['Items'] );
+			$open_search['startIndex']   = 1;
+			$open_search['startPage']    = 1;
+			$open_search['totalPages']   = 1;
+			$open_search['itemsPerPage'] = count( $operation_result['Items'] );
 		}
 
 		return array(

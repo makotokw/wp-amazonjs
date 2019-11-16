@@ -1,9 +1,7 @@
 <?php
 
-// phpcs:disable WordPress.NamingConventions
 // phpcs:disable WordPress.Files.FileName
-
-namespace amazonjs\Amazon;
+// phpcs:disable WordPress.NamingConventions
 
 /**
  * Copyright 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -19,7 +17,7 @@ namespace amazonjs\Amazon;
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-class AwsV4 {
+class Amazonjs_Amazon_AwsV4 {
 	private $accessKeyID     = null;
 	private $secretAccessKey = null;
 	private $path            = null;

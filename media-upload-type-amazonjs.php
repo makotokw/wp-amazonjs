@@ -262,34 +262,19 @@ amazonjs_aws_params( $amazonjs );
 				}
 			}
 
-			if (params.SearchIndex == 'Blended') {
-				$.each(data.resultMap.SearchIndex, function (i, searchIndex) {
-					var subItems = [];
-					var asins = ('string' == typeof(searchIndex.ASIN)) ? [searchIndex.ASIN] : searchIndex.ASIN;
-					$.each(asins, function (i, asin) {
-						subItems.push(find(asin));
-					});
-					searchIndex.Label = (searchIndexes[searchIndex.IndexName]) ? searchIndexes[searchIndex.IndexName].label : searchIndex.IndexName;
-					$results.append($.tmpl("amazonjsSearchIndexHeaderTpl", searchIndex));
-					var $ul = $('<ul/>');
-					$ul.append($.tmpl("amazonjsSearchItemTpl", subItems));
-					$results.append($ul);
-				});
-			} else {
-				var os = data.os;
-				if (data.operation == 'ItemSearch') {
-					os.prev = (os.Query.startPage > 1);
-					os.next = (os.Query.startPage < os.totalPages);
-					os.endIndex = Math.min(os.startIndex + os.itemsPerPage - 1, os.totalResults);
-					var $pager = $.tmpl("amazonjsSearchPagerTpl", os);
-					$results.append($pager);
-				}
-				var $ul = $('<ul/>');
-				$ul.append($.tmpl("amazonjsSearchItemTpl", items));
-				$results.append($ul);
-				if ($pager) {
-					$results.append($pager.clone());
-				}
+			var os = data.os;
+			if (data.operation == 'SearchItems') {
+				os.prev = (os.startPage > 1);
+				os.next = (os.startPage < os.totalPages);
+				os.endIndex = Math.min(os.startIndex + os.itemsPerPage - 1, os.totalResults);
+				var $pager = $.tmpl("amazonjsSearchPagerTpl", os);
+				$results.append($pager);
+			}
+			var $ul = $('<ul/>');
+			$ul.append($.tmpl("amazonjsSearchItemTpl", items));
+			$results.append($ul);
+			if ($pager) {
+				$results.append($pager.clone());
 			}
 			$results.find('.searchindex > a').click(function () {
 				var index = $(this).attr('rel');

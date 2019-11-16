@@ -1,4 +1,5 @@
 <?php
+
 /*
 	Plugin Name: AmazonJS
 	Plugin URI: http://wordpress.org/extend/plugins/amazonjs/
@@ -19,17 +20,18 @@
 		PEAR Services_JSON: Michal Migurski <mike-json@teczno.com>
  */
 
-// TODO: Fixed NoSilencedErrors.Discouraged
-// @codingStandardsIgnoreStart Generic.PHP.NoSilencedErrors.Discouraged
+// @codingStandardsIgnoreStart
 
 require_once dirname( __FILE__ ) . '/lib/json.php';
 require_once dirname( __FILE__ ) . '/lib/Amazon/AwsV4.php';
 require_once dirname( __FILE__ ) . '/lib/Amazon/PaApiClientV5.php';
 require_once dirname( __FILE__ ) . '/amazonjs-item-fixer.php';
 
+error_log('aaa');
+
 class Amazonjs
 {
-	const VERSION        = '0.10-beta3';
+	const VERSION        = '0.10-beta4';
 	const AWS_VERSION    = '2013-08-01';
 	const CACHE_LIFETIME = 86400;
 
@@ -675,6 +677,7 @@ EOF;
 		return $links;
 	}
 
+	/** @noinspection PhpUnused */
 	function add_api_setting_section() {
 		?>
 		<p><?php _e( 'This plugin uses the Amazon Product Advertising API in order to get product infomation. Thus, you must use your Access Key ID &amp; Secret Access Key.', $this->text_domain ); ?></p>
@@ -682,6 +685,7 @@ EOF;
 	<?php
 	}
 
+	/** @noinspection PhpUnused */
 	function add_associate_setting_section() {
 		?>
 		<p><?php _e( 'Amazon has an affiliate program called Amazon Associates. To apply for the Associates Program, visit the <a href="https://affiliate-program.amazon.com/" target="_blank">Amazon Associates website</a> for details.', $this->text_domain ); ?></p>
@@ -689,12 +693,15 @@ EOF;
 	<?php
 	}
 
+	/** @noinspection PhpUnused */
 	function add_appearance_setting_section() {
 	}
 
+	/** @noinspection PhpUnused */
 	function add_analytics_setting_section() {
 	}
 
+	/** @noinspection PhpUnused */
 	function add_customize_setting_section() {
 	}
 
@@ -933,7 +940,8 @@ EOF;
 		}
 		$options['Keywords']  = $keywords;
 		$options['Operation'] = 'ItemSearch';
-		if ( $searchIndex ) {
+		$options['SearchIndex'] = null;
+		if ( !empty($searchIndex) ) {
 			$options['SearchIndex'] = $searchIndex;
 		}
 		return $this->amazon_get( $countryCode, $options );
@@ -956,12 +964,12 @@ EOF;
 				throw new Exception( __( 'Invalid Request Parameters', $this->text_domain ) );
 			}
 
-			$client = new \amazonjs\Amazon\PaApiClientV5( $accessKeyId, $secretAccessKey, $associateTag, $baseUri, $region, $this->text_domain );
+			$client = new Amazonjs_Amazon_PaApiClientV5( $accessKeyId, $secretAccessKey, $associateTag, $baseUri, $region, $this->text_domain );
 
 			if ( $options['Operation'] == 'ItemLookup' ) {
 				$result = $client->lookup( explode( ',', $options['ItemId'] ) );
 			} else {
-				$result = $client->search( null, $options['Keywords'], $options['ItemPage'] );
+				$result = $client->search( $options['SearchIndex'], $options['Keywords'], $options['ItemPage'] );
 			}
 
 			if ( isset( $result['items'] ) ) {
@@ -987,6 +995,7 @@ EOF;
 		return $result;
 	}
 
+	/** @noinspection PhpUnused */
 	function amazon_get_v4( $countryCode, $options ) {
 		$baseUri         = $this->countries[ $countryCode ]['baseUri'];
 		$accessKeyId     = @trim( $this->settings['accessKeyId'] );
@@ -1047,6 +1056,7 @@ EOF;
 
 		$success = false;
 		/* @var $xml stdClass */
+		/** @noinspection PhpComposerExtensionStubsInspection */
 		$xml = @simplexml_load_string( $body );
 		if ( WP_DEBUG ) {
 			if ( ! $xml ) {
@@ -1204,6 +1214,7 @@ function media_upload_type_amazonjs_id() {
 	include dirname( __FILE__ ) . '/media-upload-type-amazonjs.php';
 }
 
+/** @noinspection PhpUnused */
 function amazonjs_init() {
 	global $amazonjs;
 	$amazonjs = new Amazonjs();
