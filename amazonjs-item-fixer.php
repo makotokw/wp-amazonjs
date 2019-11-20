@@ -104,11 +104,11 @@ class Amazonjs_Itemfixer {
 
 		if ( isset( $item['Images']['Primary'] ) ) {
 			foreach ( $item['Images']['Primary'] as $size => $value ) {
-				$item[ $size . 'Image' ] = [
+				$item[ $size . 'Image' ] = array(
 					'src'    => $value['URL'],
 					'width'  => $value['Width'],
 					'height' => $value['Height'],
-				];
+                );
 			}
 		}
 		unset( $item['Images'] );

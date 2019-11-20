@@ -5,7 +5,7 @@
 	Plugin URI: http://wordpress.org/extend/plugins/amazonjs/
 	Description: Easy to use interface to add an amazon product to your post and display it by using jQuery template.
 	Author: makoto_kw
-	Version: 0.10-beta
+	Version: 0.10
 	Author URI: https://makotokw.com
 	Requires at least: 3.3
 	Tested up to: 5.2.5
@@ -29,7 +29,7 @@ require_once dirname( __FILE__ ) . '/amazonjs-item-fixer.php';
 
 class Amazonjs
 {
-	const VERSION        = '0.10-beta4';
+	const VERSION        = '0.10';
 	const AWS_VERSION    = '2013-08-01';
 	const CACHE_LIFETIME = 86400;
 
@@ -972,7 +972,7 @@ EOF;
 
 			if ( isset( $result['items'] ) ) {
 				$fetchedAt   = time();
-				$fixed_items = [];
+				$fixed_items = array();
 				foreach ( $result['items'] as $item ) {
 					Amazonjs_Itemfixer::fixed_item( $item );
 					$item['CountryCode'] = $countryCode;
