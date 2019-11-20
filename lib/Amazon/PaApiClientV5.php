@@ -143,9 +143,6 @@ class Amazonjs_Amazon_PaApiClientV5 {
 		$r = json_decode( $body, true );
 
 		if ( self::is_error_response( $r ) ) {
-			if ( Amazonjs::is_debug() ) {
-				error_log( var_export( $r, true ) );
-			}
 			return self::api_error_to_result( $r );
 		}
 
@@ -157,8 +154,6 @@ class Amazonjs_Amazon_PaApiClientV5 {
 			}
 		}
 		if ( empty( $operation_result ) ) {
-			error_log( $body );
-
 			return array(
 				'success' => false,
 				'message' => __( 'Invalid Response', $this->text_domain ),
@@ -234,6 +229,7 @@ class Amazonjs_Amazon_PaApiClientV5 {
 			'success'       => false,
 			'error_code'    => $error_type,
 			'error_message' => implode( '<br/>', $messages ),
+			'_response'     => $error_response,
 		);
 	}
 }

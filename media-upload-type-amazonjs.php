@@ -325,7 +325,6 @@ amazonjs_aws_params( $amazonjs );
 					var $item = $.amazonjs.tmpl(selectedItem, $.amazonjs.formatTmplName(selectedItem.Tmpl));
 					$preview.empty().append($item);
 					$previewCode.val($shortCode[0].textContent);
-					//console.log($item[0]);
 				}
 				$insert.attr({disabled: null});
 			});

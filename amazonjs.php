@@ -27,8 +27,6 @@ require_once dirname( __FILE__ ) . '/lib/Amazon/AwsV4.php';
 require_once dirname( __FILE__ ) . '/lib/Amazon/PaApiClientV5.php';
 require_once dirname( __FILE__ ) . '/amazonjs-item-fixer.php';
 
-error_log('aaa');
-
 class Amazonjs
 {
 	const VERSION        = '0.10-beta4';
@@ -989,7 +987,7 @@ EOF;
 
 		if ( self::is_debug() ) {
 			if ( isset( $result ) && ! $result['success'] ) {
-				error_log( var_export( [$options, $result], true ) );
+				error_log( var_export( array( 'options' => $options, 'result' => $result ), true ) );
 			}
 		}
 		return $result;
