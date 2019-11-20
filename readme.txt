@@ -87,6 +87,10 @@ In first, AmazonJS converts <a/> tag from `amazonjs` short code in server side. 
 
 == Changelog ==
 
+= 0.10 =
+
+* Support Product Advertising API 5.0
+
 = 0.9 =
 
 * Use https link for image and anchor
