@@ -276,7 +276,7 @@
 
 				function find(asin, countryCode) {
 					for (var i = 0, length = items.length; i < length; i++) {
-						if (items[i].ASIN == asin && items[i].CountryCode == countryCode) {
+						if (items[i] != null && items[i].ASIN == asin && items[i].CountryCode == countryCode) {
 							return items[i];
 						}
 					}
