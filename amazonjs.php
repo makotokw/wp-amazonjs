@@ -7,7 +7,7 @@
 	Author: makoto_kw
 	Version: 0.10
 	Author URI: https://makotokw.com
-	Requires at least: 3.3
+	Requires at least: 3.4
 	Tested up to: 5.2.5
 	License: GPLv2
 	License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -255,7 +255,8 @@ class Amazonjs
 			wp_enqueue_style( 'amazonjs', $this->url . '/css/amazonjs.css', array(), self::VERSION );
 		}
 		if ( $this->settings['customCss'] ) {
-			wp_enqueue_style( 'amazonjs-custom', get_stylesheet_directory_uri() . '/amazonjs.css' );
+			$theme_version = wp_get_theme()->get( 'Version' );
+			wp_enqueue_style( 'amazonjs-custom', get_stylesheet_directory_uri() . '/amazonjs.css', array(), $theme_version );
 		}
 	}
 
